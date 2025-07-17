@@ -1,43 +1,40 @@
 /* @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap'); */
-/* Bu import kuralı, layout.html'de zaten var olmalı, bu CSS dosyasında tekrarlamayabiliriz. */
 
 :root {
-    /* Eski renklerinizin orijinal hallerini koruyalım, eğer bu dosya ana renkleri tanımlıyorsa */
-    /* Lütfen kendi projenizdeki .colors değişkenlerini buradan kontrol edin ve eğer farklıysa güncelleyin */
-    --primary-dark: #6A5ACD; /* Orijinal layout.html'deki mor */
-    --primary-light: #B08060; /* Orijinal layout.html'deki açık kahve */
-    --main-content-text-color: white; /* Genel metin rengi */
-    --label-text-color: #d1c4e9; /* Etiket metin rengi (açık morumsu) */
-    --sidebar-bg-color: rgba(35, 25, 45, 0.95); /* Kenar çubuğu arka planı */
-    --sidebar-active-bg: #9370db; /* Kenar çubuğu aktif öğe arka planı */
-    --sidebar-active-text: white; /* Kenar çubuğu aktif öğe metin rengi */
-    --sidebar-normal-text: #D2B48C; /* Kenar çubuğu normal öğe metin rengi (sütlü kahve) */
-    --sidebar-icon-color: #D2B48C; /* Kenar çubuğu ikon rengi */
-    --button-milky-coffee: #D2B48C; /* Sütlü kahve tonu */
+    --primary-dark: #6A5ACD;
+    --primary-light: #B08060;
+    --main-content-text-color: white;
+    --label-text-color: #d1c4e9;
+    --sidebar-bg-color: rgba(35, 25, 45, 0.95);
+    --sidebar-active-bg: #9370db;
+    --sidebar-active-text: white;
+    --sidebar-normal-text: #D2B48C;
+    --sidebar-icon-color: #D2B48C;
+    --button-milky-coffee: #D2B48C;
     
     /* BUTON RENKLERİ */
-    --btn-primary-bg: #D2B48C; 
-    --btn-primary-border: #B08060; 
-    --btn-primary-hover-bg: #E6B88A; 
-    --btn-secondary-bg: rgba(128, 128, 128, 0.4); 
+    --btn-primary-bg: #D2B48C;
+    --btn-primary-border: #B08060;
+    --btn-primary-hover-bg: #E6B88A;
+    --btn-secondary-bg: rgba(128, 128, 128, 0.4);
     --btn-secondary-border: rgba(255, 255, 255, 0.4);
     --btn-secondary-hover-bg: rgba(128, 128, 128, 0.6);
-    --btn-success-bg: #4CAF50; 
+    --btn-success-bg: #4CAF50;
     --btn-success-border: #388E3C;
     --btn-success-hover-bg: #66BB6A;
-    --btn-danger-bg: #F44336; 
+    --btn-danger-bg: #F44336;
     --btn-danger-border: #D32F2F;
     --btn-danger-hover-bg: #E57373;
 
     /* İKON RENKLERİ */
-    --icon-default-color: #D2B48C; 
-    --icon-hover-color: white; 
-    --icon-info-color: #03A9F4; 
-    --icon-edit-color: #FFC107; 
-    --icon-delete-color: #F44336; 
-    --icon-pdf-color: var(--button-milky-coffee); 
-    --icon-check-color: #4CAF50; 
-    --icon-times-color: #F44336; 
+    --icon-default-color: #D2B48C;
+    --icon-hover-color: white;
+    --icon-info-color: #03A9F4;
+    --icon-edit-color: #FFC107;
+    --icon-delete-color: #F44336;
+    --icon-pdf-color: var(--button-milky-coffee);
+    --icon-check-color: #4CAF50;
+    --icon-times-color: #F44336;
 
     /* Flash mesaj renkleri */
     --flash-success-bg: rgba(40, 167, 69, 0.8);
@@ -47,67 +44,32 @@
 }
 
 /* KAYDIRMA ÇUBUĞU STİLLERİ (GENEL) */
-::-webkit-scrollbar {
-    width: 8px; 
-    height: 8px; 
-}
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.1); border-radius: 10px; }
+::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.2); border-radius: 10px; border: 1px solid rgba(255, 255, 255, 0.1); }
+::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.4); }
+* { scrollbar-width: thin; scrollbar-color: rgba(255, 255, 255, 0.2) rgba(0, 0, 0, 0.1); }
 
-::-webkit-scrollbar-track {
-    background: rgba(0, 0, 0, 0.1); 
-    border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.2); 
-    border-radius: 10px;
-    border: 1px solid rgba(255, 255, 255, 0.1); 
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.4); 
-}
-
-* {
-    scrollbar-width: thin; 
-    scrollbar-color: rgba(255, 255, 255, 0.2) rgba(0, 0, 0, 0.1); 
-}
-
-html { 
-    height: 100%; 
-    overflow-x: hidden; 
-}
+html { height: 100%; overflow-x: hidden; }
 body {
-    font-family: 'Inter', sans-serif; /* Lato'dan Inter'e geri döndük */
+    font-family: 'Inter', sans-serif;
     background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-light) 100%);
-    color: var(--main-content-text-color); /* text-light yerine main-content-text-color */
-    display: flex; 
-    min-height: 100vh; 
-    margin: 0;
-    background-attachment: fixed; 
-    background-size: cover;
-    overflow-x: hidden; 
-    position: relative; 
+    color: var(--main-content-text-color);
+    display: flex; min-height: 100vh; margin: 0;
+    background-attachment: fixed; background-size: cover;
+    overflow-x: hidden; position: relative;
 }
 
 /* --- SIDEBAR --- */
 .sidebar {
-    width: 265px; 
-    background-color: var(--sidebar-bg-color); /* rgba(35, 25, 45, 0.95) yerine değişken */
-    padding: 20px 15px; 
-    backdrop-filter: blur(5px);
+    width: 265px; background-color: var(--sidebar-bg-color);
+    padding: 20px 15px; backdrop-filter: blur(5px);
     border-right: 1px solid rgba(255, 255, 255, 0.25);
-    display: flex; 
-    flex-direction: column; 
-    flex-shrink: 0; 
-    z-index: 1000;
-    height: 100vh; 
-    overflow-y: auto; 
-    position: fixed; /* Mobilde de fixed kalmalı */
-    top: 0; 
-    left: 0; 
-    transform: translateX(0); /* Masaüstünde her zaman görünür */
-    transition: transform 0.3s ease-in-out; 
-    -webkit-overflow-scrolling: touch; 
+    display: flex; flex-direction: column; flex-shrink: 0;
+    z-index: 1000; height: 100vh; overflow-y: auto;
+    position: fixed; top: 0; left: 0;
+    transform: translateX(0); transition: transform 0.3s ease-in-out;
+    -webkit-overflow-scrolling: touch;
 }
 .sidebar .logo-placeholder {
     width: 150px; height: 150px;
@@ -115,15 +77,12 @@ body {
     background-size: contain; background-repeat: no-repeat; background-position: center;
     margin: 0 auto 25px auto; flex-shrink: 0;
 }
-.sidebar-nav { 
-    flex-grow: 1; 
-}
+.sidebar-nav { flex-grow: 1; }
 .sidebar-nav ul { list-style: none; padding: 0; margin: 0; }
 .sidebar-nav ul li { margin-bottom: 10px; }
 .sidebar-nav a {
     display: flex; align-items: center; height: 45px; padding: 8px 15px;
-    color: var(--sidebar-normal-text); /* --text-dark yerine sidebar-normal-text */
-    text-decoration: none; border-radius: 8px;
+    color: var(--sidebar-normal-text); text-decoration: none; border-radius: 8px;
     transition: all 0.3s ease; background-color: rgba(255, 255, 255, 0.08);
     border: 1px solid rgba(255, 255, 255, 0.2); font-weight: 500;
 }
@@ -135,14 +94,10 @@ body {
 .submenu.show { max-height: 200px; opacity: 1; }
 .submenu-toggle .caret-icon { margin-left: auto; transition: transform 0.3s ease; }
 .submenu-toggle.expanded .caret-icon { transform: rotate(90deg); }
-.legal-info-container { 
-    padding: 15px 5px; 
-    margin-top: auto; 
-    flex-shrink: 0; 
-    border-top: 1px solid rgba(255, 255, 255, 0.1); 
-    text-align: center;
-    position: relative; 
-    padding-bottom: 20px; 
+.legal-info-container {
+    padding: 15px 5px; margin-top: auto; flex-shrink: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center; position: relative; padding-bottom: 20px;
 }
 .legal-info p { color: var(--label-text-color); font-size: 0.75rem; margin-bottom: 5px; }
 .legal-info p:first-child { color: white; font-weight: 500; }
@@ -153,28 +108,13 @@ body {
     flex-grow: 1; padding: 30px; overflow-y: auto;
     background-color: rgba(0, 0, 0, 0.1);
     border-radius: 15px; margin: 15px;
-    transition: transform 0.3s ease-in-out; 
-    height: auto; /* main-content yüksekliği içeriğe göre ayarlansın */
+    transition: transform 0.3s ease-in-out; height: auto;
 }
 .content-header { display: flex; justify-content: space-between; align-items: flex-start; }
-.page-title { 
-    font-size: 2rem; 
-    font-weight: 700; 
-    color: #FFFFFF; 
-    margin: 0; 
-    overflow-wrap: break-word; 
-    word-break: break-word; 
-}
+.page-title { font-size: 2rem; font-weight: 700; color: #FFFFFF; margin: 0; overflow-wrap: break-word; word-break: break-word; }
 .page-subtitle { font-size: 1.1rem; color: var(--label-text-color); font-weight: 400; margin-top: 0.5rem; }
-
-.main-content a {
-    color: var(--icon-default-color); 
-    text-decoration: none;
-    transition: color 0.2s ease;
-}
-.main-content a:hover {
-    color: var(--icon-hover-color);
-}
+.main-content a { color: var(--icon-default-color); text-decoration: none; transition: color 0.2s ease; }
+.main-content a:hover { color: var(--icon-hover-color); }
 
 /* --- BUTONLAR --- */
 .btn {
@@ -182,317 +122,141 @@ body {
     padding: 12px 25px; border-radius: 8px; border: 2px solid transparent;
     font-weight: 600; font-size: 1rem; text-decoration: none;
     cursor: pointer; transition: all 0.3s ease;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-    color: white;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2); color: white;
 }
 .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(0,0,0,0.3); }
-
-.btn-primary {
-    background-color: var(--btn-primary-bg);
-    border-color: var(--btn-primary-border);
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.4);
-}
+.btn-primary { background-color: var(--btn-primary-bg); border-color: var(--btn-primary-border); text-shadow: 1px 1px 2px rgba(0,0,0,0.4); }
 .btn-primary:hover { background-color: var(--btn-primary-hover-bg); }
-
-.btn-secondary {
-    background-color: rgba(128, 128, 128, 0.4); 
-    border-color: rgba(255, 255, 255, 0.4);
-}
-.btn-secondary:hover {
-    background-color: rgba(128, 128, 128, 0.6);
-    border-color: rgba(255, 255, 255, 0.6);
-}
-
-.btn-success {
-    background-color: var(--btn-success-bg);
-    border-color: var(--btn-success-border);
-}
-.btn-success:hover {
-    background-color: var(--btn-success-hover-bg);
-}
-
-.btn-danger {
-    background-color: var(--btn-danger-bg);
-    border-color: var(--btn-danger-border);
-}
-.btn-danger:hover {
-    background-color: var(--btn-danger-hover-bg);
-}
-
-.cancel-link {
-    color: var(--label-text-color); text-decoration: none;
-    padding: 12px 15px; transition: color 0.2s ease;
-}
+.btn-secondary { background-color: rgba(128, 128, 128, 0.4); border-color: rgba(255, 255, 255, 0.4); }
+.btn-secondary:hover { background-color: rgba(128, 128, 128, 0.6); border-color: rgba(255, 255, 255, 0.6); }
+.btn-success { background-color: var(--btn-success-bg); border-color: var(--btn-success-border); }
+.btn-success:hover { background-color: var(--btn-success-hover-bg); }
+.btn-danger { background-color: var(--btn-danger-bg); border-color: var(--btn-danger-border); }
+.btn-danger:hover { background-color: var(--btn-danger-hover-bg); }
+.cancel-link { color: var(--label-text-color); text-decoration: none; padding: 12px 15px; transition: color 0.2s ease; }
 .cancel-link:hover { color: #FFFFFF; }
 
 /* --- FORMLAR --- */
 .form-container, .header-section, .product-add-section, .calculation-section {
-    background-color: rgba(0, 0, 0, 0.15); 
-    padding: 2rem;
-    border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.1); 
+    background-color: rgba(0, 0, 0, 0.15); padding: 2rem; border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
 .form-group { margin-bottom: 1rem; }
 .form-group label { display: block; color: var(--label-text-color); font-weight: 500; margin-bottom: 0.75rem; }
-
 .form-group input, .form-group select, .form-group textarea {
-    width: 100%; 
-    background-color: rgba(0, 0, 0, 0.25); 
-    border: 1px solid rgba(255, 255, 255, 0.2); 
-    color: var(--main-content-text-color); 
-    padding: 0.8rem 1rem; 
-    border-radius: 8px; 
-    font-size: 1rem;
-    box-sizing: border-box; 
+    width: 100%; background-color: rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.2); color: var(--main-content-text-color);
+    padding: 0.8rem 1rem; border-radius: 8px; font-size: 1rem; box-sizing: border-box;
 }
-.form-group input:focus, .form-group select:focus, .form-group textarea:focus { 
-    outline: none; 
-    border-color: var(--button-milky-coffee); 
-    box-shadow: 0 0 0 3px rgba(210, 180, 140, 0.3); 
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    outline: none; border-color: var(--button-milky-coffee);
+    box-shadow: 0 0 0 3px rgba(210, 180, 140, 0.3);
 }
 .items-table tbody td input {
-    background-color: transparent; 
-    border: 1px solid rgba(255, 255, 255, 0.1); 
-    padding: 5px 8px;
-    border-radius: 4px;
-    color: var(--main-content-text-color);
+    background-color: transparent; border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 5px 8px; border-radius: 4px; color: var(--main-content-text-color);
 }
-.items-table tbody td input:focus {
-    border-color: var(--button-milky-coffee);
-    outline: none;
-}
-
+.items-table tbody td input:focus { border-color: var(--button-milky-coffee); outline: none; }
 .form-actions { display: flex; justify-content: flex-end; align-items: center; gap: 1rem; margin-top: 2rem; border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 1.5rem; }
 
 /* --- TABLOLAR --- */
-.table-container, .items-table-container { 
-    background-color: rgba(0, 0, 0, 0.2);
-    border-radius: 12px;
-    overflow: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.1); 
+.table-container, .items-table-container {
+    background-color: rgba(0, 0, 0, 0.2); border-radius: 12px;
+    overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.1);
 }
-.data-table, .items-table { 
-    width: 100%;
-    border-collapse: collapse;
+.data-table, .items-table { width: 100%; border-collapse: collapse; }
+.data-table th, .items-table th {
+    background-color: rgba(0, 0, 0, 0.2); color: var(--label-text-color);
+    padding: 1rem 1.5rem; text-align: left; font-weight: 600;
 }
-.data-table th, .items-table th { 
-    background-color: rgba(0, 0, 0, 0.2);
-    color: var(--label-text-color);
-    padding: 1rem 1.5rem;
-    text-align: left;
-    font-weight: 600;
-}
-.data-table td, .items-table td { 
-    padding: 1rem 1.5rem;
-    color: var(--main-content-text-color); 
+.data-table td, .items-table td {
+    padding: 1rem 1.5rem; color: var(--main-content-text-color);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    background-color: rgba(0, 0, 0, 0.15); 
+    background-color: rgba(0, 0, 0, 0.15);
 }
-.data-table tbody tr:last-child td, .items-table tbody tr:last-child td { 
-    border-bottom: none;
-}
-.data-table tbody tr:hover td, .items-table tbody tr:hover td { 
-    background-color: rgba(255, 255, 255, 0.08);
-}
-.table-striped tbody tr:nth-child(odd) td {
-    background-color: rgba(0, 0, 0, 0.12);
-}
-.table-striped tbody tr:nth-child(even) td {
-    background-color: rgba(0, 0, 0, 0.09);
-}
-
-
-.data-table .actions, .action-icon-container { 
-    display: flex;
-    gap: 1.25rem; 
-    align-items: center;
-}
+.data-table tbody tr:last-child td, .items-table tbody tr:last-child td { border-bottom: none; }
+.data-table tbody tr:hover td, .items-table tbody tr:hover td { background-color: rgba(255, 255, 255, 0.08); }
+.table-striped tbody tr:nth-child(odd) td { background-color: rgba(0, 0, 0, 0.12); }
+.table-striped tbody tr:nth-child(even) td { background-color: rgba(0, 0, 0, 0.09); }
+.data-table .actions, .action-icon-container { display: flex; gap: 1.25rem; align-items: center; }
 .data-table .actions a, .data-table .actions button,
 .action-icon-container a, .action-icon-container button {
-    background: none; border: none;
-    cursor: pointer; transition: all 0.2s ease;
-    font-size: 1.1rem; 
-    padding: 5px; 
+    background: none; border: none; cursor: pointer; transition: all 0.2s ease;
+    font-size: 1.1rem; padding: 5px;
 }
 .action-icon-container .fa-info-circle, .data-table .actions .fa-info-circle { color: var(--icon-info-color); }
 .action-icon-container .fa-edit, .data-table .actions .fa-edit { color: var(--icon-edit-color); }
 .action-icon-container .fa-trash-alt, .data-table .actions .fa-trash-alt { color: var(--icon-delete-color); }
 .action-icon-container .fa-file-pdf, .data-table .actions .fa-file-pdf { color: var(--icon-pdf-color); }
-.fa-check { color: var(--icon-check-color); } 
-.fa-times { color: var(--icon-times-color); } 
-
-
+.fa-check { color: var(--icon-check-color); }
+.fa-times { color: var(--icon-times-color); }
 .data-table .actions a:hover, .data-table .actions button:hover,
 .action-icon-container a:hover, .action-icon-container button:hover {
-    color: var(--icon-hover-color); 
-    transform: scale(1.2);
+    color: var(--icon-hover-color); transform: scale(1.2);
 }
-
-.items-table .kalem-sil { 
-    background-color: transparent; 
-    border: none; 
-    padding: 0; 
-    font-size: 1.4rem; 
-    color: var(--icon-delete-color); 
-    cursor: pointer;
-    transition: color 0.2s ease, transform 0.1s ease; 
+.items-table .kalem-sil {
+    background-color: transparent; border: none; padding: 0;
+    font-size: 1.4rem; color: var(--icon-delete-color); cursor: pointer;
+    transition: color 0.2s ease, transform 0.1s ease;
 }
-
-.items-table .kalem-sil:hover {
-    color: var(--icon-hover-color); 
-    transform: scale(1.2); 
-}
-
+.items-table .kalem-sil:hover { color: var(--icon-hover-color); transform: scale(1.2); }
 
 /* --- Flash Mesajlar --- */
 .flash-message {
-    padding: 1rem 1.5rem;
-    margin-bottom: 1.5rem;
-    border-radius: 8px;
-    font-weight: 600;
-    text-align: center;
-    opacity: 1;
-    transition: opacity 0.5s ease-out;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-    color: white;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.4);
+    padding: 1rem 1.5rem; margin-bottom: 1.5rem; border-radius: 8px;
+    font-weight: 600; text-align: center; opacity: 1;
+    transition: opacity 0.5s ease-out; box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    color: white; text-shadow: 1px 1px 2px rgba(0,0,0,0.4);
 }
-.flash-message.success {
-    background-color: var(--flash-success-bg);
-    border: 1px solid var(--flash-success-border);
-}
-.flash-message.danger {
-    background-color: var(--flash-danger-bg);
-    border: 1px solid var(--flash-danger-border);
-}
-.flash-message.info {
-    background-color: rgba(23, 162, 184, 0.8);
-    border: 1px solid #17A2B8;
-}
-.flash-message.fade-out {
-    opacity: 0;
-}
+.flash-message.success { background-color: var(--flash-success-bg); border: 1px solid var(--flash-success-border); }
+.flash-message.danger { background-color: var(--flash-danger-bg); border: 1px solid var(--flash-danger-border); }
+.flash-message.info { background-color: rgba(23, 162, 184, 0.8); border: 1px solid #17A2B8; }
+.flash-message.fade-out { opacity: 0; }
 
 /* --- MOBİL UYUMLULUK --- */
-/* Hamburger menü ve sidebar için düzeltmeler */
-#menu-toggle { 
-    display: none; 
-    position: fixed; 
-    top: 20px;
-    right: 20px;
-    font-size: 2rem; 
-    color: var(--label-text-color); 
-    background: none;
-    border: none;
-    cursor: pointer;
-    z-index: 1002; 
-    line-height: 1; 
-    padding: 0; 
+#menu-toggle {
+    display: none; position: fixed; top: 20px; right: 20px;
+    font-size: 2rem; color: var(--label-text-color); background: none;
+    border: none; cursor: pointer; z-index: 1002; line-height: 1; padding: 0;
 }
-
 @media (max-width: 1024px) {
-    body { 
-        display: block; 
-        overflow-x: hidden; 
-        position: relative; 
+    body { display: block; overflow-x: hidden; position: relative; }
+    .sidebar {
+        position: fixed; width: 265px; height: 100vh; left: -265px;
+        transform: translateX(0); transition: transform 0.3s ease-in-out;
+        top: 0; padding-bottom: 0; overflow-y: auto;
+        -webkit-overflow-scrolling: touch; z-index: 1001;
     }
-    /* Sidebar'ın mobil görünümdeki konumu ve geçişi */
-    .sidebar { 
-        position: fixed; 
-        width: 265px; 
-        height: 100vh; 
-        left: -265px; 
-        transform: translateX(0); 
-        transition: transform 0.3s ease-in-out; 
-        top: 0;
-        padding-bottom: 0; 
-        overflow-y: auto; 
-        -webkit-overflow-scrolling: touch; 
-        z-index: 1001; 
+    .sidebar.is-open { transform: translateX(265px); }
+    .main-content {
+        margin: 0; border-radius: 0; width: 100vw; flex-grow: 1;
+        transition: transform 0.3s ease-in-out; transform: translateX(0);
     }
-    .sidebar.is-open { 
-        transform: translateX(265px); 
-    }
-    /* Ana içeriğin sidebar açıldığında kayması */
-    .main-content { 
-        margin: 0; 
-        border-radius: 0; 
-        width: 100vw; 
-        flex-grow: 1; 
-        transition: transform 0.3s ease-in-out; 
-        transform: translateX(0); 
-    }
-    body.sidebar-open .main-content {
-        transform: translateX(265px); 
-    }
-
-    #menu-toggle { 
-        display: block; 
-    }
-    /* Yasal bilgi kutusunun mobil görünümdeki ayarları */
-    .legal-info-container {
-        position: relative; 
-        padding-bottom: 20px; 
-    }
-    
-    /* Kontrol Paneli Başlığı ve diğer sayfa başlıkları için Mobil Uyumlu Font Boyutu (GÜNCELLENDİ) */
-    /* "Son Faturalar" yazısı boyutu için 0.75rem deniyoruz */
+    body.sidebar-open .main-content { transform: translateX(265px); }
+    #menu-toggle { display: block; }
+    .legal-info-container { position: relative; padding-bottom: 20px; }
     .page-title {
-        font-size: 0.75rem !important; /* !important eklendi */
-        line-height: 1.2; 
-        word-break: break-word; 
-        text-align: center; 
-        width: 100%; 
-        box-sizing: border-box; 
-        padding: 0 5px; 
-        letter-spacing: -0.02em; 
+        font-size: 0.75rem !important; line-height: 1.2; word-break: break-word;
+        text-align: center; width: 100%; box-sizing: border-box;
+        padding: 0 5px; letter-spacing: -0.02em;
     }
-    /* Dashboard header'daki h1 için özel ayar (eğer page-title'dan farklı olmasını isterseniz) */
     .dashboard-header h1 {
-        font-size: 0.75rem !important; /* !important eklendi */
-        line-height: 1.2; 
-        word-break: break-word;
-        text-align: center;
-        padding: 0 5px; 
-        box-sizing: border-box; 
-        letter-spacing: -0.02em; 
+        font-size: 0.75rem !important; line-height: 1.2; word-break: break-word;
+        text-align: center; padding: 0 5px; box-sizing: border-box; letter-spacing: -0.02em;
     }
-    /* Dashboard header div'inin kendisi için mobil ayarlar */
     .dashboard-header {
-        display: flex; 
-        flex-direction: column; 
-        align-items: center; 
-        justify-content: center; 
-        min-height: 100px; 
-        box-sizing: border-box; 
-        width: 100%; 
-        padding: 1rem; 
+        display: flex; flex-direction: column; align-items: center; justify-content: center;
+        min-height: 100px; box-sizing: border-box; width: 100%; padding: 1rem;
     }
-
-    /* Ana içerik kartları için mobil boşluk ve hizalama */
-    .content-card {
-        margin-bottom: 1rem; 
-        padding: 1.5rem; 
-    }
-    .content-card .grid-item { 
-        flex-basis: 100%; 
-        margin-bottom: 1rem; 
-    }
+    .content-card { margin-bottom: 1rem; padding: 1.5rem; }
+    .content-card .grid-item { flex-basis: 100%; margin-bottom: 1rem; }
 }
 
 /* =================================================================== */
 /* ===          MERKEZİ HİZALAMA VE GÖRSEL İYİLEŞTİRMELER          === */
 /* =================================================================== */
-
-/* YENİ: Formları sayfada ortalamak ve geniş ekranlarda yayılmasını önlemek için */
-form.content-card {
-    max-width: 960px; 
-    margin-left: auto; 
-    margin-right: auto; 
-}
-
-/* GÜNCELLENDİ: Tüm ana çerçeveler arasına daha belirgin dikey boşluk ekler */
+form.content-card { max-width: 960px; margin-left: auto; margin-right: auto; }
 .main-content > .content-header,
 .main-content > .form-container,
 .main-content > .content-card,
@@ -502,154 +266,16 @@ form.content-card {
 .main-content > .calculation-section,
 .main-content > .table-container,
 .main-content > .table-responsive {
-    margin-bottom: 2.25rem; 
+    margin-bottom: 2.25rem;
 }
-.main-content > *:last-child {
-     margin-bottom: 0; 
+.main-content > *:last-child { margin-bottom: 0; }
+.form-group select option { background: var(--sidebar-bg-color); color: white; }
+
+/* === DÜZELTME: KONTROL PANELİNDEKİ LOGO BOYUTU === */
+/* HTML kodunuzdaki doğru class ismini (.dashboard-info-footer-logo) hedefler */
+.dashboard-info-footer .dashboard-info-footer-logo {
+    max-width: 50% !important; /* Genişliği %50 küçült */
+    height: auto;
+    margin: 15px auto 0 auto;
+    display: block;
 }
-
-/* DÜZELTME: Select option arka plan rengi */
-.form-group select option {
-    background: var(--sidebar-bg-color); 
-    color: white;
-}
-</style>
-</head>
-<body>
-    <div class="sidebar" id="sidebar">
-        <div class="logo-placeholder"></div>
-        <nav class="sidebar-nav">
-            <ul>
-                <li><a href="{{ url_for('dashboard') }}" class="{{ 'active' if request.endpoint == 'dashboard' else '' }}"><i class="fas fa-fw fa-tachometer-alt"></i> {{ _('Kontrol Paneli') }}</a></li>
-                <li>
-                    <a href="#" class="submenu-toggle" data-target="#faturalar-submenu"><i class="fas fa-fw fa-file-invoice"></i> {{ _('Faturalar') }} <i class="fas fa-caret-right caret-icon"></i></a>
-                    <ul id="faturalar-submenu" class="submenu">
-                        <li><a href="{{ url_for('fatura_listesi') }}" class="{{ 'active' if 'fatura' in request.endpoint and 'olustur' not in request.endpoint else '' }}">{{ _('Fatura Listesi') }}</a></li>
-                        <li><a href="{{ url_for('fatura_olustur') }}" class="{{ 'active' if request.endpoint == 'fatura_olustur' else '' }}">{{ _('Yeni Fatura Oluştur') }}</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#" class="submenu-toggle" data-target="#musteriler-submenu"><i class="fas fa-fw fa-users"></i> {{ _('Müşteriler') }} <i class="fas fa-caret-right caret-icon"></i></a>
-                    <ul id="musteriler-submenu" class="submenu">
-                        <li><a href="{{ url_for('musteri_listesi') }}" class="{{ 'active' if 'musteri' in request.endpoint and 'ekle' not in request.endpoint else '' }}">{{ _('Müşteri Listesi') }}</a></li>
-                        <li><a href="{{ url_for('musteri_ekle') }}" class="{{ 'active' if request.endpoint == 'musteri_ekle' else '' }}">{{ _('Yeni Müşteri Ekle') }}</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#" class="submenu-toggle" data-target="#urunler-submenu"><i class="fas fa-fw fa-boxes"></i> {{ _('Ürünler') }} <i class="fas fa-caret-right caret-icon"></i></a>
-                    <ul id="urunler-submenu" class="submenu">
-                        <li><a href="{{ url_for('urun_listesi') }}" class="{{ 'active' if 'urun' in request.endpoint and 'ekle' not in request.endpoint else '' }}">{{ _('Ürün Listesi') }}</a></li>
-                        <li><a href="{{ url_for('urun_ekle') }}" class="{{ 'active' if request.endpoint == 'urun_ekle' else '' }}">{{ _('Yeni Ürün Ekle') }}</a></li>
-                    </ul>
-                </li>
-                <li><a href="{{ url_for('ayarlar') }}" class="{{ 'active' if request.endpoint == 'ayarlar' else '' }}"><i class="fas fa-fw fa-cog"></i> {{ _('Ayarlar') }}</a></li>
-                <li><a href="{{ url_for('kullanim_kilavuzu') }}" class="{{ 'active' if request.endpoint == 'kullanim_kilavuzu' else '' }}"><i class="fas fa-fw fa-book"></i> {{ _('Kullanım Kılavuzu') }}</a></li>
-                <li>
-                    <a href="#" class="submenu-toggle" data-target="#lang-submenu"><i class="fas fa-fw fa-globe"></i> Dil ({{ g.locale.upper() }}) <i class="fas fa-caret-right caret-icon"></i></a>
-                    <ul id="lang-submenu" class="submenu">
-                        {% set url_params = request.view_args.copy() %}{% for key, value in request.args.items() %}{% set _ = url_params.update({key: value}) %}{% endfor %}{% for lang_code in ['de', 'tr', 'en'] %}{% set current_url_params = url_params.copy() %}{% set _ = current_url_params.update({'lang': lang_code}) %}
-                        <li><a href="{{ url_for(request.endpoint, **current_url_params) }}" class="lang-btn {% if g.locale == lang_code %}active{% endif %}">{{ lang_code.upper() }}</a></li>
-                        {% endfor %}
-                    </ul>
-                </li>
-            </ul>
-        </nav>
-        <div class="legal-info-container">
-            <div class="legal-info">
-<p>
-  &copy;2025 Alle Rechte vorbehalten<br>
-  Programmentwickler:Nihat MERT<br>
-  www.nihatmert.com
-</p>
-            </div>
-        </div>
-    </div>
-    <button id="menu-toggle"><i class="fas fa-bars"></i></button>
-    <main class="main-content">
-        <div class="content-header">
-            <div>
-                <h1 class="page-title">{% block page_title %}{% endblock %}</h1>
-                <h2 class="page-subtitle">{% block page_subtitle %}{% endblock %}</h2>
-            </div>
-            <div class="header-button-area">{% block header_button %}{% endblock %}</div>
-        </div>
-        {# Flash mesajları için eklenen JavaScript ile otomatik kaybolma özelliği #}
-        {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-                {% for category, message in messages %}
-                    <div class="flash-message {{ category }}">{{ message }}</div>
-                {% endfor %}
-            {% endif %}
-        {% endwith %} {# Bu kısım doğru kapatıldı #}
-        {% block content %}{% endblock %}
-    </main>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Flash mesajların otomatik kaybolması
-            document.querySelectorAll('.flash-message').forEach(function(flashMessage) {
-                setTimeout(function() {
-                    flashMessage.classList.add('fade-out');
-                    flashMessage.addEventListener('transitionend', function() {
-                        flashMessage.remove();
-                    });
-                }, 5000); // 5 saniye sonra kaybolmaya başla
-            });
-
-            const menuToggle = document.getElementById('menu-toggle');
-            const sidebar = document.getElementById('sidebar');
-            const mainContent = document.querySelector('.main-content'); 
-
-            // Mobil menü toggle fonksiyonu
-            if (menuToggle && sidebar && mainContent) { 
-                menuToggle.addEventListener('click', function() {
-                    sidebar.classList.toggle('is-open');
-                    document.body.classList.toggle('sidebar-open'); 
-                });
-
-                // Menü açıkken dışarıya tıklayınca kapatma
-                document.addEventListener('click', function(e) {
-                    if (sidebar.classList.contains('is-open') && 
-                        !sidebar.contains(e.target) && 
-                        !menuToggle.contains(e.target)) {
-                        sidebar.classList.remove('is-open');
-                        document.body.classList.remove('sidebar-open');
-                    }
-                });
-            }
-
-            // Submenu toggle fonksiyonu
-            document.querySelectorAll('.submenu-toggle').forEach(e => { 
-                e.addEventListener('click', t => { 
-                    t.preventDefault(); 
-                    const l = document.querySelector(e.dataset.target); 
-                    if (l) { 
-                        const c = e.classList.contains('expanded'); 
-                        // Tüm açık alt menüleri kapat
-                        document.querySelectorAll('.sidebar-nav ul.submenu.show').forEach(el => { 
-                            el.classList.remove('show'); 
-                            el.previousElementSibling.classList.remove('expanded'); 
-                        }); 
-                        // Tıklanan alt menüyü aç/kapat
-                        if (!c) {
-                            l.classList.add('show'); 
-                            e.classList.add('expanded');
-                        }
-                    } 
-                });
-            });
-
-            // Sayfa yüklendiğinde aktif menü öğesinin alt menüsünü aç
-            const activeLink = document.querySelector('.sidebar-nav a.active');
-            if (activeLink) { 
-                const parentSubmenu = activeLink.closest('ul.submenu'); 
-                if (parentSubmenu) { 
-                    parentSubmenu.classList.add('show'); 
-                    const toggleLink = parentSubmenu.previousElementSibling; 
-                    toggleLink && toggleLink.classList.contains('submenu-toggle') && toggleLink.classList.add('expanded'); 
-                } 
-            }
-        });
-    </script>
-    {% block scripts %}{% endblock scripts %}
-</body>
-</html>
