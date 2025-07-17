@@ -1,0 +1,192 @@
+{% extends "layout.html" %}
+
+{% block title %}{{ _('Ürün Listesi') }}{% endblock %}
+
+{% block content %}
+    <style>
+        /* Ürün Listesi sayfası için özel stil ayarlamaları */
+
+        /* Sayfa başlığı stili */
+        .page-header h1.page-title {
+            color: var(--btn-primary-bg); /* Başlık rengi turuncu yapıldı */ /* DEĞİŞİKLİK BURADA */
+            font-size: 2rem; /* Boyut zaten doğru */
+            font-weight: 600; /* Zaten doğru */
+        }
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem; /* Boşluk */
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .page-header .btn-primary { /* "Yeni Ürün Ekle" butonu */
+            /* Stil layout.html'den geliyor, gerekirse burada ezebiliriz */
+        }
+
+        /* Ana kart stili (tüm tabloyu kapsayacak) */
+        .card {
+            background-color: rgba(0, 0, 0, 0.2); /* Arka plan rengi güncellendi */ /* DEĞİŞİKLİK BURADA */
+            padding: 25px; /* Padding güncellendi */ /* DEĞİŞİKLİK BURADA */
+            border-radius: 12px; /* Border radius güncellendi */ /* DEĞİŞİKLİK BURADA */
+            border: 1px solid rgba(255, 255, 255, 0.1); /* Kenarlık eklendi */ /* DEĞİŞİKLİK BURADA */
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5); /* Gölge eklendi */ /* DEĞİŞİKLİK BURADA */
+            margin-bottom: 30px; /* Alttaki diğer öğelerden boşluk */
+        }
+        
+        .items-table {
+            width: 100%;
+            border-collapse: collapse;
+            line-height: 1.6;
+        }
+
+        .items-table th, .items-table td {
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08); /* Hafif border */
+            text-align: left;
+            vertical-align: middle;
+            color: var(--text-primary); /* Metin rengi beyaz yapıldı */ /* DEĞİŞİKLİK BURADA */
+        }
+
+        .items-table th {
+            font-weight: 600;
+            color: var(--btn-primary-bg); /* Başlık metin rengini turuncu yapıldı */ /* DEĞİŞİKLİK BURADA */
+            white-space: nowrap;
+            background-color: rgba(0, 0, 0, 0.25); /* Başlık arkaplanı */
+        }
+
+        .items-table tbody tr:hover td {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        /* İşlem ikonları (Düzenle, Sil) */
+        .action-icons {
+            display: flex;
+            align-items: center;
+            justify-content: center; /* İkonları ortala */
+            gap: 1.5rem; /* İkonlar arası boşluk */ /* DEĞİŞİKLİK BURADA */
+        }
+        .action-icons a,
+        .action-icons button {
+            background-color: transparent;
+            color: var(--btn-primary-bg); /* İkon rengi turuncu yapıldı */ /* DEĞİŞİKLİK BURADA */
+            padding: 0;
+            border-radius: 4px;
+            font-size: 1.4rem; /* İkon boyutu */
+            transition: color 0.2s ease, transform 0.1s ease;
+            border: none;
+            cursor: pointer;
+            line-height: 1;
+            text-decoration: none;
+        }
+        .action-icons a:hover,
+        .action-icons button:hover {
+            transform: scale(1.2);
+            color: var(--btn-primary-hover-bg); /* Hover'da daha açık turuncu */ /* DEĞİŞİKLİK BURADA */
+        }
+        /* İkonların özel renkleri (örneğin fa-check ve fa-times) */
+        .fa-check { color: #28a745; } /* Yeşil */
+        .fa-times { color: #dc3545; } /* Kırmızı */
+        
+        /* Mobil uyumluluk için */
+        @media (max-width: 1024px) {
+            .items-table {
+                table-layout: fixed; /* Tablo düzenini sabitler */
+                width: 100%; /* Mobil görünümde tam genişlik */
+            }
+
+            .items-table th,
+            .items-table td {
+                padding: 0.75rem 0.5rem; /* Mobil görünümde padding'i azalt */
+                white-space: nowrap; /* İçeriğin tek satırda kalmasını dene */
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .items-table thead th:nth-child(1), /* Açıklama */
+            .items-table tbody td:nth-child(1) {
+                width: 50%; /* Açıklama sütunu için belirli genişlik */ /* DEĞİŞİKLİK BURADA */
+            }
+            .items-table thead th:nth-child(2), /* Birim (mobile-hide) */
+            .items-table tbody td:nth-child(2),
+            .items-table thead th:nth-child(3), /* Birim Fiyat (mobile-hide) */
+            .items-table tbody td:nth-child(3),
+            .items-table thead th:nth-child(4) /* Götürü (mobile-hide) */,
+            .items-table tbody td:nth-child(4) {
+                display: none; /* Bu sütunlar mobile-hide ile gizleniyor */
+                width: 0%; /* Genişliklerini sıfırla */ /* DEĞİŞİKLİK BURADA */
+            }
+            .items-table thead th:nth-child(5), /* İşlemler */
+            .items-table tbody td:nth-child(5) {
+                width: 50%; /* İşlemler sütunu için kalan genişlik */ /* DEĞİŞİKLİK BURADA */
+                text-align: center;
+            }
+
+            .action-icons {
+                gap: 0.75rem; 
+                justify-content: center; 
+            }
+
+            .action-icons a,
+            .action-icons button {
+                font-size: 1rem; 
+                padding: 3px; 
+            }
+        }
+    </style>
+
+    <div class="page-header">
+        <h1 class="page-title">{{ _('Ürün Listesi') }}</h1>
+        <a href="{{ url_for('urun_ekle') }}" class="btn btn-primary">
+            <i class="fas fa-plus"></i> {{ _('Yeni Ürün Ekle') }}
+        </a>
+    </div>
+
+    <div class="card"> {# Bu div'e doğrudan stil uygulandı #}
+        {% if urunler %}
+        <div class="overflow-x-auto">
+            <table class="items-table w-full">
+                <thead>
+                    <tr>
+                        <th class="text-left">{{ _('Açıklama') }}</th>
+                        <th class="text-left mobile-hide">{{ _('Birim') }}</th>
+                        <th class="text-end mobile-hide">{{ _('Birim Fiyat') }}</th>
+                        <th class="text-center mobile-hide">{{ _('Götürü') }}</th>
+                        <th class="text-center">{{ _('İşlemler') }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for urun in urunler %}
+                    <tr>
+                        <td class="text-left">{{ urun.aciklama }}</td>
+                        <td class="text-left mobile-hide">{{ urun.birim }}</td>
+                        <td class="text-end mobile-hide">{{ "%.2f"|format(urun.birim_fiyat)|replace('.', ',') }} €</td>
+                        <td class="text-center mobile-hide">
+                            {% if urun.is_goturu %}
+                                <i class="fas fa-check"></i>
+                            {% else %}
+                                <i class="fas fa-times"></i>
+                            {% endif %}
+                        </td>
+                        <td class="text-center">
+                            <div class="action-icons">
+                                <a href="{{ url_for('urun_duzenle', urun_id=urun.id) }}" title="{{ _('Ürünü Düzenle') }}">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <form action="{{ url_for('urun_sil', urun_id=urun.id) }}" method="POST" style="display:inline;" onsubmit="return confirm('{{ _('Bu ürünü silmek istediğinizden emin misiniz?') }}');">
+                                    <button type="submit" title="{{ _('Ürünü Sil') }}">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <p class="text-center">{{ _('Henüz hiç ürün eklenmedi.') }}</p>
+        {% endif %}
+    </div>
+{% endblock content %}

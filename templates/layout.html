@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="{{ g.locale|default('de') }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{{ _('Fatura Yönetim') }}{% endblock %}</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        
+        /* === MODERN TASARIM SİSTEMİ: DEĞİŞKENLER === */
+        :root {
+            --primary-start-color: #837469;
+            --primary-end-color: #ca9e7a;   
+
+            --bg-glass: rgba(255, 255, 255, 0.1);
+            --border-glass: rgba(255, 255, 255, 0.18);
+            --shadow-glass: 0 8px 30px 0 rgba(0, 0, 0, 0.4);
+
+            --text-primary: #FFFFFF;
+            --text-secondary: #FFFFFF;
+            --text-heading: #FFFFFF;
+            --text-placeholder: rgba(255, 255, 255, 0.7);
+
+            --sidebar-bg-gradient: linear-gradient(135deg, rgba(239, 208, 181, 0.3) 0%, rgba(16, 141, 199, 0.3) 100%);
+            --sidebar-active-bg: #D0BC9D;
+            --sidebar-text: var(--text-primary);
+
+            --btn-primary-bg: #eaa768;
+            --btn-primary-border: #F5F5DC;
+            --btn-primary-hover-bg: #FFFFFF;
+            --icon-action-color: var(--text-primary);
+            --icon-action-hover-color: var(--btn-primary-hover-bg);
+
+            --sidebar-border-main: rgba(255, 255, 255, 0.1);
+            --sidebar-item-bg: rgba(255, 255, 255, 0.05);
+            --sidebar-item-text-color: var(--text-primary);
+            --sidebar-item-hover-bg-color: rgba(255, 255, 255, 0.1);
+            --sidebar-item-active-bg-color: var(--sidebar-active-bg);
+            --sidebar-item-border-color: rgba(255,255,255,0.08);
+            --sidebar-item-shadow: 0 3px 10px rgba(0,0,0,0.15);
+            --sidebar-item-hover-shadow: 0 6px 18px rgba(0,0,0,0.25);
+            --sidebar-item-active-shadow: 0 6px 20px rgba(0,0,0,0.3);
+
+            --submenu-bg: rgba(0,0,0,0.1);
+            --submenu-item-hover-bg: rgba(255,255,255,0.08);
+            --submenu-item-active-bg: #A69480;
+
+            --legal-card-bg: rgba(255, 255, 255, 0.1);
+            --legal-card-border: rgba(255, 255, 255, 0.15);
+            --legal-card-shadow: var(--shadow-glass);
+        }
+
+        /* === GENEL SAYFA YAPISI VE SIFIRLAMA === */
+        * { margin: 0; padding: 0; box-sizing: border-box; outline: none; } /* Outline eklendi */
+        html { 
+            font-size: 16px; 
+            overflow-x: hidden !important; 
+            background-color: #30577e;
+            height: 100%; 
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-primary); 
+            display: flex;
+            min-height: 100vh; 
+            height: 100%; 
+            background-attachment: fixed;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+            overflow: hidden; /* Masaüstünde genel kaydırmayı gizle */
+            position: relative; 
+            background: rgb(48,87,126);
+            background: -moz-linear-gradient(90deg, rgba(48,87,126,1) 0%, rgba(90,119,146,1) 50%, rgba(131,147,161,1) 100%);
+            background: -webkit-linear-gradient(90deg, rgba(48,87,126,1) 0%, rgba(90,119,146,1) 50%, rgba(131,147,161,1) 100%);
+            background: linear-gradient(90deg, rgba(48,87,126,1) 0%, rgba(90,119,146,1) 50%, rgba(131,147,161,1) 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#30577e",endColorstr="#8393a1",GradientType=1);
+        }
+        a { 
+            color: var(--text-primary); 
+            text-decoration: none; 
+            transition: color 0.3s ease; 
+        }
+        a:hover { 
+            color: var(--btn-primary-hover-bg); 
+        }
+        
+        /* === BAŞLANGIÇ: PRELOADER STİLLERİ === */
+        #preloader { 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            z-index: 9999; 
+            background-color: #0A5A82; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            opacity: 1; 
+            visibility: visible; 
+            transition: opacity 0.75s ease, visibility 0.75s ease; 
+        }
+        #preloader.hidden { 
+            opacity: 0; 
+            visibility: hidden; 
+            pointer-events: none; 
+        }
+        .logo-placeholder.preloader-logo { 
+            animation: logo-intro-and-grow 2.8s ease-out forwards; 
+            width: 150px; 
+            height: 150px; 
+            background-image: url("{{ url_for('static', filename='images/logo.png') }}"); /* Preloader için logo.png (Mertdesign) */
+            background-size: contain; 
+            background-repeat: no-repeat; 
+            background-position: center; 
+            margin: 0 auto; 
+        }
+        @keyframes logo-intro-and-grow { 
+            0% { opacity: 0; transform: translateY(-80px) scale(0.7); } 
+            25% { opacity: 1; transform: translateY(0) scale(1); } 
+            100% { opacity: 1; transform: scale(1.15); } 
+        }
+        
+        /* Sidebar ve Main Content başlangıçta gizli olacak, JS ile görünecek */
+        .sidebar, .main-content { opacity: 0; transition: opacity 0.5s ease 0.2s; }
+        .sidebar.visible, .main-content.visible { opacity: 1; }
+        
+        /* === KENAR MENÜSÜ (SIDEBAR) === */
+        .sidebar {
+            width: 290px; 
+            background: var(--sidebar-bg-gradient); 
+            padding: 20px 15px; 
+            backdrop-filter: blur(25px); 
+            -webkit-backdrop-filter: blur(25px); 
+            border-right: 1px solid var(--sidebar-border-main); 
+            display: flex;
+            flex-direction: column; 
+            flex-shrink: 0;
+            z-index: 1001;
+            height: 100vh; 
+            position: sticky; top: 0; 
+            transition: transform 0.35s ease, opacity 0.5s ease 0.2s;
+            overflow-y: auto; /* Dikey kaydırmayı etkinleştir */
+            overflow-x: hidden; /* Yatay kaydırmayı gizle */
+            box-shadow: var(--shadow-glass); 
+        }
+        /* Sidebar kaydırma çubuğu özelleştirmeleri (Webkit tarayıcılar için) */
+        .sidebar::-webkit-scrollbar {
+            width: 8px; 
+            background-color: transparent; 
+        }
+        .sidebar::-webkit-scrollbar-thumb {
+            background-color: rgba(255, 255, 255, 0.25); 
+            border-radius: 4px;
+        }
+        .sidebar::-webkit-scrollbar-track {
+            background-color: transparent; 
+        }
+        .sidebar { -ms-overflow-style: none; scrollbar-width: none; } /* IE/Edge/Firefox için kaydırma çubuğunu gizle */
+
+        /* Logo Alanı - Sidebar içindeki logo için */
+        .sidebar .logo-container-sidebar { 
+            width: 150px; 
+            height: 150px; 
+            margin: 0 auto 25px; 
+            flex-shrink: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .sidebar .logo-container-sidebar img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        /* Dil Seçenekleri Yeni Bölüm (DİKDÖRTGEN TASARIM ve Bayrak/EN İbaresİ) */
+        .language-switcher {
+            display: flex;
+            justify-content: center; 
+            gap: 10px; /* Butonlar arası boşluk */
+            margin-bottom: 25px; 
+            flex-shrink: 0;
+            padding: 0 15px; 
+        }
+
+        .language-switcher a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px; /* Daha küçük genişlik */
+            height: 30px; /* Daha küçük yükseklik */
+            border-radius: 8px; /* Köşeli buton */
+            background-color: var(--sidebar-item-bg); 
+            color: var(--sidebar-item-text-color);
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+            box-shadow: var(--sidebar-item-shadow);
+            border: 1px solid var(--sidebar-item-border-color);
+            backdrop-filter: blur(10px); 
+            text-transform: uppercase; 
+            overflow: hidden; /* İçerik taşmasını engelle */
+            position: relative; /* Bayrak ikonu için konumlandırma */
+            outline: none; /* Odaklanma anında dış çerçeveyi kaldır */
+        }
+
+        .language-switcher a:hover {
+            background-color: rgba(255,255,255,0.15); /* Hafif belirgin hover efekti */
+            border-color: var(--btn-primary-hover-bg); 
+            transform: translateY(-1px); /* Hafif yukarı kaydırma */
+            box-shadow: 0 4px 10px rgba(0,0,0,0.25); /* Hafif gölge */
+        }
+
+        .language-switcher a.active {
+            background-color: #BFA78C; 
+            color: #FFFFFF; 
+            font-weight: 700;
+            border-color: #BFA78C; 
+            box-shadow: var(--sidebar-item-active-shadow);
+        }
+        
+        .language-switcher .flag-icon {
+            font-size: 1.2rem; /* Bayrak ikon boyutu */
+            line-height: 1; /* Satır yüksekliği düzeltildi */
+            display: block; /* Tam alanı kaplaması için */
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Bayrağın alanı kaplaması için */
+            border-radius: 6px; /* Butonun yuvarlaklığını takip etmesi için */
+            filter: grayscale(0.1) brightness(1.1); /* Hafif kristalize efekti */
+            mix-blend-mode: screen; /* Cam efekti için karıştırma modu */
+        }
+        /* Flag-icon için daha iyi hizalama ve merkezleme */
+        .language-switcher a span.flag-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            font-size: 0; /* Metin gizlendi, sadece bayrak görünecek */
+            color: transparent; /* Metin gizlendi */
+        }
+
+        /* EN ibaresi için özel stil */
+        .language-switcher a.lang-en span { /* Sadece 'en' dili için olan span'i hedefle */
+            font-size: 0.9rem; /* EN yazısının boyutu */
+            font-weight: bold;
+            color: var(--text-primary); /* Beyaz renk */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            background-image: none; /* Bayrak resmini kaldır */
+            filter: none; /* Herhangi bir filtreyi kaldır */
+            mix-blend-mode: normal; /* Normal karıştırma modu */
+        }
+
+
+        /* Ana Menü (Sidebar Nav) */
+        .sidebar-nav { 
+            flex-shrink: 0; 
+            margin-bottom: 15px; 
+            flex-grow: 1; 
+            overflow-y: auto; 
+            -ms-overflow-style: none; 
+            scrollbar-width: none; 
+        }
+        .sidebar-nav::-webkit-scrollbar { display: none; } 
+
+
+        .sidebar-nav ul { list-style: none; }
+        .sidebar-nav li { margin-bottom: 15px; }
+        .sidebar-nav a { 
+            display: flex; 
+            align-items: center; 
+            height: 45px; 
+            padding: 0 15px; 
+            color: var(--sidebar-item-text-color); 
+            border-radius: 8px; 
+            font-weight: 500; 
+            transition: all 0.2s ease; 
+            background-color: rgba(255,255,255,0.05); /* Daha az opak sidebar item background */
+            box-shadow: var(--sidebar-item-shadow); 
+            border: 1px solid rgba(255,255,255,0.08); /* Daha az opak border */
+            transform: translateY(0); 
+            backdrop-filter: blur(10px); 
+            box-sizing: border-box; 
+            width: 100%; 
+        }
+        .sidebar-nav a:hover { 
+            background-color: rgba(255,255,255,0.1); /* Hoverda hafif artırılmış opaklık */
+            color: var(--btn-primary-hover-bg); 
+            border-color: var(--btn-primary-hover-bg); 
+            transform: translateY(-2px); 
+            box-shadow: var(--sidebar-item-hover-shadow); 
+        }
+        .sidebar-nav a.active { 
+            background-color: #BFA78C; 
+            color: var(--text-heading); 
+            font-weight: 700; 
+            border-color: #BFA78C; 
+            box-shadow: var(--sidebar-item-active-shadow); 
+        }
+        .sidebar-nav a i.fa-fw { margin-right: 15px; width: 22px; text-align: center; }
+        .submenu { 
+            padding-left: 25px; 
+            max-height: 0; 
+            overflow: hidden; 
+            transition: max-height 0.3s ease; 
+            background-color: rgba(0,0,0,0.08); /* Alt menü için biraz daha şeffaf */
+            border-radius: 8px; 
+            margin-top: 5px; 
+            border: 1px solid rgba(255, 255, 255, 0.1); /* Alt menü borderı biraz daha az opak */
+            box-shadow: 0 3px 12px rgba(0,0,0,0.25); 
+            backdrop-filter: blur(8px); 
+        }
+        .submenu li a { 
+            padding-left: 10px; 
+            font-size: 0.95rem; 
+            height: 40px; 
+            background-color: transparent; 
+            box-shadow: none; 
+            border: none; 
+            box-sizing: border-box;
+            width: calc(100% - 25px); 
+        }
+        .submenu li a:hover { 
+            background-color: rgba(255,255,255,0.08); /* Alt menü hover background */
+            color: var(--btn-primary-hover-bg); 
+            transform: none; 
+            box-shadow: none; 
+            border: none; 
+        }
+        .submenu li a.active {
+            background-color: #A69480; 
+            font-weight: 700; 
+            color: var(--text-primary); 
+        }
+        li.expanded > .submenu { max-height: 200px; }
+        .caret-icon { margin-left: auto; transition: transform 0.3s ease; }
+        li.expanded > a > .caret-icon { transform: rotate(90deg); }
+        
+        /* === Yasal Bilgi Bölümü - Sidebar'dan kaldırıldı, sadece ana içeriğe özel hale geldi === */
+        .legal-info-container { 
+            display: none; /* Bu kısım artık sidebar'da görünmeyecek */
+        }
+
+        /* === ANA İÇERİK ALANI === */
+        .main-content { 
+            flex-grow: 1; 
+            padding: 2.5rem; 
+            height: 100vh; 
+            overflow-y: auto; 
+            margin-left: -1px; 
+            position: relative; 
+        }
+
+        /* Main Content kaydırma çubuğu özelleştirmeleri (Webkit tarayıcılar için) */
+        .main-content::-webkit-scrollbar {
+            width: 8px; 
+            background-color: transparent; 
+        }
+
+        .main-content::-webkit-scrollbar-thumb {
+            background-color: rgba(255, 255, 255, 0.25); 
+            border-radius: 4px;
+        }
+
+        .main-content::-webkit-scrollbar-track {
+            background-color: transparent; 
+        }
+
+        .page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem; }
+        .page-title { 
+            font-size: 2rem; 
+            font-weight: 600; 
+            color: var(--text-heading);
+        }
+
+        /* === STANDART BİLEŞENLER === */
+        .card { 
+            background: var(--bg-glass); 
+            border: 1px solid var(--border-glass); 
+            border-radius: 16px; 
+            padding: 2.5rem 2.5rem 3rem 2.5rem; 
+            backdrop-filter: blur(20px); 
+            box-shadow: var(--shadow-glass); 
+        }
+        .card:not(:last-child) { margin-bottom: 2rem; }
+
+        .form-grid:not(:last-child) { 
+             margin-bottom: 1.5rem; 
+        }
+        .items-table { 
+            margin-bottom: 1.5rem;
+        }
+
+        .btn { 
+            display: inline-flex; 
+            align-items: center; 
+            justify-content: center; 
+            padding: 12px 24px; 
+            border-radius: 8px; 
+            border: 1px solid transparent; 
+            font-weight: 600; 
+            font-size: 1rem; 
+            cursor: pointer; 
+            transition: all 0.2s ease; 
+            backdrop-filter: blur(10px); 
+        }
+        .btn i { margin-right: 8px; }
+        .btn-primary { 
+            background-color: var(--btn-primary-bg); 
+            border-color: var(--btn-primary-bg);
+            color: #FFFFFF !important; 
+            text-shadow: 0 1px 2px rgba(0,0,0,0.6) !important; 
+        }
+        .btn-primary:hover { 
+            background-color: var(--btn-primary-hover-bg); 
+            color: #FFFFFF; 
+            transform: translateY(-3px); 
+            box-shadow: 0 8px 25px rgba(0,0,0,0.45); 
+        }
+        .form-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+            gap: 1.5rem; 
+        }
+        .form-group label { 
+            display: block; 
+            color: var(--text-secondary); 
+            font-weight: 500; 
+            margin-bottom: 0.75rem; 
+        }
+        .form-group input, 
+        .form-group select, 
+        .form-group textarea { 
+            font-family: 'Inter', sans-serif; 
+            width: 100%; 
+            background-color: rgba(255, 255, 255, 0.25); 
+            border: 1px solid rgba(255, 255, 255, 0.4); 
+            color: var(--text-primary); 
+            padding: 0.9rem 1rem; 
+            border-radius: 8px; 
+            font-size: 1rem; 
+            backdrop-filter: blur(10px); 
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.25); 
+        }
+        .form-group input::placeholder, 
+        .form-group textarea::placeholder {
+            color: var(--text-placeholder);
+            opacity: 1; 
+        }
+        .form-group select {
+            -webkit-appearance: none; 
+            -moz-appearance: none;
+            appearance: none;
+            background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292%22%22%20height%3D%22292%22%3E%3Cpath%20fill%3D%22%23F0F0F0%22%20d%3D%22M287%2069.4L208.6%200%20146%2069.4%2083.4%200%200%2069.4%20146%20292%20287%2069.4z%22%2F%3E%3C%2Fsvg%3E'); 
+            background-repeat: no-repeat, repeat;
+            background-position: right .7em top 50%, 0 0;
+            background-size: .65em auto, 100%;
+        }
+        .form-group select::-ms-expand { 
+            display: none;
+        }
+
+        .form-group select option {
+            background-color: #4A3C2F; 
+            color: var(--text-primary);
+        }
+        .form-group textarea { min-height: 120px; }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { 
+            outline: none; 
+            border-color: var(--btn-primary-bg); 
+            box-shadow: 0 0 0 5px rgba(239, 142, 56, 0.4); 
+        }
+        .items-table { width: 100%; border-collapse: collapse; line-height: 1.6; }
+        .items-table th, .items-table td { padding: 1rem 1.25rem; border-bottom: 1px solid var(--border-glass); text-align: left; vertical-align: middle; }
+        .items-table th { 
+            font-weight: 600; 
+            color: var(--text-secondary);
+            white-space: nowrap; 
+        }
+        .items-table td {
+            color: var(--text-primary);
+        }
+        .items-table tbody tr:hover td { background-color: rgba(255, 255, 255, 0.07); }
+        .action-icons { display: flex; align-items: center; justify-content: center; gap: 1.5rem; }
+        .action-icons a, .action-icons button { 
+            background: transparent; 
+            border: none; 
+            font-size: 1.45rem; 
+            cursor: pointer; 
+            padding: 5px; 
+            line-height: 1; 
+            color: var(--icon-action-color) !important;
+            transition: all 0.2s ease; 
+        }
+        .action-icons a:hover, .action-icons button:hover { 
+            color: var(--icon-action-hover-color) !important; 
+            transform: scale(1.4); 
+        }
+        #menu-toggle { 
+            display: none; 
+            position: fixed; 
+            top: 15px; 
+            right: 15px; 
+            width: 55px; 
+            height: 55px; 
+            background: rgba(131, 116, 105, 0.7); 
+            border: 1px solid var(--border-glass); 
+            border-radius: 12px; 
+            color: var(--text-secondary); 
+            font-size: 2rem; 
+            cursor: pointer; 
+            z-index: 1002; 
+            place-items: center; 
+            backdrop-filter: blur(18px); 
+            box-shadow: var(--shadow-glass); 
+        }
+
+        /* === MOBİL UYUMLULUK VE DASHBOARD === */
+        @media (max-width: 1024px) {
+            body { 
+                display: block; 
+                overflow-y: auto; 
+                min-height: auto; 
+            } 
+            #menu-toggle { display: grid; } 
+            .sidebar { 
+                position: fixed; 
+                transform: translateX(-100%); 
+                width: 280px; 
+                border-right: none; 
+                box-shadow: 0 0 25px rgba(0,0,0,0.6); 
+                padding: 25px 20px 25px; 
+                height: 100%; 
+                overflow-y: auto; 
+                -ms-overflow-style: none;
+                scrollbar-width: none;
+                top: 0; 
+                left: 0; 
+                height: 100vh; 
+                z-index: 1001; 
+            }
+            .sidebar::-webkit-scrollbar { display: none; } 
+
+            body.sidebar-open .sidebar { transform: translateX(0); }
+            .main-content { padding: 80px 1.25rem 2rem 1.25rem; margin-left: 0; height: auto; } 
+            .page-title { 
+                font-size: 1.85rem; 
+                color: var(--text-heading); 
+            } 
+            /* Mobil Dashboard Üst Kart/Başlık İyileştirmesi */
+            .main-content .top-info-card { 
+                font-size: 1.1rem; 
+                text-align: center;
+                padding: 1rem; 
+            }
+            .card { padding: 2rem 1.25rem 2.5rem 1.25rem; } 
+            .form-grid { grid-template-columns: 1fr; }
+            .mobile-hide { display: none !important; }
+            .legal-info-container {
+                display: flex !important; /* Mobil görünümde görünür olacak */
+                position: relative; 
+                margin-top: 25px; 
+                padding-bottom: 0; 
+                flex-direction: column; 
+                justify-content: flex-end; 
+                margin: 0 15px 0 15px; 
+                width: auto; 
+            }
+            .legal-info-card {
+                width: calc(100% - 0px); 
+                margin: 0 auto; 
+                max-width: 250px; 
+            }
+        }
+        .dashboard-card-list .list-item { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 0.85rem 0.35rem; border-bottom: 1px solid var(--border-glass); } 
+        .dashboard-card-list .list-item:last-child { border-bottom: none; }
+        .dashboard-card-list .item-name { 
+            white-space: nowrap; 
+            overflow: hidden; 
+            text-overflow: ellipsis; 
+            flex-grow: 1; 
+            color: var(--text-primary); 
+        }
+        .dashboard-card-list .action-icons { flex-shrink: 0; }
+        .dashboard-main-grid { display: grid; gap: 1.75rem; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); } 
+        .dashboard-lists-container { grid-column: 1 / -1; display: grid; gap: 1.75rem; grid-template-columns: 1fr 2fr; } 
+        @media (max-width: 1200px) { .dashboard-lists-container { grid-template-columns: 1fr; } }
+        .stat-card-icon { 
+            font-size: 3rem; 
+            margin-bottom: 1.2rem; 
+            color: #ffebcd; 
+            opacity: 0.95; 
+        }
+
+        /* --- SADECE SEÇİM/BİLGİ GİRİŞ ALANLARINDAKİ OKUNABİLİRLİK SORUNUNU ÇÖZEN EKLENTİLER (BURADAN BAŞLAR) --- */
+
+        /* Input ve Select alanlarının otomatik tamamlanan metinlerini hedefle */
+        input:-webkit-autofill,
+        input:-webkit-autofill:hover, 
+        input:-webkit-autofill:focus,
+        textarea:-webkit-autofill,
+        textarea:-webkit-autofill:hover,
+        textarea:-webkit-autofill:focus,
+        select:-webkit-autofill,
+        select:-webkit-autofill:hover,
+        select:-webkit-autofill:focus {
+            -webkit-box-shadow: 0 0 0px 1000px rgba(131, 116, 105, 0.8) inset !important; 
+            -webkit-text-fill-color: var(--text-primary) !important; 
+            border: 1px solid rgba(255, 255, 255, 0.4) !important; 
+            transition: background-color 5000s ease-in-out 0s; 
+        }
+
+        /* Tarih inputlarındaki takvim ikonunun rengini değiştirme */
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            filter: invert(1); 
+            cursor: pointer;
+        }
+
+        /* Otomatik doldurulan inputların hover/focus durumlarını da genel stilinle uyumlu hale getir */
+        input:-webkit-autofill:focus,
+        select:-webkit-autofill:focus,
+        textarea:-webkit-autofill:focus {
+            border-color: var(--btn-primary-bg) !important; 
+            box-shadow: 0 0 0 5px rgba(239, 142, 56, 0.4) !important; 
+        }
+        /* --- SADECE SEÇİM/BİLGİ GİRİŞ ALANLARINDAKİ OKUNABİLİRLİK SORUNU BİTER --- */
+    </style>
+</head>
+<body>
+    <div id="preloader">
+        <div class="logo-placeholder preloader-logo"></div>
+    </div>
+
+    <aside class="sidebar" id="sidebar">
+        {# Sidebar'ın en üstündeki Mertdesign logosu #}
+        <div class="logo-container-sidebar">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Mertdesign Logo"> 
+        </div>
+
+        <div class="language-switcher">
+            {# Mevcut URL parametrelerini kopyala ve üzerine dil parametresini ekle #}
+            {% set url_params = request.view_args.copy() %}
+            {% for key, value in request.args.items() %}
+                {% set _ = url_params.update({key: value}) %}
+            {% endfor %}
+            
+            {% for lang_code in ['tr', 'de', 'en'] %}
+                {% set current_url_params = url_params.copy() %}
+                {% set _ = current_url_params.update({'lang': lang_code}) %}
+                <a href="{{ url_for(request.endpoint, **current_url_params) }}" class="{{ 'active' if g.locale == lang_code else '' }} {{ 'lang-en' if lang_code == 'en' else '' }}">
+                    {% if lang_code == 'en' %}
+                        <span>EN</span> {% else %}
+                        <span class="flag-icon flag-icon-{{ lang_code }}"></span>
+                    {% endif %}
+                </a>
+            {% endfor %}
+        </div>
+        <nav class="sidebar-nav">
+            <ul>
+                <li><a href="{{ url_for('dashboard') }}" class="{{ 'active' if request.endpoint == 'dashboard' else '' }}"><i class="fas fa-fw fa-tachometer-alt"></i> {{ _('Kontrol Paneli') }}</a></li>
+                <li class="{{ 'expanded' if request.endpoint and ('fatura' in request.endpoint or request.endpoint == 'fatura_listesi' or request.endpoint == 'fatura_olustur' or 'fatura_duzenle' in request.endpoint) else '' }}">
+                    <a href="#" class="submenu-toggle"><i class="fas fa-fw fa-file-invoice"></i> {{ _('Faturalar') }} <i class="fas fa-caret-right caret-icon"></i></a>
+                    <ul class="submenu {{ 'show' if request.endpoint and ('fatura' in request.endpoint or request.endpoint == 'fatura_listesi' or request.endpoint == 'fatura_olustur' or 'fatura_duzenle' in request.endpoint) else '' }}">
+                        <li><a href="{{ url_for('fatura_listesi') }}" class="{{ 'active' if request.endpoint == 'fatura_listesi' else '' }}">{{ _('Fatura Listesi') }}</a></li>
+                        <li><a href="{{ url_for('fatura_olustur') }}" class="{{ 'active' if request.endpoint == 'fatura_olustur' else '' }}">{{ _('Yeni Fatura Oluştur') }}</a></li>
+                    </ul>
+                </li>
+                <li class="{{ 'expanded' if request.endpoint and ('musteri' in request.endpoint or request.endpoint == 'musteri_listesi' or request.endpoint == 'musteri_ekle' or 'musteri_duzenle' in request.endpoint) else '' }}">
+                    <a href="#" class="submenu-toggle"><i class="fas fa-fw fa-users"></i> {{ _('Müşteriler') }} <i class="fas fa-caret-right caret-icon"></i></a>
+                    <ul class="submenu {{ 'show' if request.endpoint and ('musteri' in request.endpoint or request.endpoint == 'musteri_listesi' or request.endpoint == 'musteri_ekle' or 'musteri_duzenle' in request.endpoint) else '' }}">
+                        <li><a href="{{ url_for('musteri_listesi') }}" class="{{ 'active' if request.endpoint == 'musteri_listesi' else '' }}">{{ _('Müşteri Listesi') }}</a></li>
+                        <li><a href="{{ url_for('musteri_ekle') }}" class="{{ 'active' if request.endpoint == 'musteri_ekle' else '' }}">{{ _('Yeni Müşteri Ekle') }}</a></li>
+                    </ul>
+                </li>
+                <li class="{{ 'expanded' if request.endpoint and ('urun' in request.endpoint or request.endpoint == 'urun_listesi' or request.endpoint == 'urun_ekle' or 'urun_duzenle' in request.endpoint) else '' }}">
+                    <a href="#" class="submenu-toggle"><i class="fas fa-fw fa-boxes"></i> {{ _('Ürünler') }} <i class="fas fa-caret-right caret-icon"></i></a>
+                    <ul class="submenu {{ 'show' if request.endpoint and ('urun' in request.endpoint or request.endpoint == 'urun_listesi' or request.endpoint == 'urun_ekle' or 'urun_duzenle' in request.endpoint) else '' }}">
+                        <li><a href="{{ url_for('urun_listesi') }}" class="{{ 'active' if request.endpoint == 'urun_listesi' else '' }}">{{ _('Ürün Listesi') }}</a></li>
+                        <li><a href="{{ url_for('urun_ekle') }}" class="{{ 'active' if request.endpoint == 'urun_ekle' else '' }}">{{ _('Yeni Ürün Ekle') }}</a></li>
+                    </ul>
+                </li>
+                <li><a href="{{ url_for('ayarlar') }}" class="{{ 'active' if request.endpoint == 'ayarlar' else '' }}"><i class="fas fa-fw fa-cog"></i> {{ _('Ayarlar') }}</a></li>
+                <li><a href="{{ url_for('kullanim_kilavuzu') }}" class="{{ 'active' if request.endpoint == 'kullanim_kilavuzu' else '' }}"><i class="fas fa-fw fa-book"></i> {{ _('Kullanım Kılavuzu') }}</a></li>
+                {# ÇIKIŞ BUTONU #}
+                {% if current_user.is_authenticated %}
+                <li><a href="{{ url_for('logout') }}"><i class="fas fa-fw fa-sign-out-alt"></i> {{ _('Çıkış Yap') }}</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+        </aside>
+
+    <button id="menu-toggle"><i class="fas fa-bars"></i></button>
+
+    <main class="main-content">
+        {# Dashboard'a özel logo ve başlık bölümü tamamen kaldırıldı. #}
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <ul class="flash-messages">
+            {% for category, message in messages %}
+            <li class="{{ category }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </main>
+    
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        try {
+            console.log('DOMContentLoaded tetiklendi.');
+
+            // --- PRELOADER MANTIĞI ---
+            const preloader = document.getElementById('preloader');
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.querySelector('.main-content');
+            const hasVisitedBefore = sessionStorage.getItem('hasVisited'); 
+            
+            console.log('Preloader kontrolü başladı. hasVisitedBefore:', hasVisitedBefore);
+
+            // Bu fonksiyon preloader'ı gizleyecek ve içeriği gösterecektir
+            function hidePreloaderAndShowContent() {
+                console.log('hidePreloaderAndShowContent çağrıldı.');
+                if (preloader) {
+                    preloader.classList.add('hidden');
+                    console.log('Preloader gizlendi.');
+                } else {
+                    console.log('Preloader elementi bulunamadı.');
+                }
+                
+                if (sidebar) {
+                    sidebar.classList.add('visible');
+                    console.log('Sidebar görünür yapıldı.');
+                } else {
+                    console.log('Sidebar elementi bulunamadı.');
+                }
+
+                if (mainContent) {
+                    mainContent.classList.add('visible');
+                    console.log('Main Content görünür yapıldı.');
+                } else {
+                    console.log('Main Content elementi bulunamadı.');
+                }
+                
+                sessionStorage.setItem('hasVisited', 'true'); // Ziyaret edildi işaretini koy
+                console.log('Session storage güncellendi.');
+            }
+
+            // GÜNCELLEME: Preloader sadece 'dashboard' endpoint'i için gösterilecek
+            const currentPath = window.location.pathname;
+            const isDashboard = currentPath.endsWith('/dashboard') || currentPath === '/'; 
+            
+            if (!hasVisitedBefore && isDashboard) {
+                console.log('İlk ziyaret ve dashboard, preloader gösterilecek.');
+                setTimeout(hidePreloaderAndShowContent, 3000); // 3 saniye bekle
+            } else {
+                console.log('Tekrar ziyaret veya dashboard değil, preloader hemen gizlenecek.');
+                hidePreloaderAndShowContent();
+            }
+
+            // --- KENAR MENÜSÜ MANTIĞI ---
+            const menuToggle = document.getElementById('menu-toggle');
+            
+            if (menuToggle && sidebar) {
+                menuToggle.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    document.body.classList.toggle('sidebar-open');
+                    console.log('Menu toggle tıklandı.');
+                });
+                document.addEventListener('click', function(e) {
+                    if (window.innerWidth <= 1024 && document.body.classList.contains('sidebar-open') && !sidebar.contains(e.target) && !menuToggle.contains(e.target)) {
+                        document.body.classList.remove('sidebar-open');
+                        console.log('Sidebar dışına tıklandı, sidebar kapandı.');
+                    }
+                });
+            }
+
+            // Alt menü geçişi
+            document.querySelectorAll('.submenu-toggle').forEach(toggle => {
+                toggle.addEventListener('click', event => {
+                    event.preventDefault();
+                    const parentLi = toggle.parentElement;
+                    if (parentLi.classList.contains('expanded')) {
+                        parentLi.classList.remove('expanded');
+                        console.log('Submenu kapandı.');
+                    } else {
+                        document.querySelectorAll('.sidebar-nav li.expanded').forEach(expandedLi => {
+                            expandedLi.classList.remove('expanded');
+                        });
+                        parentLi.classList.add('expanded');
+                        console.log('Submenu açıldı.');
+                    }
+                });
+            });
+
+            // Aktif menü öğesinin alt menüsünü açma mantığı
+            const activeLink = document.querySelector('.sidebar-nav a.active');
+            if(activeLink) {
+                const parentSubmenu = activeLink.closest('.submenu');
+                if(parentSubmenu) {
+                    parentSubmenu.parentElement.classList.add('expanded');
+                    console.log('Aktif menü alt menüsü açıldı.');
+                }
+            }
+
+        } catch (e) {
+            console.error("JavaScript Hatası:", e); 
+        }
+    });
+    </script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

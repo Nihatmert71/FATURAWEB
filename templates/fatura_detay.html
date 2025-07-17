@@ -1,0 +1,287 @@
+{% extends "layout.html" %} {# layout.html'den miras almasını sağlıyoruz #}
+
+{% block title %}{{ _('Fatura Detayı') }}: #{{ fatura.fatura_no }}{% endblock %} {# Sayfa başlığını çeviriye hazır hale getiriyoruz #}
+
+{% block content %}
+    <style>
+        /* fatura_detay.html'e özgü stil ayarlamaları */
+        /* Genel stil tutarlılığı için bu stillerin layout.html'den geldiğinden emin olun. */
+
+        .content-card {
+            background-color: rgba(0, 0, 0, 0.2); /* Arka plan rengi güncellendi */
+            padding: 25px; /* Padding güncellendi (list-card ve stat-card ile uyumlu) */
+            border-radius: 12px; /* Border radius güncellendi */
+            border: 1px solid rgba(255, 255, 255, 0.1); /* Kenarlık güncellendi */
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5); /* Gölge güncellendi */
+            margin-bottom: 30px;
+        }
+        .detail-item {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Kenarlık düzeltildi */
+            color: var(--text-primary); /* Metin rengi düzeltildi (beyaz) */
+        }
+        .detail-item:last-child {
+            border-bottom: none;
+        }
+        .detail-item strong {
+            display: inline-block;
+            width: 180px; /* Label genişliği artırıldı */
+            color: var(--text-secondary); /* Renk düzeltildi (bej-gri) */
+            font-weight: 600;
+        }
+        .table-responsive {
+            overflow-x: auto;
+            margin-top: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1); /* Kenarlık güncellendi */
+            border-radius: 12px; /* Border radius güncellendi */
+            box-shadow: 0 0 15px rgba(0,0,0,0.3); /* Gölge güncellendi */
+        }
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            border-spacing: 0;
+            margin-top: 0;
+            border-radius: 12px; /* Border radius güncellendi */
+            overflow: hidden;
+        }
+        .table th, .table td {
+            border: none;
+            padding: 15px 20px;
+            text-align: left;
+            color: var(--text-primary); /* Metin rengi düzeltildi (beyaz) */
+            background-color: rgba(0, 0, 0, 0.18); /* Arka plan rengi düzeltildi */
+        }
+        .table th {
+            background-color: rgba(0, 0, 0, 0.28); /* Başlık arkaplanı düzeltildi */
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--btn-primary-bg); /* Başlık metin rengi turuncu yapıldı */
+        }
+        .table-striped tbody tr:nth-child(odd) td {
+            background-color: rgba(0, 0, 0, 0.12); /* Tek satır arkaplanı düzeltildi */
+        }
+        .table-striped tbody tr:nth-child(even) td {
+            background-color: rgba(0, 0, 0, 0.09); /* Çift satır arkaplanı düzeltildi */
+        }
+        .table-striped tbody tr:hover td {
+            background-color: rgba(255, 255, 255, 0.08); /* Hover arkaplanı düzeltildi */
+        }
+        .btn-sm {
+            padding: 6px 10px;
+            font-size: 0.85rem;
+            border-radius: 6px;
+        }
+        /* İşlem ikonları için genel stil (layout.html'den geliyor, burada tekrar etmeye gerek yok) */
+        .action-icon-container {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .action-icon-container button,
+        .action-icon-container a {
+            background-color: transparent;
+            color: var(--btn-primary-bg); /* İkon rengi turuncu yapıldı */
+            padding: 0;
+            border-radius: 4px;
+            font-size: 1.4rem; /* İkon boyutu */
+            transition: color 0.2s ease, transform 0.1s ease;
+            border: none;
+            cursor: pointer;
+            line-height: 1;
+            text-decoration: none;
+        }
+        .action-icon-container button:hover,
+        .action-icon-container a:hover {
+            transform: scale(1.2);
+            color: var(--btn-primary-hover-bg); /* Hover'da daha açık turuncu */
+        }
+        /* Bu özel ikon renklerini genel turuncu tema ile değiştirelim */
+        .action-icon-container .pdf-icon { color: var(--btn-primary-bg); } 
+        .action-icon-container .pdf-icon:hover { color: var(--btn-primary-hover-bg); }
+
+        .action-icon-container .trash-icon { color: var(--btn-primary-bg); } 
+        .action-icon-container .trash-icon:hover { color: var(--btn-primary-hover-bg); }
+
+        .content-header h1 {
+            color: var(--btn-primary-bg); /* Başlık rengi turuncu yapıldı */
+        }
+        .content-header {
+            display: flex;
+            justify-content: space-between; 
+            align-items: center; 
+            margin-bottom: 30px; 
+            flex-wrap: wrap; 
+            gap: 15px; 
+        }
+
+        .content-header h1 {
+            color: var(--btn-primary-bg); 
+            font-size: 1.8rem; 
+            margin-bottom: 0; 
+            white-space: nowrap; 
+            overflow: hidden; 
+            text-overflow: ellipsis; 
+            flex-shrink: 1; 
+        }
+
+        .content-header > div { 
+            display: flex;
+            gap: 10px; 
+            flex-shrink: 0; 
+        }
+
+        /* Genel Bilgiler kartı içindeki başlık için */
+        .content-card h2.text-2xl {
+            font-size: 1.8rem; 
+            margin-bottom: 20px; 
+            color: var(--btn-primary-bg); /* H2 başlık rengi turuncu yapıldı */
+        }
+
+        /* Genel Toplam rengini turuncu yapmak için özel stil */
+        .content-card .detail-item:last-child strong {
+            color: var(--btn-primary-bg) !important; /* Genel Toplamı turuncu yap */ 
+        }
+
+
+        @media (max-width: 768px) {
+            .content-header {
+                flex-direction: column; 
+                align-items: flex-start; 
+                gap: 10px; 
+            }
+            .content-header h1 {
+                font-size: 1.6rem; 
+                width: 100%; 
+                white-space: normal; 
+                text-overflow: clip; 
+            }
+            .content-header > div {
+                flex-direction: column; 
+                width: 100%; 
+            }
+            .content-header > div .btn {
+                width: 100%; 
+                text-align: center;
+            }
+            .detail-item strong {
+                width: 120px; 
+            }
+        }
+    </style>
+
+    <div class="content-header">
+        <h1>{{ _('Fatura Detayı') }}: #{{ fatura.fatura_no }}</h1> 
+        <div>
+            {# PDF Görüntüle / Yazdır butonu #}
+            <a href="{{ url_for('fatura_pdf', fatura_id=fatura.id) }}" class="btn btn-secondary" target="_blank"><i class="fas fa-print"></i> {{ _('PDF Görüntüle / Yazdır') }}</a>
+            {# Faturayı Düzenle butonu #}
+            <a href="{{ url_for('fatura_duzenle', fatura_id=fatura.id) }}" class="btn btn-primary"><i class="fas fa-edit"></i> {{ _('Faturayı Düzenle') }}</a> 
+        </div>
+    </div>
+    
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="flash-message {{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <div class="content-card">
+        <h2 class="text-2xl mb-4">{{ _('Genel Fatura Bilgileri') }}</h2> 
+        <div class="detail-item">
+            <strong>{{ _('Fatura Numarası:') }}</strong> #{{ fatura.fatura_no }} 
+        </div>
+        <div class="detail-item">
+            <strong>{{ _('Müşteri:') }}</strong> <a href="{{ url_for('musteri_detay', musteri_id=fatura.musteri.id) }}" style="color: inherit; text-decoration: none;">{{ fatura.musteri.firma_adi }}</a> 
+        </div>
+        <div class="detail-item">
+            <strong>{{ _('Fatura Tarihi:') }}</strong> {{ fatura.tarih.strftime('%d.%m.%Y') }} 
+        </div>
+        {% if fatura.ausfuhrungsdatum %}
+        <div class="detail-item">
+            <strong>{{ _('Uygulama Tarihi:') }}</strong> {{ fatura.ausfuhrungsdatum.strftime('%d.%m.%Y') }} 
+        </div>
+        {% endif %}
+        {% if fatura.santiye %}
+        <div class="detail-item">
+            <strong>{{ _('Şantiye:') }}</strong> {{ fatura.santiye }} 
+        </div>
+        {% endif %}
+        {% if fatura.sachbearbeiter %}
+        <div class="detail-item">
+            <strong>{{ _('Sorumlu Kişi:') }}</strong> {{ fatura.sachbearbeiter }} 
+        </div>
+        {% endif %}
+        <div class="detail-item">
+            <strong>{{ _('Ödeme Durumu:') }}</strong> {{ _(fatura.odeme_durumu) }} 
+        </div>
+        {% if fatura.is_reverse_charge_invoice %}
+        <div class="detail-item">
+            <strong>{{ _('Vergi Sorumluluğu:') }}</strong> {{ _('Alıcıya Aittir (§ 13b UStG)') }} 
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="content-card mt-6">
+        <h2 class="text-2xl mb-4">{{ _('Fatura Kalemleri') }}</h2> 
+        {% if fatura.kalemler %}
+            <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>{{ _('Açıklama') }}</th> 
+                            <th class="text-end">{{ _('Miktar') }}</th> 
+                            <th>{{ _('Birim') }}</th> 
+                            <th class="text-end">{{ _('Birim Fiyat') }}</th> 
+                            <th class="text-end">{{ _('Toplam') }}</th> 
+                            <th class="text-center">{{ _('Götürü') }}</th> 
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for kalem in fatura.kalemler %}
+                        <tr>
+                            <td>{{ kalem.aciklama }}</td>
+                            <td class="text-end">{{ "%.2f"|format(kalem.miktar)|replace('.', ',') }}</td>
+                            <td>{{ kalem.birim }}</td>
+                            <td class="text-end">{{ "%.2f"|format(kalem.birim_fiyat)|replace('.', ',') }} €</td>
+                            <td class="text-end">{{ "%.2f"|format(kalem.satir_toplami)|replace('.', ',') }} €</td>
+                            <td class="text-center">
+                                {% if kalem.is_goturu %}
+                                    <i class="fas fa-check" style="color: #28a745;"></i> 
+                                {% else %}
+                                    <i class="fas fa-times" style="color: #dc3545;"></i> 
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <p class="text-md text-center py-4">{{ _('Bu faturaya ait henüz kalem bulunmamaktadır.') }}</p> 
+        {% endif %}
+    </div>
+
+    <div class="content-card mt-6">
+        <h2 class="text-2xl mb-4">{{ _('Fatura Toplamları') }}</h2> 
+        <div class="detail-item">
+            <strong>{{ _('Ara Toplam:') }}</strong> {{ "%.2f"|format(fatura.ara_toplam)|replace('.', ',') }} € 
+        </div>
+        {% if not fatura.is_reverse_charge_invoice %}
+        <div class="detail-item">
+            <strong>{{ _('KDV') }} (19%):</strong> {{ "%.2f"|format(fatura.kdv_tutari)|replace('.', ',') }} € 
+        </div>
+        {% endif %}
+        <div class="detail-item" style="font-size: 1.2em; font-weight: bold; color: var(--btn-primary-bg);"> 
+            <strong>{{ _('Genel Toplam:') }}</strong> {{ "%.2f"|format(fatura.genel_toplam)|replace('.', ',') }} € 
+        </div>
+    </div>
+
+    <div class="text-end mt-6">
+        <form action="{{ url_for('fatura_sil', fatura_id=fatura.id) }}" method="POST" class="inline-block" onsubmit="return confirm('{{ _('Bu faturayı silmek istediğinizden emin misiniz?') }}');">
+            <button type="submit" class="btn btn-danger">{{ _('Faturayı Sil') }}</button> 
+        </form>
+    </div>
+{% endblock content %}

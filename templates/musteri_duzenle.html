@@ -1,0 +1,214 @@
+{% extends "layout.html" %} {# layout.html'den miras almasını sağlıyoruz #}
+
+{% block title %}{{ _('Müşteri Düzenle') }}: {{ musteri.firma_adi }}{% endblock %} {# Sayfa başlığını çeviriye hazır hale getiriyoruz #}
+
+{% block content %}
+    <style>
+        /* musteri_duzenle.html'e özgü stil ayarlamaları */
+        /* Genel stil tutarlılığı için bu stillerin layout.html'den geldiğinden emin olun. */
+
+        .content-card {
+            background-color: rgba(0, 0, 0, 0.2); /* Arka plan rengi güncellendi */ /* DEĞİŞİKLİK BURADA */
+            padding: 25px; /* Padding güncellendi */ /* DEĞİŞİKLİK BURADA */
+            border-radius: 12px; /* Border radius güncellendi */ /* DEĞİŞİKLİK BURADA */
+            border: 1px solid rgba(255, 255, 255, 0.1); /* Kenarlık güncellendi */ /* DEĞİŞİKLİK BURADA */
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5); /* Gölge güncellendi */ /* DEĞİŞİKLİK BURADA */
+            margin-bottom: 30px; /* Her kart arasına boşluk */
+        }
+        .section-title { /* h2 için genel başlık stili */
+            font-size: 1.8rem; /* Boyut */
+            font-weight: 700;
+            color: var(--btn-primary-bg); /* Turuncu */ /* DEĞİŞİKLİK BURADA */
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Alt çizgi */
+        }
+        .form-grid-spacing {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+        .button-group-spacing {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 30px;
+            gap: 16px;
+        }
+        /* Form etiketleri için stil */
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-secondary); /* Etiket rengi bej-gri */ /* DEĞİŞİKLİK BURADA */
+        }
+        /* Form input, select ve textarea stilleri */
+        .form-group input, 
+        .form-group select, 
+        .form-group textarea {
+            width: 100%;
+            padding: 12px; /* Padding güncellendi */
+            border: 1px solid var(--border-glass); /* Kenarlık rengi güncellendi */
+            background-color: rgba(0, 0, 0, 0.2); /* Arka plan rengi güncellendi */
+            color: var(--text-primary); /* Metin rengi beyaz */ /* DEĞİŞİKLİK BURADA */
+            border-radius: 8px;
+            transition: border-color 0.2s;
+            font-family: 'Inter', sans-serif; 
+            font-size: 1rem; 
+        }
+        .form-group textarea {
+            min-height: 120px;
+        }
+        /* Odaklanma (focus) stilleri */
+        .form-group input:focus, 
+        .form-group select:focus, 
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--btn-primary-bg); /* Odaklanma kenarlık rengi turuncu */ /* DEĞİŞİKLİK BURADA */
+            box-shadow: 0 0 0 3px rgba(203, 138, 88, 0.4); /* Odaklanma gölge rengi turuncu */ /* DEĞİŞİKLİK BURADA */
+        }
+
+        /* Checkbox grubu için stil */
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 15px; /* Üstten biraz boşluk */
+        }
+        .checkbox-group input[type="checkbox"] {
+            width: 20px; /* Checkbox boyutu */
+            height: 20px;
+            flex-shrink: 0; /* Küçülmesini engelle */
+            cursor: pointer;
+            border-color: var(--text-secondary); /* Kenarlık rengi */
+            background-color: rgba(0,0,0,0.1);
+            accent-color: var(--btn-primary-bg); /* İşaretlendiğinde turuncu olsun */ /* DEĞİŞİKLİK BURADA */
+        }
+        .checkbox-group label {
+            margin-bottom: 0 !important; /* Alt boşluğu sıfırla */
+            cursor: pointer;
+            color: var(--text-secondary); /* Label rengi bej-gri */ /* DEĞİŞİKLİK BURADA */
+        }
+        .checkbox-group span {
+            font-size: 0.9em;
+            color: var(--text-secondary); /* Yardımcı metin rengi bej-gri */ /* DEĞİŞİKLİK BURADA */
+            margin-left: 5px; /* Label'dan boşluk */
+            line-height: 1.2;
+        }
+
+        /* Sayfa başlığı (content-header) stili */
+        .content-header h1 {
+            color: var(--btn-primary-bg); /* Başlık rengi turuncu yapıldı */
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            flex-shrink: 1;
+        }
+        .content-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .content-header .btn-secondary { /* "Müşteri Listesine Dön" butonu */
+            background-color: transparent;
+            border-color: var(--text-secondary);
+            color: var(--text-secondary);
+        }
+        .content-header .btn-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        @media (max-width: 768px) {
+            .form-grid-spacing {
+                grid-template-columns: 1fr; /* Mobil'de tek sütun */
+            }
+            .content-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            .content-header h1 {
+                font-size: 1.6rem;
+                width: 100%;
+                white-space: normal;
+                text-overflow: clip;
+            }
+            .content-header .btn-secondary {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+
+    <div class="content-header">
+        <h1>{{ _('Müşteri Düzenle') }}: {{ musteri.firma_adi }}</h1> {# Başlık çevirisi ve müşteri adı #}
+        <a href="{{ url_for('musteri_detay', musteri_id=musteri.id) }}" class="btn btn-secondary">{{ _('Müşteri Detayına Dön') }}</a> {# Buton çevirisi #}
+    </div>
+    
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="flash-message {{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <div class="content-card form-card"> {# Yeni sınıf eklendi #}
+        <h2 class="section-title">{{ _('Müşteri Bilgilerini Düzenle') }}</h2>
+        <form action="{{ url_for('musteri_duzenle', musteri_id=musteri.id) }}" method="POST">
+            <div class="form-grid-spacing">
+                <div class="form-group">
+                    <label for="firma_adi">{{ _('Firma Adı') }}</label>
+                    <input type="text" id="firma_adi" name="firma_adi" value="{{ musteri.firma_adi }}" required>
+                </div>
+                <div class="form-group">
+                    <label for="vergi_no">{{ _('Vergi Numarası / USt-IdNr.') }}</label>
+                    <input type="text" id="vergi_no" name="vergi_no" value="{{ musteri.vergi_no if musteri.vergi_no else '' }}">
+                </div>
+                <div class="form-group">
+                    <label for="telefon">{{ _('Telefon') }}</label>
+                    <input type="text" id="telefon" name="telefon" value="{{ musteri.telefon if musteri.telefon else '' }}">
+                </div>
+                <div class="form-group">
+                    <label for="email">E-Mail</label>
+                    <input type="email" id="email" name="email" value="{{ musteri.email if musteri.email else '' }}">
+                </div>
+                <div class="form-group">
+                    <label for="ilgili_kisi">{{ _('İlgili Kişi') }}</label>
+                    <input type="text" id="ilgili_kisi" name="ilgili_kisi" value="{{ musteri.ilgili_kisi if musteri.ilgili_kisi else '' }}">
+                </div>
+                <div class="form-group">
+                    <label for="web_adresi">{{ _('Web Adresi') }}</label>
+                    <input type="text" id="web_adresi" name="web_adresi" value="{{ musteri.web_adresi if musteri.web_adresi else '' }}">
+                </div>
+                <div class="form-group full-width">
+                    <label for="adres">{{ _('Adres') }}</label>
+                    <textarea id="adres" name="adres" rows="4" required>{{ musteri.adres }}</textarea>
+                </div>
+                <div class="form-group full-width">
+                    <label for="notlar">{{ _('Notlar') }}</label>
+                    <textarea id="notlar" name="notlar" rows="3">{{ musteri.notlar if musteri.notlar else '' }}</textarea>
+                </div>
+                {# YENİ EKLENEN CHECKBOX #}
+                <div class="form-group full-width">
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="is_reverse_charge" name="is_reverse_charge" {{ 'checked' if musteri.is_reverse_charge else '' }}>
+                        <label for="is_reverse_charge" class="mb-0">{{ _('Almanya için KDV sorumluluğu alıcıya ait midir? (§ 13b UStG)') }}</label>
+                        <span>({{ _('Bu müşteriye kesilen faturalarda KDV gösterilmeyecektir.') }})</span>
+                    </div>
+                </div>
+            </div>
+            <div class="button-group-spacing">
+                <a href="{{ url_for('musteri_detay', musteri_id=musteri.id) }}" class="btn btn-secondary">{{ _('İptal') }}</a>
+                <button type="submit" class="btn btn-primary">{{ _('Güncelle') }}</button>
+            </div>
+        </form>
+    </div>
+{% endblock content %}

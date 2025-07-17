@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ _('Kaydol') }} - PFÄLZER BODENBAU&SANIERUNG GmbH</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Genel sayfa düzeni */
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f7f6; /* Açık gri arka plan */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; /* Sayfanın tamamını kapla */
+            margin: 0;
+            color: #333; /* Koyu gri metin rengi */
+        }
+        /* Kayıt kutusu container'ı */
+        .register-container {
+            background-color: #ffffff; /* Beyaz arka plan */
+            padding: 40px;
+            border-radius: 10px; /* Yuvarlak köşeler */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Hafif gölge */
+            width: 100%;
+            max-width: 400px; /* Maksimum genişlik */
+            text-align: center;
+        }
+        /* Başlık stili */
+        .register-container h2 {
+            margin-bottom: 30px;
+            color: #3f51b5; /* Koyu Mavi */
+            font-weight: 700;
+        }
+        /* Logo alanı (isteğe bağlı, login ile aynı olabilir) */
+        .register-container .logo {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #e0e0e0;
+            border-radius: 50%;
+            font-size: 40px;
+            color: #757575;
+            overflow: hidden;
+        }
+        .register-container .logo img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+        /* Form grupları */
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        /* Input alanları */
+        .form-group input[type="text"],
+        .form-group input[type="password"] {
+            width: calc(100% - 20px);
+            padding: 12px 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        /* Kayıt butonu */
+        .btn-register {
+            background-color: #3f51b5;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 100%;
+        }
+        .btn-register:hover {
+            background-color: #303f9f;
+        }
+        /* Flash mesajları */
+        .flash-messages {
+            list-style: none;
+            padding: 0;
+            margin-top: 20px;
+        }
+        .flash-messages li {
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        .flash-messages .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .flash-messages .danger {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .flash-messages .info {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        /* Giriş linki */
+        .login-link {
+            margin-top: 20px;
+            font-size: 14px;
+        }
+        /* Şirket bilgileri alt kısım */
+        .company-info {
+            margin-top: 30px;
+            font-size: 14px;
+            color: #777;
+        }
+        .company-info p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="register-container">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='images/1logo.png') }}" alt="PFÄLZER Logo">
+        </div>
+        <h2>{{ _('Kaydol') }}</h2>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <ul class="flash-messages">
+            {% for category, message in messages %}
+            <li class="{{ category }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+
+        <form method="POST">
+            <div class="form-group">
+                <label for="username">{{ _('Kullanıcı Adı') }}:</label>
+                <input type="text" id="username" name="username" value="{{ username if username }}" required>
+            </div>
+            <div class="form-group">
+                <label for="password">{{ _('Şifre') }}:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="form-group">
+                <label for="password_confirm">{{ _('Şifreyi Tekrar') }}:</label>
+                <input type="password" id="password_confirm" name="password_confirm" required>
+            </div>
+            <button type="submit" class="btn-register">{{ _('Kaydol') }}</button>
+        </form>
+
+        <div class="login-link">
+            <p>{{ _('Zaten hesabınız var mı?') }} <a href="{{ url_for('login') }}">{{ _('Giriş Yapın') }}</a></p>
+        </div>
+
+        <div class="company-info">
+            <p>PFÄLZER BODENBAU&SANIERUNG GmbH</p>
+            <p>{{ _('Sahibi') }}: Bayram Üstün</p>
+            <p>{{ _('Program Yapımcısı') }}: Nihat Mert</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="{{ g.locale|default('de') }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ _('Giriş Yap') }} - PFÄLZER BODENBAU&SANIERUNG GmbH</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css" rel="stylesheet">
+
+    <style>
+        /* === MODERN TASARIM SİSTEMİ: DEĞİŞKENLER (layout.html'den kopyalandı) === */
+        :root {
+            --primary-start-color: #837469; /* Turuncu */
+            --primary-end-color: #ca9e7a;   /* Mavi */
+            --bg-glass: rgba(255, 255, 255, 0.12); /* Kartlar ve formlar için daha az şeffaf, daha belirgin beyaz */
+            --border-glass: rgba(255, 255, 255, 0.15); /* Daha belirgin beyaz kenarlık */
+            --shadow-glass: 0 8px 30px 0 rgba(0, 0, 0, 0.25); /* Daha belirgin ve derin gölge */
+            --text-primary: #ffebcd;      /* Ana metin rengi (Blanched Almond) */
+            --text-secondary: #EADDC5;      /* İkincil metin için biraz daha soluk ton */
+            --text-heading: #FFFFFF;        /* Ana Başlıklar için net beyaz */
+            --text-placeholder: rgba(255, 235, 205, 0.7); /* Placeholder metin rengi daha belirgin */
+            --btn-primary-bg: #9B8C80; /* Orta tonlu sütlü kahve */
+            --btn-primary-border: #9B8C80;
+            --btn-primary-hover-bg: #B0A69D; /* Hover için daha açık sütlü kahve */
+            --legal-card-bg: rgba(255, 255, 255, 0.1); 
+            --legal-card-border: rgba(255, 255, 255, 0.12); 
+            --legal-card-shadow: 0 5px 20px rgba(0, 0, 0, 0.22); 
+        }
+
+        /* === GENEL SAYFA YAPISI VE SIFIRLAMA === */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { 
+            height: 100%; /* Hem html hem body %100 yükseklik alsın */
+            overflow-x: hidden; /* Yatay kaydırmayı engelle */
+            background-color: #30577e; /* Fallback rengi */
+            font-family: 'Inter', sans-serif;
+            color: var(--text-primary); 
+            background-attachment: fixed;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+            /* Arka plan gradyanı */
+            background: rgb(48,87,126);
+            background: -moz-linear-gradient(90deg, rgba(48,87,126,1) 0%, rgba(90,119,146,1) 50%, rgba(131,147,161,1) 100%);
+            background: -webkit-linear-gradient(90deg, rgba(48,87,126,1) 0%, rgba(90,119,146,1) 50%, rgba(131,147,161,1) 100%);
+            background: linear-gradient(90deg, rgba(48,87,126,1) 0%, rgba(90,119,146,1) 50%, rgba(131,147,161,1) 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#30577e",endColorstr="#8393a1",GradientType=1);
+        }
+        body {
+            display: flex; /* İçeriği ortalamak için flexbox kullanmaya devam et */
+            justify-content: center;
+            align-items: center;
+            overflow-y: auto; /* Dikey kaydırmayı body'de etkinleştir */
+            padding: 20px 0; /* Üstten alttan boşluk bırak ki içerik baştan sona sıkışmasın */
+        }
+
+        a { 
+            color: var(--btn-primary-hover-bg); 
+            text-decoration: none; 
+            transition: color 0.3s ease; 
+        }
+        a:hover { 
+            color: var(--text-primary); 
+        }
+
+        /* Giriş kutusu container'ı */
+        .login-container {
+            background: var(--bg-glass); 
+            border: 1px solid var(--border-glass); 
+            border-radius: 16px; 
+            padding: 2.5rem; 
+            box-shadow: var(--shadow-glass); 
+            width: 100%;
+            max-width: 450px; 
+            text-align: center;
+            backdrop-filter: blur(20px); 
+            -webkit-backdrop-filter: blur(20px);
+            margin: auto; /* Dikeyde ve yatayda otomatik ortalama */
+            flex-shrink: 0; /* Küçülmesini engelle */
+        }
+
+        /* Diğer stiller (önceki haliyle aynı) */
+        .login-container h2 {
+            margin-bottom: 25px;
+            color: var(--text-heading); 
+            font-weight: 700;
+            font-size: 2em; 
+        }
+        .login-container .logo {
+            width: 150px; 
+            height: auto;
+            margin: 0 auto 25px auto; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: transparent; 
+            border-radius: 0; 
+            font-size: 0; 
+            color: transparent; 
+            overflow: hidden;
+        }
+        .login-container .logo img {
+            max-width: 100%;
+            height: auto;
+            display: block; 
+        }
+        .login-container .company-name {
+            font-size: 1.5em; 
+            font-weight: 700;
+            color: var(--text-heading);
+            margin-bottom: 5px;
+        }
+        .login-container .tagline {
+            font-size: 1em;
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--text-secondary); 
+        }
+        .form-group input[type="text"],
+        .form-group input[type="password"] {
+            width: 100%; 
+            padding: 12px 15px;
+            background-color: rgba(255, 255, 255, 0.25); 
+            border: 1px solid rgba(255, 255, 255, 0.4); 
+            border-radius: 8px; 
+            font-size: 1rem;
+            color: var(--text-primary); 
+            backdrop-filter: blur(10px); 
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.25); 
+        }
+        .form-group input::placeholder {
+            color: var(--text-placeholder); 
+        }
+        .form-group input:focus {
+            outline: none; 
+            border-color: var(--btn-primary-bg); 
+            box-shadow: 0 0 0 5px rgba(239, 142, 56, 0.4); 
+        }
+        .btn-login {
+            background-color: var(--btn-primary-bg); 
+            color: var(--text-heading); 
+            padding: 12px 25px;
+            border: 1px solid var(--btn-primary-border);
+            border-radius: 8px;
+            font-size: 1.1rem; 
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease; 
+            width: 100%;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.6); 
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .btn-login:hover {
+            background-color: var(--btn-primary-hover-bg); 
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.45); 
+        }
+        .flash-messages {
+            list-style: none;
+            padding: 0;
+            margin-top: 20px;
+            margin-bottom: 20px; 
+        }
+        .flash-messages li {
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 8px; 
+            font-size: 14px;
+            opacity: 0.9; 
+        }
+        .flash-messages .success {
+            background-color: #d4edda; 
+            color: #155724; 
+            border: 1px solid #c3e6cb;
+        }
+        .flash-messages .danger {
+            background-color: #f8d7da; 
+            color: #721c24; 
+            border: 1px solid #f5c6cb;
+        }
+        .flash-messages .info {
+            background-color: #d1ecf1; 
+            color: #0c5460; 
+            border: 1px solid #bee5eb;
+        }
+        .login-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: -10px; 
+            margin-bottom: 20px;
+            font-size: 0.9em; 
+            color: var(--text-secondary); 
+        }
+        .login-options input[type="checkbox"] {
+            margin-right: 5px;
+        }
+        .login-options a {
+            font-weight: 500;
+        }
+        .divider {
+            border-bottom: 1px solid var(--border-glass); 
+            margin: 30px 0; 
+        }
+        .login-company-details {
+            font-size: 0.85em; 
+            color: var(--text-secondary); 
+            line-height: 1.4;
+        }
+        .login-company-details p {
+            margin: 3px 0;
+        }
+        .login-company-details a {
+            color: var(--btn-primary-hover-bg); 
+            text-decoration: none;
+        }
+        .login-company-details a:hover {
+            text-decoration: underline;
+            color: var(--text-primary);
+        }
+        /* Mobile specific adjustments (for login.html) */
+        @media (max-width: 768px) {
+            body {
+                /* Flexbox ortalamasını kaldırdık, içeriğin doğal akışını sağla */
+                align-items: flex-start; 
+                padding: 10px 0; /* Biraz daha boşluk */
+            }
+            .login-container {
+                margin: 10px auto; /* Üstten ve alttan daha az boşluk */
+                max-width: 95%; /* Mobil genişliğini artır */
+                padding: 1.5rem; /* Mobil padding'ini azalt */
+            }
+        }
+
+        /* login.html için özel dil seçici stilleri */
+        .language-switcher {
+            display: flex;
+            justify-content: center; 
+            gap: 5px; /* Butonlar arası boşluk daha da azaltıldı */
+            margin-top: 20px; /* Tagline altından boşluk */
+            margin-bottom: 30px; /* Form ile butonlar arası boşluk */
+            padding: 0; /* Dış padding'i sıfırla */
+        }
+
+        .language-switcher a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 35px; /* Genişlik biraz daha küçültüldü */
+            height: 35px; /* Yükseklik biraz daha küçültüldü */
+            border-radius: 8px; 
+            background-color: rgba(255,255,255,0.1); 
+            color: var(--text-primary);
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.15); 
+            border: 1px solid rgba(255,255,255,0.08); 
+            backdrop-filter: blur(10px); 
+            text-transform: uppercase; 
+            overflow: hidden; 
+            position: relative; 
+            outline: none; 
+            text-decoration: none; 
+        }
+
+        .language-switcher a:hover {
+            background-color: rgba(255,255,255,0.15); 
+            border-color: var(--btn-primary-hover-bg); 
+            transform: translateY(-1px); 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.25); 
+        }
+
+        .language-switcher a.active {
+            background-color: #BFA78C; 
+            color: #FFFFFF; 
+            font-weight: 700;
+            border-color: #BFA78C; 
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3); 
+        }
+        
+        .language-switcher .flag-icon {
+            font-size: 1.4rem; 
+            line-height: 1; 
+            display: block; 
+            width: 100%;
+            height: 100%;
+            object-fit: cover; 
+            border-radius: 6px; 
+            filter: grayscale(0.1) brightness(1.1); 
+            mix-blend-mode: screen; 
+        }
+        /* Flag-icon için daha iyi hizalama ve merkezleme */
+        .language-switcher a span.flag-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            font-size: 0; /* Metin gizlendi, sadece bayrak görünecek */
+            color: transparent; 
+        }
+
+        /* EN ibaresi için özel stil */
+        .language-switcher a.lang-en span { 
+            font-size: 0.8rem; 
+            font-weight: bold;
+            color: var(--text-primary); 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            background-image: none; 
+            filter: none; 
+            mix-blend-mode: normal; 
+        }
+
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="PFÄLZER Logo">
+        </div>
+        <p class="company-name">PFÄLZER BODENBAU & SANIERUNG GmbH</p>
+        <p class="tagline">{{ _('Kunden-, Produkt- und Rechnungsverwaltung') }}</p>
+
+        <div class="language-switcher">
+            {# Mevcut URL parametrelerini kopyala ve üzerine dil parametresini ekle #}
+            {% set url_params = request.view_args.copy() %}
+            {% for key, value in request.args.items() %}
+                {% set _ = url_params.update({key: value}) %}
+            {% endfor %}
+            
+            {% for lang_code in ['tr', 'de', 'en'] %}
+                {% set current_url_params = url_params.copy() %}
+                {% set _ = current_url_params.update({'lang': lang_code}) %}
+                <a href="{{ url_for('login', **current_url_params) }}" class="{{ 'active' if g.locale == lang_code else '' }} {{ 'lang-en' if lang_code == 'en' else '' }}">
+                    {% if lang_code == 'en' %}
+                        <span>EN</span>
+                    {% else %}
+                        <span class="flag-icon flag-icon-{{ lang_code }}"></span>
+                    {% endif %}
+                </a>
+            {% endfor %}
+        </div>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <ul class="flash-messages">
+            {% for category, message in messages %}
+            <li class="{{ category }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+
+        <form method="POST">
+            <div class="form-group">
+                <label for="username">{{ _('Kullanıcı Adı') }}:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">{{ _('Şifre') }}:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="login-options">
+                <label>
+                    <input type="checkbox" name="remember_me"> {{ _('Angemeldet bleiben') }}
+                </label>
+                <a href="#">{{ _('Passwort vergessen?') }}</a> {# Bu link şimdilik işlevsizdir #}
+            </div>
+            <button type="submit" class="btn-login">{{ _('ANMELDEN') }}</button>
+        </form>
+
+        <div class="register-link">
+            <p>{{ _('Hesabınız yok mu?') }} <a href="{{ url_for('register') }}">{{ _('Kaydolun') }}</a></p>
+        </div>
+
+        <div class="divider"></div> {# Yeni eklenen ayırıcı çizgi #}
+
+        <div class="login-company-details">
+            <p>{{ _('Lizenziert für PFÄLZER BODENBAU & SANIERUNG GmbH.') }}</p>
+            <p>{{ _('Entwicklung & Design: MertdeV (MertdesigN)') }}</p>
+            <p>{{ _('Technischer Support: nihatmert@msn.com') }}</p>
+            <p>{{ _('Copyright © 2025 | Version 1.0.2') }}</p>
+        </div>
+    </div>
+</body>
+</html>

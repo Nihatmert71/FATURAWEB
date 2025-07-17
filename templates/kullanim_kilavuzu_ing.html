@@ -1,0 +1,191 @@
+{% extends "layout.html" %}
+
+{% block title %}Comprehensive User Guide (EN){% endblock %}
+
+{% block page_title %}{% endblock %}
+
+{% block content %}
+<style>
+    /* Stil kodları... (değişiklik yok) */
+    .kullanim-kilavuzu h1 { font-size: 2.2rem; font-weight: bold; color: white; text-align: center; margin-bottom: 0.7rem; }
+    .kullanim-kilavuzu h2.subtitle { font-size: 1.5rem; font-weight: 300; color: #D2B48C; text-align: center; margin-bottom: 3rem; }
+    .kullanim-kilavuzu h3 { font-size: 1.8rem; font-weight: 600; color: #E6B88A; margin-top: 3.5rem; margin-bottom: 1.5rem; border-bottom: 1px solid rgba(210, 180, 140, 0.3); padding-bottom: 0.8rem;}
+    .kullanim-kilavuzu h4 { font-size: 1.4rem; font-weight: 600; color: #D2B48C; margin-top: 2.5rem; margin-bottom: 1rem; }
+    .kullanim-kilavuzu p, .kullanim-kilavuzu li { font-size: 1.05rem; line-height: 1.8; margin-bottom: 1.2rem; }
+    .kullanim-kilavuzu strong { font-weight: 700; color: #E6B88A; }
+    .kullanim-kilavuzu .alert { padding: 20px 25px; margin: 2rem 0; border-radius: 10px; border: 1px solid; line-height: 1.7; background-color: rgba(0,0,0,0.25); box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+    .kullanim-kilavuzu .alert-info { border-color: #88d8e6; color: #e1faff; }
+    .kullanim-kilavuzu .alert-warning { border-color: #ffc107; color: #fff3cd; }
+    .kullanim-kilavuzu ol { list-style-type: decimal; padding-left: 30px; }
+    .kullanim-kilavuzu ol li { margin-bottom: 15px; }
+    .kullanim-kilavuzu ul { list-style-type: none; padding-left: 0; }
+    .kullanim-kilavuzu ul li { position: relative; padding-left: 25px; margin-bottom: 10px; }
+    .kullanim-kilavuzu ul li::before { content: '✓'; position: absolute; left: 0; color: #28a745; font-weight: bold; }
+    .kullanim-kilavuzu a.image-link { display: block; text-align: center; margin-top: 25px; margin-bottom: 25px; }
+    .kullanim-kilavuzu img.guide-image { width: 100%; max-width: 900px; border-radius: 12px; border: 2px solid rgba(255, 255, 255, 0.2); transition: transform 0.2s ease, box-shadow 0.2s ease; cursor: pointer; }
+    .kullanim-kilavuzu img.guide-image:hover { transform: scale(1.03); box-shadow: 0 0 30px rgba(230, 184, 138, 0.5); }
+    .kullanim-kilavuzu .icon-def { font-size: 1.2rem; vertical-align: middle; margin-right: 8px; }
+</style>
+
+<div class="kullanim-kilavuzu">
+    <h1>PFÄLZER Bodenbau & Sanierung GmbH Invoicing Software</h1>
+    <h2 class="subtitle">A Detailed Step-by-Step Guide</h2>
+    
+    <div class="alert alert-info">
+        <strong>A QUICK NOTE BEFORE YOU START:</strong> This is a multilingual program. This guide is written for the <strong>English</strong> interface. 
+        <br><br>
+        To get the best experience, please select <strong>EN</strong> from the <strong>Language</strong> menu in the sidebar first. The screenshots in this guide are being updated, but the text instructions perfectly match what you'll see in the English version of the app.
+    </div>
+
+    <h3>Chapter 1: Welcome! Let's Look at Your Dashboard</h3>
+    <p>
+        Welcome aboard! This guide is here to walk you through using the software efficiently. Our goal is to make sure you understand what every feature does, without any struggle.
+        The first screen that greets you is the <strong>Dashboard</strong>. Think of it as your business's main control panel, giving you a quick summary of everything.
+    </p>
+    <a href="{{ url_for('static', filename='kilavuz_resimleri_ing/kontrol paneli.jpg') }}" target="_blank" class="image-link" title="Click to enlarge">
+        <img src="{{ url_for('static', filename='kilavuz_resimleri_ing/kontrol paneli.jpg') }}" alt="Dashboard" class="guide-image">
+    </a>
+    <h4>What Do These Numbers on the Dashboard Mean?</h4>
+    <ul>
+        <li><strong>Total Number of Customers:</strong> Shows how many clients you've saved in the system.</li>
+        <li><strong>Total Number of Products:</strong> Tells you how many different services or products you've set up for invoicing.</li>
+        <li><strong>Total Number of Invoices:</strong> The grand total of every invoice you've ever created.</li>
+        <li><strong>Total Turnover:</strong> The total amount of money from all your invoices, including VAT.</li>
+        <li><strong>Newest Customers List:</strong> A quick look at the latest clients you've added.</li>
+        <li><strong>Newest Invoices List:</strong> Shows the last few invoices you created, so you can quickly check if they were saved correctly.</li>
+    </ul>
+
+    <h3>Chapter 2: The Most Important First Step: Your Company Settings</h3>
+    <p>
+        Before you can write your first invoice, there is one crucial, one-time setup you must complete: entering your own company's details. The information you put here will be automatically printed on every invoice you create, and it's legally required for them to be valid.
+    </p>
+    <a href="{{ url_for('static', filename='kilavuz_resimleri_ing/ayarlar.jpg') }}" target="_blank" class="image-link" title="Click to enlarge">
+        <img src="{{ url_for('static', filename='kilavuz_resimleri_ing/ayarlar.jpg') }}" alt="Company Settings" class="guide-image">
+    </a>
+    <h4>How to Fill In Your Company Details:</h4>
+    <ol>
+        <li>From the main menu on the left, click on <i class="fas fa-cog"></i> <strong>Settings</strong>.</li>
+        <li>You will see a form like the one in the picture above.</li>
+        <li>Carefully fill out all the fields (<strong>Company Name, Address, Phone, IBAN, Tax Number</strong>, etc.).</li>
+        <li>Don't forget to click the <strong>Save Changes</strong> button at the bottom.</li>
+    </ol>
+    <div class="alert alert-warning">
+        <strong>BE CAREFUL:</strong> If the information in this section is incorrect or incomplete, all the invoices you create might be legally invalid. Please double-check your details.
+    </div>
+
+    <h3>Chapter 3: Managing Your Customers</h3>
+    <p>
+        To send an invoice, you first need someone to send it to. In this section, you'll learn how to add, view, and manage your clients.
+    </p>
+    <h4>How to Add a New Customer:</h4>
+    <ol>
+        <li>Open the <strong>Customers</strong> menu from the sidebar and click the <strong>New Customer</strong> link.</li>
+        <li>The "New Customer Information" form will appear. Let's fill it out.</li>
+    </ol>
+    <a href="{{ url_for('static', filename='kilavuz_resimleri_ing/müşteri ekle.jpg') }}" target="_blank" class="image-link" title="Click to enlarge">
+        <img src="{{ url_for('static', filename='kilavuz_resimleri_ing/müşteri ekle.jpg') }}" alt="Add New Customer Form" class="guide-image">
+    </a>
+    <h5>A Very Important Option: The "Reverse Charge" Checkbox</h5>
+    <p>
+        At the bottom of the form, you'll see a checkbox that says <strong>"Is the recipient liable for VAT in Germany?"</strong>. This is one of the most important settings in the entire program.
+    </p>
+    <div class="alert alert-info">
+        <strong>Here's what it means in simple terms:</strong> Normally, you add 19% VAT to every invoice. However, a special tax law in Germany (called the "Reverse Charge" mechanism) sometimes means your client is responsible for paying the VAT, not you. This often applies in the construction industry.
+        <ul>
+            <li>You should <strong>check this box</strong> only if your customer has told you this rule applies to them. If you do, the program will automatically remove the 19% VAT from their invoices.</li>
+            <li>If you are <strong>not sure, leave this box empty</strong>. It's always best to ask your accountant if you don't know.</li>
+        </ul>
+    </div>
+    <p><strong>Step 3:</strong> After filling everything out, click the <strong>Add Customer</strong> button.</p>
+
+    <h4>Your Customer List</h4>
+    <p>By navigating to <strong>Customers > Customer List</strong>, you can see all your registered clients. You can delete a customer using the <i class="fas fa-trash-alt icon-def"></i> trash can icon on the right side of each entry.</p>
+     <a href="{{ url_for('static', filename='kilavuz_resimleri_ing/müşteri listesi.jpg') }}" target="_blank" class="image-link" title="Click to enlarge">
+        <img src="{{ url_for('static', filename='kilavuz_resimleri_ing/müşteri listesi.jpg') }}" alt="Customer List" class="guide-image">
+    </a>
+
+    <h3>Chapter 4: Managing Your Products & Services</h3>
+    <p>
+        If you do the same jobs repeatedly, you can save yourself a lot of time by adding them here first. Instead of typing the details every time, you can just select them from a list when you create an invoice.
+    </p>
+    <h4>How to Add a New Product or Service:</h4>
+    <ol>
+       <li>Open the <strong>Products</strong> menu and click the <strong>New Product</strong> link.</li>
+    </ol>
+    <a href="{{ url_for('static', filename='kilavuz_resimleri_ing/ürün ekle.jpg') }}" target="_blank" class="image-link" title="Click to enlarge">
+        <img src="{{ url_for('static', filename='kilavuz_resimleri_ing/ürün ekle.jpg') }}" alt="Add New Product Form" class="guide-image">
+    </a>
+    <h5>A Very Important Option: The "Lump Sum" Checkbox</h5>
+    <p>
+        On this form, you'll find the <strong>"Is this a lump sum work?"</strong> checkbox.
+    </p>
+    <div class="alert alert-info">
+        <strong>Here's what it means in simple terms:</strong> A "lump sum" job is any work where you agree on a single, total package price, instead of charging by the hour or by the square meter. For example, if you agree to a price of €5,000 for a "complete bathroom renovation," that's a lump sum job.
+         <ul>
+            <li>If the work you're adding is a fixed-price package deal, <strong>check this box</strong>. When you add this service to an invoice, the program will automatically lock the quantity to '1'.</li>
+            <li>If you charge based on quantity (like per hour or per m²), <strong>leave this box empty</strong>.</li>
+        </ul>
+    </div>
+
+    <h4>Your Product List</h4>
+    <p>Go to <strong>Products > Product List</strong> to see all your saved products and services. You can delete them with the <i class="fas fa-trash-alt icon-def"></i> trash can icon.</p>
+    <a href="{{ url_for('static', filename='kilavuz_resimleri_ing/ürün listesi.jpg') }}" target="_blank" class="image-link" title="Click to enlarge">
+        <img src="{{ url_for('static', filename='kilavuz_resimleri_ing/ürün listesi.jpg') }}" alt="Product List" class="guide-image">
+    </a>
+
+    <h3>Chapter 5: Let's Create an Invoice!</h3>
+    <p>
+        This is what it's all about: creating accurate invoices, fast.
+    </p>
+    <h4>The Invoice List: All Your Invoices</h4>
+    <p>Navigate to <strong>Invoices > Invoice List</strong> to see all your invoices and their payment status. On the right side of each invoice, you'll find 4 useful action icons.</p>
+    <a href="{{ url_for('static', filename='kilavuz_resimleri_ing/fatura listesi.jpg') }}" target="_blank" class="image-link" title="Click to enlarge">
+        <img src="{{ url_for('static', filename='kilavuz_resimleri_ing/fatura listesi.jpg') }}" alt="Invoice List" class="guide-image">
+    </a>
+    <h5>What the Action Icons Mean:</h5>
+    <ul>
+        <li><i class="fas fa-info-circle text-blue-500 icon-def"></i> <strong>View Details:</strong> Opens a summary page of the invoice. You can't edit here, just view.</li>
+        <li><i class="fas fa-edit text-yellow-500 icon-def"></i> <strong>Edit Invoice:</strong> Click this if you made a mistake or need to change something. It opens the invoice in the editor.</li>
+        <li><i class="fas fa-trash-alt text-red-500 icon-def"></i> <strong>Delete Invoice:</strong> Permanently deletes the invoice. Don't worry, it will ask you "Are you sure?" first.</li>
+        <li><i class="fas fa-file-pdf text-teal-500 icon-def"></i> <strong>View PDF:</strong> Opens a new browser tab with the final, professional PDF version of your invoice, ready to be sent to your client.</li>
+    </ul>
+
+    <h4>Creating a New Invoice, Step by Step:</h4>
+    <ol>
+        <li>From the menu, click on <strong>Invoices > Create New Invoice</strong>.</li>
+    </ol>
+    <a href="{{ url_for('static', filename='kilavuz_resimleri_ing/yeni fatura oluştur.jpg') }}" target="_blank" class="image-link" title="Click to enlarge">
+        <img src="{{ url_for('static', filename='kilavuz_resimleri_ing/yeni fatura oluştur.jpg') }}" alt="Create New Invoice Form" class="guide-image">
+    </a>
+    <p><strong>Step 2 (The Top Section):</strong> Fill in the general invoice details.</p>
+    <ul>
+        <li><strong>Select Customer:</strong> Choose your client from the dropdown list. This is important, as it will automatically decide if VAT should be applied!</li>
+        <li>Fill out the other fields like <strong>Invoice Number, Invoice Date, Due Date, Construction Site</strong>, etc.</li>
+    </ul>
+    <p><strong>Step 3 (The Middle Section):</strong> Add the jobs or items to the invoice.</p>
+    <ul>
+        <li><strong>Select Product/Service:</strong> Choose a service you saved earlier. The <strong>Unit</strong> and <strong>Unit Price</strong> fields will fill in for you automatically.</li>
+        <li><strong>Quantity:</strong> Enter the amount of work you did (e.g., `50` for 50 m²).</li>
+        <li><strong>Add Item:</strong> Click this button to add the job to the invoice list below. You can add as many items as you need.</li>
+    </ul>
+     <a href="{{ url_for('static', filename='kilavuz_resimleri_ing/fatura güncelleme.jpg') }}" target="_blank" class="image-link" title="Click to enlarge">
+        <img src="{{ url_for('static', filename='kilavuz_resimleri_ing/fatura güncelleme.jpg') }}" alt="Edit Invoice Screen" class="guide-image">
+    </a>
+    <p><strong>Step 4 (The Bottom Section):</strong> Check the totals. The program does all the math for you, calculating the <strong>Subtotal, VAT,</strong> and <strong>Grand Total</strong>. If everything looks right, click the <strong>Create Invoice</strong> button at the very bottom.</p>
+
+    <h3>Chapter 6: The Final Document and a Pro-Tip</h3>
+    <p>
+        You can use the entire program in your preferred language. The choice you make in the <strong>Language</strong> menu will change both the app interface and the language of the final PDF invoice.
+    </p>
+    <a href="{{ url_for('static', filename='kilavuz_resimleri_ing/3dil.jpg') }}" target="_blank" class="image-link" title="Click to enlarge">
+        <img src="{{ url_for('static', filename='kilavuz_resimleri_ing/3dil.jpg') }}" alt="Multi-language Support" class="guide-image">
+    </a>
+    <div class="alert alert-info">
+        <strong>Pro-Tip for Professional Invoices:</strong> If you need to add a line break in a long description on your PDF, simply type the <strong>`|`</strong> (vertical bar) character where you want the new line to start. The program will handle the rest, making your descriptions neat and easy to read.
+    </div>
+    <p>After following all these steps, you will have a professional, legally-compliant PDF invoice that you can proudly send to your client.</p>
+    <a href="{{ url_for('static', filename='kilavuz_resimleri_ing/fatura örnek.jpg') }}" target="_blank" class="image-link" title="Click to enlarge">
+        <img src="{{ url_for('static', filename='kilavuz_resimleri_ing/fatura örnek.jpg') }}" alt="Sample PDF Invoice" class="guide-image">
+    </a>
+</div>
+{% endblock %}

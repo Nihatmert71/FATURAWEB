@@ -1,0 +1,174 @@
+{% extends "layout.html" %} {# layout.html'den miras almasını sağlıyoruz #}
+
+{% block title %}{{ _('Şirket Profili Ayarları') }}{% endblock %} {# Sayfa başlığını çeviriye hazır hale getiriyoruz #}
+
+{% block content %}
+    <style>
+        /* ayarlar.html'e özgü stil ayarlamaları */
+        /* Genel stil tutarlılığı için bu stillerin layout.html'den geldiğinden emin olun. */
+        
+        .form-grid-spacing {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+        .button-group-spacing {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 30px;
+            gap: 16px;
+        }
+        /* Form etiketleri için stil */
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-secondary); /* Etiket rengi güncellendi (bej-gri) */ /* DEĞİŞİKLİK BURADA */
+        }
+        /* Form input ve textarea stilleri */
+        .form-group input, 
+        .form-group select, /* select elementi de ekledim */
+        .form-group textarea {
+            width: 100%;
+            padding: 12px; /* Padding güncellendi (biraz daha büyük) */ /* DEĞİŞİKLİK BURADA */
+            border: 1px solid var(--border-glass); /* Kenarlık rengi güncellendi */ /* DEĞİŞİKLİK BURADA */
+            background-color: rgba(0, 0, 0, 0.2); /* Arka plan rengi güncellendi */ /* DEĞİŞİKLİK BURADA */
+            color: var(--text-primary); /* Metin rengi güncellendi (beyaz) */ /* DEĞİŞİKLİK BURADA */
+            border-radius: 8px;
+            transition: border-color 0.2s;
+            font-family: 'Inter', sans-serif; /* Font family eklendi */ /* DEĞİŞİKLİK BURADA */
+            font-size: 1rem; /* Font boyutu eklendi */ /* DEĞİŞİKLİK BURADA */
+        }
+        .form-group textarea {
+            min-height: 120px;
+        }
+        .form-group input:focus, 
+        .form-group select:focus, /* select focus stili eklendi */
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--btn-primary-bg); /* Odaklanma kenarlık rengi turuncu */ /* DEĞİŞİKLİK BURADA */
+            box-shadow: 0 0 0 3px rgba(203, 138, 88, 0.4); /* Odaklanma gölge rengi turuncu */ /* DEĞİŞİKLİK BURADA */
+        }
+
+        /* Genel kart stilini form elementine uygula */
+        .content-card.form-card { /* Yeni birleştirilmiş sınıf */
+            background-color: rgba(0, 0, 0, 0.2);
+            padding: 25px; /* content-card'dan geliyor, burada ezmek için belirtildi */
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            margin-bottom: 30px; /* content-card'dan geliyor */
+        }
+
+        /* Sayfa başlığı (content-header) stili */
+        .content-header h1 {
+            color: var(--btn-primary-bg); /* Başlık rengi turuncu yapıldı */
+            font-size: 1.8rem; /* Daha küçük başlık */
+            margin-bottom: 0; /* Sıfırla */
+            white-space: nowrap; /* Tek satırda kalmasını sağla */
+            overflow: hidden; /* Taşmayı gizle */
+            text-overflow: ellipsis; /* Taşarsa üç nokta koy */
+            flex-shrink: 1; /* Küçülmesine izin ver */
+        }
+        .content-header {
+            display: flex;
+            justify-content: space-between; /* Başlık ve butonu yatayda iki yana yasla */
+            align-items: center; /* Dikeyde ortala */
+            margin-bottom: 30px; /* Header ile ilk kart arasına boşluk */
+            flex-wrap: wrap; /* Küçük ekranlarda alt satıra geçsin */
+            gap: 15px; /* Elemanlar arasına boşluk */
+        }
+        .content-header .btn-secondary { /* "Ana Sayfaya Dön" butonu */
+            background-color: transparent;
+            border-color: var(--text-secondary);
+            color: var(--text-secondary);
+        }
+        .content-header .btn-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        @media (max-width: 768px) {
+            .form-grid-spacing {
+                grid-template-columns: 1fr; /* Mobil'de tek sütun */
+            }
+            .content-header {
+                flex-direction: column; /* Mobil için dikey hizala */
+                align-items: flex-start; /* Sola hizala */
+                gap: 10px;
+            }
+            .content-header h1 {
+                font-size: 1.6rem;
+                width: 100%;
+                white-space: normal;
+                text-overflow: clip;
+            }
+            .content-header .btn-secondary {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+
+    <div class="content-header">
+        <h1>{{ _('Şirket Profili Ayarları') }}</h1> {# Başlık çevirisi ve layout.html stilini alacak #}
+        <a href="{{ url_for('dashboard') }}" class="btn btn-secondary">{{ _('Ana Sayfaya Dön') }}</a> {# Buton çevirisi #}
+    </div>
+    
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="flash-message {{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <form method="POST" class="content-card form-card"> {# Yeni sınıf eklendi #}
+        <div class="form-grid-spacing">
+            <div class="form-group">
+                <label for="firma_unvani">{{ _('Firma Ünvanı') }}</label> {# Çeviri #}
+                <input type="text" id="firma_unvani" name="firma_unvani" value="{{ profil.firma_unvani if profil else '' }}" required>
+            </div>
+            <div class="form-group">
+                <label for="adres">{{ _('Adres') }}</label> {# Çeviri #}
+                <textarea id="adres" name="adres" rows="4" required>{{ profil.adres if profil else '' }}</textarea>
+            </div>
+            <div class="form-group">
+                <label for="telefon">{{ _('Telefon') }}</label> {# Çeviri #}
+                <input type="text" id="telefon" name="telefon" value="{{ profil.telefon if profil else '' }}">
+            </div>
+            <div class="form-group">
+                <label for="email">{{ _('E-posta') }}</label> {# Çeviri #}
+                <input type="email" id="email" name="email" value="{{ profil.email if profil else '' }}">
+            </div>
+            <div class="form-group">
+                <label for="web_adresi">{{ _('Web Adresi') }}</label> {# Çeviri #}
+                <input type="text" id="web_adresi" name="web_adresi" value="{{ profil.web_adresi if profil else '' }}">
+            </div>
+            <div class="form-group">
+                <label for="banka_adi">{{ _('Banka Adı') }}</label> {# Çeviri #}
+                <input type="text" id="banka_adi" name="banka_adi" value="{{ profil.banka_adi if profil else '' }}">
+            </div>
+            <div class="form-group">
+                <label for="iban">IBAN</label> {# Çeviri #}
+                <input type="text" id="iban" name="iban" value="{{ profil.iban if profil else '' }}">
+            </div>
+            <div class="form-group">
+                <label for="bic">BIC</label> {# Çeviri #}
+                <input type="text" id="bic" name="bic" value="{{ profil.bic if profil else '' }}">
+            </div>
+            <div class="form-group">
+                <label for="vergi_no">{{ _('Vergi Numarası') }}</label> {# Çeviri #}
+                <input type="text" id="vergi_no" name="vergi_no" value="{{ profil.vergi_no if profil else '' }}">
+            </div>
+            <div class="form-group">
+                <label for="sirket_no">{{ _('Şirket/Ticaret Sicil No') }}</label> {# Çeviri #}
+                <input type="text" id="sirket_no" name="sirket_no" value="{{ profil.sirket_no if profil else '' }}">
+            </div>
+        </div>
+        <div class="button-group-spacing">
+            <button type="submit" class="btn btn-primary">{{ _('Değişiklikleri Kaydet') }}</button> {# Buton çevirisi #}
+        </div>
+    </form>
+{% endblock content %}

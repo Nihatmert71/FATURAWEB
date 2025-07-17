@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="{{ g.locale|default('de') }}">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        {% if g.locale == 'de' %}Rechnung {{ fatura_bilgileri.fatura_no }}{% elif g.locale == 'en' %}Invoice {{ fatura_bilgileri.fatura_no }}{% else %}Fatura {{ fatura_bilgileri.fatura_no }}{% endif %}
+    </title>
+    <style>
+        @page { size: A4; margin: 0; }
+        html, body {
+            width: 21cm; height: 29.7cm; margin: 0; padding: 0;
+            font-family: 'Helvetica', 'Arial', sans-serif; font-size: 9.5pt;
+            color: #000; background: #fff;
+        }
+        .page {
+            width: 100%; height: 100%; padding: 1.8cm 1.5cm 2cm 2cm;
+            box-sizing: border-box; display: flex; flex-direction: column;
+        }
+        .header { display: flex; justify-content: space-between; width: 100%; }
+        .header-left { width: 50%; }
+        .sender-info { font-size: 8pt; margin-bottom: 0.5cm; }
+        .sender-info span { border-bottom: 0.5pt solid black; }
+
+        .header-right {
+            width: 50%;
+            text-align: right;
+            font-size: 9pt;
+            margin-bottom: 0.5cm;
+        }
+
+        .main-content { flex-grow: 1; padding-top: 0.5cm; }
+        .invoice-title { font-size: 18pt; font-weight: bold; text-align: left; margin-bottom: 0.5cm; }
+        .intro-text { font-size: 9.5pt; margin-bottom: 0.5cm; line-height: 1.5; }
+
+        .details-table { width: 100%; border-collapse: collapse; margin-bottom: 0.5cm; }
+        .details-table td { padding: 3pt 0; vertical-align: top; font-size: 9.5pt; }
+        .details-table td:first-child { width: 30%; font-weight: bold; }
+
+        .items-table { width: 100%; border-collapse: collapse; margin-top: 0.5cm; }
+        .items-table thead th {
+            background-color: #f2f2f2;
+            padding: 8pt 5pt;
+            text-align: left;
+            font-size: 9pt;
+            border-bottom: 1pt solid #ddd;
+            font-weight: bold;
+        }
+        .items-table tbody td {
+            padding: 6pt 5pt;
+            border-bottom: 0.5pt solid #eee;
+            font-size: 9pt;
+            vertical-align: top;
+        }
+        .items-table .text-right { text-align: right; }
+        .items-table .text-center { text-align: center; }
+
+        .footer { margin-top: auto; padding-top: 1cm; }
+        .total-section {
+            width: 8cm;
+            float: right;
+            margin-bottom: 0.5cm;
+            border-top: 1px solid #000; /* Çizgi eklendi */
+            padding-top: 5pt;
+        }
+        .total-container {
+            display: flex;
+            justify-content: space-between;
+            padding: 3pt 0;
+            font-size: 10pt;
+        }
+        .total-container:last-child {
+            font-size: 12pt;
+            font-weight: bold;
+            padding-top: 8pt;
+        }
+        .clear-both { clear: both; }
+
+        .payment-notes { font-size: 8.5pt; line-height: 1.4; margin-top: 0.5cm; }
+        .payment-notes strong { font-weight: bold; }
+        .warning { font-size: 8pt; color: #555; margin-top: 0.2cm; }
+
+        .footer-columns { display: flex; justify-content: space-between; margin-top: 1cm; font-size: 8pt; }
+        .footer-col { flex: 1; padding: 0 0.5cm; }
+        .footer-col:first-child { text-align: left; padding-left: 0; }
+        .footer-col:last-child { text-align: right; padding-right: 0; }
+
+        /* Yeni stil: KDV bilgisini gizlemek için */
+        .hidden-kdv {
+            display: none;
+        }
+        /* Reverse Charge ibaresi için stil */
+        .reverse-charge-info {
+            font-size: 9pt;
+            font-weight: bold;
+            color: #000;
+            margin-top: 10px; /* Diğer alt bilgi elemanlarından biraz boşluk */
+            clear: both; /* Önceki float'ı temizle */
+            text-align: left; /* Metni sola hizala */
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <header class="header">
+            <div class="header-left">
+                <div class="sender-info">
+                    <span>{{ fatura_bilgileri.sirket_adres_satirlari[0] if fatura_bilgileri.sirket_adres_satirlari else "" }}</span><br>
+                    {{ fatura_bilgileri.sirket_adres_satirlari[1] if fatura_bilgileri.sirket_adres_satirlari and fatura_bilgileri.sirket_adres_satirlari|length > 1 else "" }}
+                </div>
+                <div class="customer-info">
+                    <strong>{{ fatura_bilgileri.musteri_adi }}</strong><br>
+                    {% for satir in fatura_bilgileri.musteri_adres_satirlari %}
+                        {{ satir }}<br>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="header-right">
+                <p><strong>{{ fatura_bilgileri.sirket_adi }}</strong></p>
+                <p>
+                    {% if fatura_bilgileri.sirket_telefon %}{% if g.locale == 'de' %}Telefon:{% elif g.locale == 'en' %}Phone:{% else %}Telefon:{% endif %}: {{ fatura_bilgileri.sirket_telefon }}{% endif %}<br>
+                    {% if fatura_bilgileri.sirket_email %}E-Mail: {{ fatura_bilgileri.sirket_email }}{% endif %}<br>
+                    {% if fatura_bilgileri.sirket_web %}{% if g.locale == 'de' %}Web:{% elif g.locale == 'en' %}Web:{% else %}Web:{% endif %}: {{ fatura_bilgileri.sirket_web }}{% endif %}
+                </p>
+            </div>
+        </header>
+        <main class="main-content">
+            <h1 class="invoice-title">
+                {% if g.locale == 'de' %}Rechnung{% elif g.locale == 'en' %}Invoice{% else %}Fatura{% endif %}
+            </h1>
+            <p class="intro-text">
+                {% if g.locale == 'de' %}Sehr geehrte Damen und Herren,<br>wir erlauben uns, wie folgt Rechnung zu stellen:{% elif g.locale == 'en' %}Dear Sir or Madam,<br>we hereby invoice you as follows:{% else %}Sayın İlgili,<br>aşağıdaki faturalandırmayı bilgilerinize sunarız:{% endif %}
+            </p>
+
+            <table class="details-table">
+                <tr>
+                    <td>{% if g.locale == 'de' %}Datum:{% elif g.locale == 'en' %}Date:{% else %}Tarih:{% endif %}</td>
+                    <td>{{ fatura_bilgileri.tarih }}</td>
+                </tr>
+                <tr>
+                    <td>{% if g.locale == 'de' %}Sachbearbeiter:{% elif g.locale == 'en' %}Responsible Person:{% else %}Sorumlu Kişi:{% endif %}</td>
+                    <td>{{ fatura_bilgileri.sachbearbeiter }}</td>
+                </tr>
+                <tr>
+                    <td>{% if g.locale == 'de' %}Rechnungsnummer:{% elif g.locale == 'en' %}Invoice Number:{% else %}Fatura Numarası:{% endif %}</td>
+                    <td>{{ fatura_bilgileri.fatura_no }}</td>
+                </tr>
+                {% if fatura_bilgileri.ausfuhrungsdatum %}
+                <tr>
+                    <td>{% if g.locale == 'de' %}Ausführungsdatum:{% elif g.locale == 'en' %}Execution Date:{% else %}Uygulama Tarihi:{% endif %}</td>
+                    <td>{{ fatura_bilgileri.ausfuhrungsdatum }}</td>
+                </tr>
+                {% endif %}
+                {% if fatura_bilgileri.santiye %}
+                <tr>
+                    <td>{% if g.locale == 'de' %}Baustelle:{% elif g.locale == 'en' %}Construction Site:{% else %}Şantiye:{% endif %}</td>
+                    <td>{{ fatura_bilgileri.santiye }}</td>
+                </tr>
+                {% endif %}
+                {# Vade Tarihi (Fälligkeitsdatum) alanı buradan KALDIRILDI #}
+            </table>
+
+            <table class="items-table">
+                <thead>
+                    <tr>
+                        <th style="width: 5%;">POS</th>
+                        <th style="width: 10%;" class="text-right">{% if g.locale == 'de' %}Menge{% elif g.locale == 'en' %}Quantity{% else %}Miktar{% endif %}</th>
+                        <th style="width: 10%;">{% if g.locale == 'de' %}Einheit{% elif g.locale == 'en' %}Unit{% else %}Birim{% endif %}</th>
+                        <th style="width: 45%;">{% if g.locale == 'de' %}Beschreibung{% elif g.locale == 'en' %}Description{% else %}Açıklama{% endif %}</th>
+                        <th style="width: 15%;" class="text-right">{% if g.locale == 'de' %}Einzelpreis{% elif g.locale == 'en' %}Unit Price{% else %}Birim Fiyat{% endif %}</th>
+                        <th style="width: 15%;" class="text-right">{% if g.locale == 'de' %}Gesamtpreis{% elif g.locale == 'en' %}Total Price{% else %}Toplam Fiyat{% endif %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for kalem in fatura_bilgileri.kalemler %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td class="text-right">{{ kalem.miktar|replace('.', ',') }}</td>
+                        <td>{{ kalem.birim }}</td>
+                        <td>{{ kalem.aciklama }}</td>
+                        <td class="text-right">
+                            {% if kalem.is_goturu %}
+                                {% if g.locale == 'de' %}Pauschal €{% elif g.locale == 'en' %}Lump Sum €{% else %}Götürü €{% endif %}
+                            {% else %}
+                                {{ "%.2f"|format(kalem.birim_fiyat)|replace('.', ',') }} €
+                            {% endif %}
+                        </td>
+                        <td class="text-right">{{ "%.2f"|format(kalem.satir_toplami)|replace('.', ',') }} €</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </main>
+        <footer class="footer">
+            <div class="total-section">
+                <div class="total-container">
+                    <span>{% if g.locale == 'de' %}NETTO SUMME{% elif g.locale == 'en' %}NET TOTAL{% else %}ARA TOPLAM{% endif %}:</span>
+                    <span>{{ "%.2f"|format(fatura_bilgileri.ara_toplam)|replace('.', ',') }} €</span>
+                </div>
+                {# KDV bilgisi ve Reverse Charge ibaresi için koşullu gösterim #}
+                {% if fatura_bilgileri.is_reverse_charge_invoice %}
+                    {# KDV satırı gizlensin #}
+                    <div class="total-container hidden-kdv">
+                        <span>{% if g.locale == 'de' %}MwSt. (19%%):{% elif g.locale == 'en' %}VAT (19%%):{% else %}KDV (%%19):{% endif %}</span>
+                        <span>{{ "%.2f"|format(fatura_bilgileri.kdv_tutari)|replace('.', ',') }} €</span>
+                    </div>
+                {% else %}
+                    {# Normal KDV satırı görünsün #}
+                    <div class="total-container">
+                        <span>{% if g.locale == 'de' %}MwSt. (19%%):{% elif g.locale == 'en' %}VAT (19%%):{% else %}KDV (%%19):{% endif %}</span>
+                        <span>{{ "%.2f"|format(fatura_bilgileri.kdv_tutari)|replace('.', ',') }} €</span>
+                    </div>
+                {% endif %}
+                <div class="total-container" style="border-top: 1pt solid #000; padding-top: 8pt;">
+                    <span>{% if g.locale == 'de' %}GESAMTBETRAG{% elif g.locale == 'en' %}TOTAL AMOUNT{% else %}GENEL TOPLAM{% endif %}:</span>
+                    <span>{{ "%.2f"|format(fatura_bilgileri.genel_toplam)|replace('.', ',') }} €</span>
+                </div>
+            </div>
+            <div class="clear-both"></div>
+
+            {% if fatura_bilgileri.is_reverse_charge_invoice %}
+                <p class="reverse-charge-info">
+                    {% if g.locale == 'de' %}Steuerschuldnerschaft des Leistungsempfängers nach § 13b UStG{% elif g.locale == 'en' %}Reverse Charge Mechanism (§ 13b UStG){% else %}KDV Sorumluluğu Alıcıya Aittir (§ 13b UStG){% endif %}
+                </p>
+            {% endif %}
+            
+            <p class="payment-notes">
+                <strong>{% if g.locale == 'de' %}ZAHLUNGSBEDINGUNGEN:{% elif g.locale == 'en' %}PAYMENT TERMS:{% else %}ÖDEME KOŞULLARI:{% endif %}</strong><br>
+                {# Vade Tarihi ile ilgili ödeme notu buradan KALDIRILDI #}
+                {% if fatura_bilgileri.sirket_banka_adi %}{% if g.locale == 'de' %}Bank:{% elif g.locale == 'en' %}Bank:{% else %}Banka:{% endif %}: {{ fatura_bilgileri.sirket_banka_adi }}{% endif %}<br>
+                {% if fatura_bilgileri.sirket_iban %}IBAN: {{ fatura_bilgileri.sirket_iban }}{% endif %}<br>
+                {% if fatura_bilgileri.sirket_bic %}BIC: {{ fatura_bilgileri.sirket_bic }}{% endif %}
+            </p>
+            <p class="warning">
+                {% if g.locale == 'de' %}Im Falle eines Zahlungsverzugs können Verzugszinsen und Mahngebühren anfallen.{% elif g.locale == 'en' %}In case of payment default, default interest and dunning fees may apply.{% else %}Ödeme gecikmesi durumunda, gecikme faizi ve ihtar ücretleri uygulanabilir.{% endif %}
+            </p>
+            <div class="footer-columns">
+                <div class="footer-col">
+                    <strong>{{ fatura_bilgileri.sirket_adi }}</strong><br>
+                    {{ fatura_bilgileri.sirket_adres_satirlari[0] if fatura_bilgileri.sirket_adres_satirlari else "" }}<br>
+                    {{ fatura_bilgileri.sirket_adres_satirlari[1] if fatura_bilgileri.sirket_adres_satirlari and fatura_bilgileri.sirket_adres_satirlari|length > 1 else "" }}
+                </div>
+                <div class="footer-col" style="text-align: right;">
+                    {% if fatura_bilgileri.sirket_telefon %}{% if g.locale == 'de' %}Telefon:{% elif g.locale == 'en' %}Phone:{% else %}Telefon:{% endif %}: {{ fatura_bilgileri.sirket_telefon }}{% endif %}<br>
+                    {% if fatura_bilgileri.sirket_email %}E-Mail: {{ fatura_bilgileri.sirket_email }}{% endif %}<br>
+                    {% if fatura_bilgileri.sirket_web %}Web: {{ fatura_bilgileri.sirket_web }}{% endif %}<br>
+                    {% if fatura_bilgileri.sirket_iban %}IBAN: {{ fatura_bilgileri.sirket_iban }}{% endif %}<br>
+                    {% if fatura_bilgileri.sirket_bic %}BIC: {{ fatura_bilgileri.sirket_bic }}{% endif %}<br>
+                    {% if fatura_bilgileri.sirket_vergi_no %}{% if g.locale == 'de' %}St.Nr.:{% elif g.locale == 'en' %}Tax No.:{% else %}Vergi No.:{% endif %}: {{ fatura_bilgileri.sirket_vergi_no }}{% endif %}<br>
+                    {% if fatura_bilgileri.sirket_sirket_no %}{% if g.locale == 'de' %}HRB-Nr.:{% elif g.locale == 'en' %}Co.Reg.No.:{% else %}Tic. Sicil No.:{% endif %}: {{ fatura_bilgileri.sirket_sirket_no }}{% endif %}
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

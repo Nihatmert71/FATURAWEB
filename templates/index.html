@@ -1,0 +1,249 @@
+{% extends "layout.html" %}
+{% block title %}{% if g.locale == 'de' %}Dashboard{% elif g.locale == 'en' %}Dashboard{% else %}Kontrol Paneli{% endif %}{% endblock %}
+
+{% block header %}{% endblock %}
+
+{% block content %}
+<style>
+    .dashboard-header {
+        text-align: center;
+        margin-bottom: 2rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+        background-color: rgba(0, 0, 0, 0.3);
+        border-radius: 12px;
+        padding: 1.5rem 1rem;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    }
+    .dashboard-header h1 {
+        font-size: 1.5rem; /* Firma adı boyutu küçültüldü */
+        font-weight: 700;
+        color: var(--btn-primary-bg); /* Turuncu */
+        text-shadow: 0 2px 5px rgba(0,0,0,0.6);
+        letter-spacing: 1px;
+    }
+    .dashboard-header h1 .program-suffix {
+        font-size: 0.8em; /* "Fatura Programı" ibaresini ana başlığa göre %20 daha küçük yapar */
+        font-weight: 400;
+        color: var(--text-secondary); /* Var olan metin rengini kullan */
+        display: block;
+        margin-top: 0.2em;
+    }
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+        margin-bottom: 2rem;
+    }
+    .stat-card {
+        background-color: rgba(0,0,0, 0.2); /* Arka plan rengi */
+        padding: 20px; /* Padding düzeltildi */
+        border-radius: 12px; /* Zaten vardı */
+        transition: all 0.2s ease;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        min-height: 150px;
+        border: 1px solid rgba(255,255,255,0.1); /* Kenarlık eklendi */
+        box-shadow: 0 5px 15px rgba(0,0,0,0.5); /* Gölge eklendi */
+    }
+    .stat-card:hover {
+        transform: translateY(-5px);
+        background-color: rgba(0,0,0, 0.3);
+    }
+    .stat-card .icon {
+        font-size: 2.5rem;
+        color: var(--btn-primary-bg); /* Turuncu */
+    }
+    .stat-card .value {
+        font-size: 2rem;
+        font-weight: 700;
+        color: white;
+        margin: 0.5rem 0;
+    }
+    .stat-card .label {
+        font-size: 0.8rem;
+        color: var(--btn-primary-bg); /* Turuncu */
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+    .grid-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        gap: 20px;
+    }
+    .list-card {
+        background-color: rgba(0,0,0, 0.2); /* Arka plan rengi geri getirildi */
+        padding: 25px; /* Zaten vardı */
+        border-radius: 12px; /* Zaten vardı */
+        border: 1px solid rgba(255,255,255,0.1); /* Kenarlık eklendi */
+        box-shadow: 0 5px 15px rgba(0,0,0,0.5); /* Gölge eklendi */
+    }
+    .list-header {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: var(--btn-primary-bg); /* Turuncu */
+        margin-bottom: 1.5rem;
+        padding-bottom: 0.75rem;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .list-group-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem;
+        border-radius: 8px;
+        background-color: rgba(255, 255, 255, 0.05);
+        margin-bottom: 0.5rem;
+        transition: all 0.2s ease;
+    }
+    .list-group-item:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+        transform: translateX(5px);
+    }
+    .list-group-item a {
+        color: white;
+        font-weight: 500;
+        text-decoration: none;
+    }
+    .list-group-item a:hover {
+        color: var(--btn-primary-bg); /* Turuncu */
+    }
+    .action-icons-condensed {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+    .action-icons-condensed a,
+    .action-icons-condensed button {
+        background: none; border: none;
+        cursor: pointer; transition: all 0.2s ease;
+        font-size: 1.1rem;
+        padding: 5px;
+        color: var(--btn-primary-bg); /* Turuncu */
+    }
+    /* İkon Renkleri (Merkezi Kontrol) */
+    .action-icons-condensed .fa-trash-alt { color: var(--btn-primary-bg); }
+    .action-icons-condensed .fa-file-pdf { color: var(--btn-primary-bg); }
+
+    .action-icons-condensed a:hover,
+    .action-icons-condensed button:hover {
+        color: var(--btn-primary-hover-bg); /* Turuncunun daha açık tonu */
+        transform: scale(1.2);
+    }
+    /* Kontrol Paneli için yeni yasal uyarı/iletişim bilgileri stili */
+    .dashboard-info-footer {
+        text-align: center;
+        margin-top: 1.5rem; 
+        padding: 20px; 
+        background-color: rgba(0,0,0, 0.2); /* Arka plan rengi */
+        border-radius: 12px; 
+        border: 1px solid rgba(255,255,255,0.1); 
+        box-shadow: 0 5px 15px rgba(0,0,0,0.5); 
+        font-size: 0.75rem; 
+        color: var(--text-primary); /* Metin rengi beyaz yapıldı */
+        line-height: 1.2; 
+    }
+    .dashboard-info-footer-logo {
+        width: 180px; 
+        height: auto;
+        margin-top: 15px; 
+        opacity: 1; 
+        display: block; 
+        margin-left: auto; 
+        margin-right: auto; 
+    }
+    .dashboard-info-footer p {
+        margin-bottom: 2px; 
+    }
+    .dashboard-info-footer .legal-text-line {
+        white-space: nowrap; 
+        overflow: hidden; 
+        text-overflow: ellipsis; 
+        display: block; 
+        padding: 0 5px; 
+    }
+</style>
+
+{% if profil and profil.firma_unvani %}
+<div class="dashboard-header">
+    <h1>
+        {{ profil.firma_unvani }}
+        <span class="program-suffix">
+            {% if g.locale == 'de' %}Rechnungsprogramm{% elif g.locale == 'en' %}Invoicing Software{% else %}Fatura Programı{% endif %}
+        </span>
+    </h1>
+</div>
+{% endif %}
+
+<div class="stats-grid">
+    <div class="stat-card">
+        <i class="fas fa-users icon"></i>
+        <div class="value">{{ toplam_musteri_sayisi }}</div>
+        <div class="label">{{_('Toplam Müşteri')}}</div>
+    </div>
+    <div class="stat-card">
+        <i class="fas fa-box-open icon"></i>
+        <div class="value">{{ toplam_urun_sayisi }}</div>
+        <div class="label">{{_('Toplam Ürün')}}</div>
+    </div>
+    <div class="stat-card">
+        <i class="fas fa-file-invoice icon"></i>
+        <div class="value">{{ toplam_fatura_sayisi }}</div>
+        <div class="label">{{_('Toplam Fatura')}}</div>
+    </div>
+    <div class="stat-card">
+        <i class="fas fa-euro-sign icon"></i>
+        <div class="value">{{ "%.2f"|format(toplam_fatura_tutari)|replace('.', ',') }}</div>
+        <div class="label">{{_('Toplam Ciro')}}</div>
+    </div>
+</div>
+
+<div class="grid-container">
+    <div class="list-card">
+        <h2 class="list-header">{{_('Son Müşteriler')}}</h2>
+        <div>
+            {% for musteri in musteriler %}
+            <div class="list-group-item">
+                <a href="{{ url_for('musteri_detay', musteri_id=musteri.id) }}">{{ musteri.firma_adi }}</a>
+                <div class="action-icons-condensed">
+                    <form action="{{ url_for('musteri_sil', musteri_id=musteri.id) }}" method="POST" onsubmit="return confirm('{{ _('Bu müşteriyi kalıcı olarak silmek istediğinizden emin misiniz?') }}');">
+                        <button type="submit" title="{{_('Müşteriyi Sil')}}"><i class="fas fa-trash-alt"></i></button>
+                    </form>
+                </div>
+            </div>
+            {% else %}
+            <p>{{_('Henüz müşteri eklenmemiş.')}}</p>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="list-card">
+        <h2 class="list-header">{{_('Son Faturalar')}}</h2>
+        <div>
+            {% for fatura in faturalar %}
+            <div class="list-group-item">
+                <a href="{{ url_for('fatura_detay', fatura_id=fatura.id) }}">#{{ fatura.fatura_no }} - {{ fatura.musteri.firma_adi }}</a>
+                <div class="action-icons-condensed">
+                    <a href="{{ url_for('fatura_pdf', fatura_id=fatura.id) }}" title="{{_('PDF Görüntüle')}}"><i class="fas fa-file-pdf"></i></a>
+                    <form action="{{ url_for('fatura_sil', fatura_id=fatura.id) }}" method="POST" onsubmit="return confirm('{{ _('Bu faturayı silmek istediğinizden emin misiniz?') }}');">
+                        <button type="submit" title="{{_('Faturayı Sil')}}"><i class="fas fa-trash-alt"></i></button>
+                    </form>
+                </div>
+            </div>
+            {% else %}
+            <p>{{_('Henüz fatura oluşturulmamış.')}}</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<div class="dashboard-info-footer">
+    <p class="legal-text-line">{{ _('Lizenziert für PFÄLZER BODENBAU & SANIERUNG GmbH.') }}</p>
+    <p class="legal-text-line">{{ _('Entwicklung & Design: MertdeV (MertdesigN)') }}</p>
+    <p class="legal-text-line">{{ _('Technischer Support: nihatmert@msn.com') }}</p>
+    <p class="legal-text-line">{{ _('Copyright © 2025 | Version 1.0.2') }}</p>
+    <img src="{{ url_for('static', filename='images/1logo.png') }}" alt="{{ _('PFÄLZER Logo') }}" class="dashboard-info-footer-logo"> </div>
+
+{% endblock %}

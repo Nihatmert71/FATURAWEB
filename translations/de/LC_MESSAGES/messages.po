@@ -1,0 +1,1365 @@
+# German translations for FTR-Fatura-Programi.
+# Copyright (C) 2025 PFÄLZER Bodenbau & Sanierung GmbH
+# This file is distributed under the same license as the FTR-Fatura-Programi
+# project.
+# Nihat MERT <nihat@msn.com>, 2025.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: FTR-Fatura-Programi 0.1\n"
+"Report-Msgid-Bugs-To: nihat@msn.com\n"
+"POT-Creation-Date: 2025-07-17 12:36+0200\n"
+"PO-Revision-Date: 2025-07-17 00:00+0200\n"
+"Last-Translator: Nihat MERT <nihat@msn.com>\n"
+"Language: de\n"
+"Language-Team: German <de@example.com>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/app.py⁩:148
+msgid "Yükleniyor..."
+msgstr "Wird geladen..."
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/app.py⁩:164
+msgid "Varsayılan şirket profili oluşturuldu."
+msgstr "Standard-Firmenprofil erstellt."
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/app.py⁩:171
+msgid ""
+"Varsayılan yönetici kullanıcı 'admin' (şifre: admin123) oluşturuldu. "
+"Lütfen şifreyi değiştirin!"
+msgstr ""
+"Der Standard-Admin-Benutzer 'admin' (Passwort: admin123) wurde erstellt. "
+"Bitte ändern Sie das Passwort!"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/app.py⁩:173
+msgid "Yönetici kullanıcı zaten mevcut."
+msgstr "Der Admin-Benutzer existiert bereits."
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/app.py⁩:176
+msgid "Test müşterileri ekleniyor (3 adet)..."
+msgstr "Testkunden werden hinzugefügt (3 Stück)..."
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/app.py⁩:187
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/app.py⁩:191
+msgid "firma_adi"
+msgstr "Firmenname"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/app.py⁩:193
+msgid "Test müşterileri eklendi/güncellendi."
+msgstr "Testkunden hinzugefügt/aktualisiert."
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/app.py⁩:195
+msgid "Müşteriler zaten mevcut, test verileri atlandı."
+msgstr "Kunden sind bereits vorhanden, Testdaten wurden übersprungen."
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/app.py⁩:198
+msgid "Test ürünleri ekleniyor (3 adet)..."
+msgstr "Testprodukte werden hinzugefügt (3 Stück)..."
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/app.py⁩:209
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/app.py⁩:213
+msgid "aciklama"
+msgstr "Beschreibung"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/app.py⁩:215
+msgid "Test ürünleri eklendi/güncellendi."
+msgstr "Testprodukte hinzugefügt/aktualisiert."
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/app.py⁩:217
+msgid "Ürünler zaten mevcut, test verileri atlandı."
+msgstr "Produkte sind bereits vorhanden, Testdaten wurden übersprungen."
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/app.py⁩:218
+msgid "Veritabanı başlatıldı."
+msgstr "Datenbank initialisiert."
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/app.py⁩:257
+msgid "Başarıyla giriş yapıldı."
+msgstr "Erfolgreich angemeldet."
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/app.py⁩:261
+msgid "Geçersiz kullanıcı adı veya şifre."
+msgstr "Ungültiger Benutzername oder Passwort."
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/app.py⁩:267
+msgid "Zaten giriş yapmışsınız veya kayıt olmaya yetkiniz yok."
+msgstr ""
+"Sie sind bereits angemeldet oder haben keine Berechtigung zur "
+"Registrierung."
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/app.py⁩:276
+msgid "Tüm alanları doldurmanız gerekmektedir."
+msgstr "Alle Felder müssen ausgefüllt werden."
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/app.py⁩:280
+msgid "Şifreler eşleşmiyor."
+msgstr "Passwörter stimmen nicht überein."
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/app.py⁩:284
+msgid "Bu kullanıcı adı zaten mevcut."
+msgstr "Dieser Benutzername existiert bereits."
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/app.py⁩:291
+msgid "Kullanıcı başarıyla kaydedildi! Şimdi giriş yapabilirsiniz."
+msgstr "Benutzer erfolgreich registriert! Sie können sich jetzt anmelden."
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/app.py⁩:299
+msgid "Başarıyla çıkış yapıldı."
+msgstr "Erfolgreich abgemeldet."
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/app.py⁩:330
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/app.py⁩:662
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_duzenle.html⁩:465
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_olustur.html⁩:486
+msgid "Faturaya en az bir kalem eklemelisiniz."
+msgstr "Sie müssen mindestens einen Posten zur Rechnung hinzufügen."
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/app.py⁩:378
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/app.py⁩:699
+msgid "Fatura kalem verilerinde tutarsızlık var."
+msgstr "Inkonsistenz in den Rechnungsartikeldaten."
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/app.py⁩:389
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/app.py⁩:710
+msgid "Fatura kalemlerinde geçersiz sayısal değerler var."
+msgstr "Ungültige numerische Werte in den Rechnungsartikeln."
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/app.py⁩:403
+msgid "Fatura başarıyla oluşturuldu!"
+msgstr "Rechnung erfolgreich erstellt!"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/app.py⁩:506
+msgid ""
+"PDF oluşturulurken beklenmedik bir hata oluştu. Lütfen konsol çıktısını "
+"kontrol edin."
+msgstr ""
+"Beim Erstellen des PDFs ist ein unerwarteter Fehler aufgetreten. Bitte "
+"überprüfen Sie die Konsolenausgabe."
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/app.py⁩:514
+msgid ""
+"PDF oluşturulurken bir hata oluştu. Lütfen \"fatura_yardimcisi.py\" "
+"dosyasının projenizin ana dizininde olduğundan, \"arial.ttf\" font "
+"dosyasının mevcut olduğundan ve fatura bilgilerinin doğru olduğundan emin"
+" olun."
+msgstr ""
+"Beim Erstellen des PDFs ist ein Fehler aufgetreten. Bitte stellen Sie "
+"sicher, dass die Datei \"fatura_yardimcisi.py\" im Hauptverzeichnis Ihres"
+" Projekts vorhanden ist, die Schriftart \"arial.ttf\" verfügbar ist und "
+"die Rechnungsinformationen korrekt sind."
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/app.py⁩:552
+msgid "Şirket profili başarıyla güncellendi!"
+msgstr "Firmenprofil erfolgreich aktualisiert!"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/app.py⁩:572
+msgid "Müşteri başarıyla eklendi!"
+msgstr "Kunde erfolgreich hinzugefügt!"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/app.py⁩:589
+msgid "Ürün başarıyla eklendi!"
+msgstr "Produkt erfolgreich hinzugefügt!"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/app.py⁩:599
+msgid "Fatura başarıyla silindi."
+msgstr "Rechnung erfolgreich gelöscht."
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/app.py⁩:607
+msgid "Bu müşteriye ait faturalar olduğu için silinemez. Önce faturaları silin."
+msgstr ""
+"Dieser Kunde kann nicht gelöscht werden, da Rechnungen für diesen Kunden "
+"vorhanden sind. Bitte löschen Sie zuerst die Rechnungen."
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/app.py⁩:611
+msgid "Müşteri başarıyla silindi."
+msgstr "Kunde erfolgreich gelöscht."
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/app.py⁩:620
+msgid "Ürün başarıyla silindi."
+msgstr "Produkt erfolgreich gelöscht."
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/app.py⁩:724
+msgid "Fatura başarıyla güncellendi!"
+msgstr "Rechnung erfolgreich aktualisiert!"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/app.py⁩:757
+msgid "Müşteri bilgileri başarıyla güncellendi!"
+msgstr "Kundeninformationen erfolgreich aktualisiert!"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/app.py⁩:771
+msgid "Ürün başarıyla güncellendi!"
+msgstr "Produkt erfolgreich aktualisiert."
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/app.py⁩:795
+msgid "Kullanım kılavuzu yüklenirken bir sorun oluştu."
+msgstr "Beim Laden der Bedienungsanleitung ist ein Problem aufgetreten."
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/ayarlar.html⁩:3
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/ayarlar.html⁩:115
+msgid "Şirket Profili Ayarları"
+msgstr "Firmaprofileinstellungen"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/ayarlar.html⁩:116
+msgid "Ana Sayfaya Dön"
+msgstr "Zurück zur Startseite"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/ayarlar.html⁩:130
+msgid "Firma Ünvanı"
+msgstr "Firmenname"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/ayarlar.html⁩:134
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/musteri_duzenle.html⁩:192
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/musteri_ekle.html⁩:141
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/musteri_listesi.html⁩:166
+msgid "Adres"
+msgstr "Adresse"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/ayarlar.html⁩:138
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/musteri_duzenle.html⁩:176
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/musteri_ekle.html⁩:125
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/musteri_listesi.html⁩:164
+msgid "Telefon"
+msgstr "Telefon"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/ayarlar.html⁩:142
+msgid "E-posta"
+msgstr "E-Mail"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/ayarlar.html⁩:146
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/musteri_duzenle.html⁩:188
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/musteri_ekle.html⁩:137
+msgid "Web Adresi"
+msgstr "Webadresse"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/ayarlar.html⁩:150
+msgid "Banka Adı"
+msgstr "Bankname"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/ayarlar.html⁩:162
+msgid "Vergi Numarası"
+msgstr "Steuernummer"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/ayarlar.html⁩:166
+msgid "Şirket/Ticaret Sicil No"
+msgstr "Handelsregisternummer"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/ayarlar.html⁩:171
+msgid "Değişiklikleri Kaydet"
+msgstr "Änderungen speichern"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_detay.html⁩:3
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_detay.html⁩:174
+msgid "Fatura Detayı"
+msgstr "Rechnungsdetails"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_detay.html⁩:177
+#, fuzzy
+msgid "PDF Görüntüle / Yazdır"
+msgstr "PDF anzeigen / Drucken"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_detay.html⁩:179
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_listesi.html⁩:172
+msgid "Faturayı Düzenle"
+msgstr "Rechnung bearbeiten"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_detay.html⁩:192
+msgid "Genel Fatura Bilgileri"
+msgstr "Allgemeine Rechnungsinformationen"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_detay.html⁩:194
+msgid "Fatura Numarası:"
+msgstr "Rechnungsnummer:"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_detay.html⁩:197
+msgid "Müşteri:"
+msgstr "Kunde:"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_detay.html⁩:200
+msgid "Fatura Tarihi:"
+msgstr "Rechnungsdatum:"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_detay.html⁩:204
+msgid "Uygulama Tarihi:"
+msgstr "Ausführungsdatum:"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_detay.html⁩:209
+msgid "Şantiye:"
+msgstr "Baustelle:"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_detay.html⁩:214
+msgid "Sorumlu Kişi:"
+msgstr "Sachbearbeiter:"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_detay.html⁩:218
+msgid "Ödeme Durumu:"
+msgstr "Zahlungsstatus:"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_detay.html⁩:222
+msgid "Vergi Sorumluluğu:"
+msgstr "Steuerpflicht:"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_detay.html⁩:222
+msgid "Alıcıya Aittir (§ 13b UStG)"
+msgstr "Schuldnerschaft des Leistungsempfängers (§ 13b UStG)"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_detay.html⁩:228
+msgid "Fatura Kalemleri"
+msgstr "Rechnungsposten"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_detay.html⁩:234
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_duzenle.html⁩:272
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_olustur.html⁩:297
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/urun_duzenle.html⁩:174
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/urun_ekle.html⁩:177
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/urunler.html⁩:151
+msgid "Açıklama"
+msgstr "Beschreibung"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_detay.html⁩:235
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_duzenle.html⁩:254
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_duzenle.html⁩:273
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_olustur.html⁩:279
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_olustur.html⁩:298
+msgid "Miktar"
+msgstr "Menge"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_detay.html⁩:236
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_duzenle.html⁩:258
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_duzenle.html⁩:274
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_olustur.html⁩:283
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_olustur.html⁩:299
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/urun_duzenle.html⁩:178
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/urun_ekle.html⁩:181
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/urunler.html⁩:152
+msgid "Birim"
+msgstr "Einheit"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_detay.html⁩:237
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_duzenle.html⁩:262
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_duzenle.html⁩:275
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_olustur.html⁩:287
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_olustur.html⁩:300
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/urun_duzenle.html⁩:199
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/urun_ekle.html⁩:202
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/urunler.html⁩:153
+msgid "Birim Fiyat"
+msgstr "Einzelpreis"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_detay.html⁩:238
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_duzenle.html⁩:276
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_olustur.html⁩:301
+msgid "Toplam"
+msgstr "Gesamt"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_detay.html⁩:239
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_duzenle.html⁩:277
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_olustur.html⁩:302
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/urunler.html⁩:154
+msgid "Götürü"
+msgstr "Pauschal"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_detay.html⁩:263
+msgid "Bu faturaya ait henüz kalem bulunmamaktadır."
+msgstr "Für diese Rechnung sind noch keine Posten vorhanden."
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_detay.html⁩:268
+msgid "Fatura Toplamları"
+msgstr "Rechnungssummen"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_detay.html⁩:270
+msgid "Ara Toplam:"
+msgstr "Zwischensumme:"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_detay.html⁩:274
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_duzenle.html⁩:292
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_olustur.html⁩:317
+msgid "KDV"
+msgstr "MwSt."
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_detay.html⁩:278
+msgid "Genel Toplam:"
+msgstr "Gesamtsumme:"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_detay.html⁩:283
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_listesi.html⁩:175
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/index.html⁩:230
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/musteri_detay.html⁩:195
+msgid "Bu faturayı silmek istediğinizden emin misiniz?"
+msgstr "Möchten Sie diese Rechnung wirklich löschen?"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_detay.html⁩:284
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_listesi.html⁩:176
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/index.html⁩:231
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/musteri_detay.html⁩:196
+msgid "Faturayı Sil"
+msgstr "Rechnung löschen"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_duzenle.html⁩:3
+msgid "Fatura Düzenle"
+msgstr "Rechnung bearbeiten"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_duzenle.html⁩:203
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_olustur.html⁩:225
+msgid "Müşteri Seçin"
+msgstr "Kunde auswählen"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_duzenle.html⁩:205
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_olustur.html⁩:227
+msgid "Müşteri Seçin..."
+msgstr "Kunde auswählen..."
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_duzenle.html⁩:212
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_olustur.html⁩:234
+msgid "Fatura Numarası"
+msgstr "Rechnungsnummer"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_duzenle.html⁩:216
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_olustur.html⁩:238
+msgid "Fatura Tarihi"
+msgstr "Rechnungsdatum"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_duzenle.html⁩:221
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_olustur.html⁩:243
+msgid "Uygulama Tarihi"
+msgstr "Ausführungsdatum"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_duzenle.html⁩:225
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_olustur.html⁩:247
+msgid "Şantiye"
+msgstr "Baustelle"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_duzenle.html⁩:229
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_olustur.html⁩:251
+msgid "Sorumlu Kişi"
+msgstr "Sachbearbeiter"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_duzenle.html⁩:233
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_listesi.html⁩:153
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_olustur.html⁩:255
+msgid "Ödeme Durumu"
+msgstr "Zahlungsstatus"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_duzenle.html⁩:235
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_olustur.html⁩:257
+msgid "Bekliyor"
+msgstr "Ausstehend"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_duzenle.html⁩:236
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_olustur.html⁩:258
+msgid "Ödendi"
+msgstr "Bezahlt"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_duzenle.html⁩:237
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_olustur.html⁩:259
+msgid "Kısmen Ödendi"
+msgstr "Teilweise bezahlt"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_duzenle.html⁩:238
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_olustur.html⁩:260
+msgid "İptal Edildi"
+msgstr "Storniert"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_duzenle.html⁩:245
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_olustur.html⁩:270
+msgid "Ürün/Hizmet Seçin"
+msgstr "Produkt/Dienstleistung auswählen"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_duzenle.html⁩:247
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_olustur.html⁩:272
+msgid "Ürün/Hizmet Seçin..."
+msgstr "Produkt/Dienstleistung auswählen..."
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_duzenle.html⁩:265
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_olustur.html⁩:290
+msgid "Kalem Ekle"
+msgstr "Posten hinzufügen"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_duzenle.html⁩:288
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_olustur.html⁩:313
+msgid "Ara Toplam"
+msgstr "Zwischensumme"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_duzenle.html⁩:296
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_listesi.html⁩:152
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_olustur.html⁩:321
+msgid "Genel Toplam"
+msgstr "Gesamtsumme"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_duzenle.html⁩:306
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_olustur.html⁩:331
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/musteri_duzenle.html⁩:209
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/musteri_ekle.html⁩:158
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/urun_duzenle.html⁩:209
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/urun_ekle.html⁩:212
+msgid "İptal"
+msgstr "Abbrechen"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_duzenle.html⁩:307
+msgid "Fatura Güncelle"
+msgstr "Rechnung aktualisieren"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_duzenle.html⁩:377
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_olustur.html⁩:401
+msgid "Lütfen bir ürün seçin."
+msgstr "Bitte wählen Sie ein Produkt aus."
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_duzenle.html⁩:382
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_olustur.html⁩:406
+msgid "Miktar 0 dan büyük olmalıdır."
+msgstr "Die Menge muss größer als 0 sein."
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_listesi.html⁩:3
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/layout.html⁩:674
+msgid "Fatura Listesi"
+msgstr "Rechnungsliste"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_listesi.html⁩:137
+msgid "Tüm Faturalar"
+msgstr "Alle Rechnungen"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_listesi.html⁩:139
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_olustur.html⁩:3
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/layout.html⁩:675
+msgid "Yeni Fatura Oluştur"
+msgstr "Neue Rechnung erstellen"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_listesi.html⁩:149
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/musteri_detay.html⁩:180
+msgid "Fatura No"
+msgstr "Rechnungs-Nr."
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_listesi.html⁩:150
+msgid "Müşteri"
+msgstr "Kunde"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_listesi.html⁩:151
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/musteri_detay.html⁩:181
+msgid "Tarih"
+msgstr "Datum"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_listesi.html⁩:154
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/musteri_detay.html⁩:183
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/musteri_listesi.html⁩:167
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/urunler.html⁩:155
+msgid "İşlemler"
+msgstr "Aktionen"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_listesi.html⁩:169
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/musteri_listesi.html⁩:179
+msgid "Detayları Görüntüle"
+msgstr "Details anzeigen"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_listesi.html⁩:180
+msgid "PDF Oluştur / Yazdır"
+msgstr "PDF erstellen / Drucken"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_listesi.html⁩:191
+msgid "Henüz hiç fatura oluşturulmadı."
+msgstr "Es wurden noch keine Rechnungen erstellt."
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/fatura_olustur.html⁩:332
+msgid "Fatura Oluştur"
+msgstr "Rechnung erstellen"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/index.html⁩:184
+msgid "Toplam Müşteri"
+msgstr "Gesamtzahl Kunden"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/index.html⁩:189
+msgid "Toplam Ürün"
+msgstr "Gesamtzahl Produkte"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/index.html⁩:194
+msgid "Toplam Fatura"
+msgstr "Gesamtzahl Rechnungen"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/index.html⁩:199
+msgid "Toplam Ciro"
+msgstr "Gesamtumsatz"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/index.html⁩:205
+msgid "Son Müşteriler"
+msgstr "Neueste Kunden"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/index.html⁩:211
+msgid "Bu müşteriyi kalıcı olarak silmek istediğinizden emin misiniz?"
+msgstr "Möchten Sie diesen Kunden dauerhaft löschen?"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/index.html⁩:212
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/musteri_listesi.html⁩:186
+msgid "Müşteriyi Sil"
+msgstr "Kunden löschen"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/index.html⁩:217
+msgid "Henüz müşteri eklenmemiş."
+msgstr "Noch keine Kunden hinzugefügt."
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/index.html⁩:223
+msgid "Son Faturalar"
+msgstr "Neueste Rechnungen"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/index.html⁩:229
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/musteri_detay.html⁩:194
+msgid "PDF Görüntüle"
+msgstr "PDF anzeigen"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/index.html⁩:236
+msgid "Henüz fatura oluşturulmamış."
+msgstr "Noch keine Rechnungen erstellt."
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/index.html⁩:243
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/login.html⁩:289
+msgid "Lizenziert für PFÄLZER BODENBAU & SANIERUNG GmbH."
+msgstr "Lizenziert für PFÄLZER BODENBAU & SANIERUNG GmbH."
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/index.html⁩:244
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/login.html⁩:290
+msgid "Entwicklung & Design: MertdeV (MertdesigN)"
+msgstr "Entwicklung & Design: MertdeV (MertdesigN)"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/index.html⁩:245
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/login.html⁩:291
+msgid "Technischer Support: nihatmert@msn.com"
+msgstr "Technischer Support: nihatmert@msn.com"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/index.html⁩:246
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/login.html⁩:292
+msgid "Copyright © 2025 | Version 1.0.2"
+msgstr "Copyright © 2025 | Version 1.0.2"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/index.html⁩:247
+msgid "PFÄLZER Logo"
+msgstr "PFÄLZER Logo"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/layout.html⁩:6
+msgid "Fatura Yönetim"
+msgstr "Rechnungsverwaltung"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/layout.html⁩:670
+msgid "Kontrol Paneli"
+msgstr "Dashboard"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/layout.html⁩:672
+msgid "Faturalar"
+msgstr "Rechnungen"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/layout.html⁩:679
+msgid "Müşteriler"
+msgstr "Kunden"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/layout.html⁩:681
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/musteri_listesi.html⁩:3
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/musteri_listesi.html⁩:151
+msgid "Müşteri Listesi"
+msgstr "Kundenliste"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/layout.html⁩:682
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/musteri_detay.html⁩:213
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/musteri_ekle.html⁩:3
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/musteri_listesi.html⁩:153
+msgid "Yeni Müşteri Ekle"
+msgstr "Neuen Kunden hinzufügen"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/layout.html⁩:686
+msgid "Ürünler"
+msgstr "Produkte"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/layout.html⁩:688
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/urunler.html⁩:3
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/urunler.html⁩:139
+msgid "Ürün Listesi"
+msgstr "Produktliste"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/layout.html⁩:689
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/urun_ekle.html⁩:3
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/urun_ekle.html⁩:161
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/urunler.html⁩:141
+msgid "Yeni Ürün Ekle"
+msgstr "Neues Produkt hinzufügen"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/layout.html⁩:692
+msgid "Ayarlar"
+msgstr "Einstellungen"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/layout.html⁩:693
+msgid "Kullanım Kılavuzu"
+msgstr "Bedienungsanleitung"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/layout.html⁩:696
+msgid "Çıkış Yap"
+msgstr "Abmelden"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/login.html⁩:6
+msgid "Giriş Yap"
+msgstr "Anmelden"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/login.html⁩:252
+msgid "Kunden-, Produkt- und Rechnungsverwaltung"
+msgstr "Kunden-, Produkt- und Rechnungsverwaltung"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/login.html⁩:266
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/register.html⁩:151
+msgid "Kullanıcı Adı"
+msgstr "Benutzername"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/login.html⁩:270
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/register.html⁩:155
+msgid "Şifre"
+msgstr "Passwort"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/login.html⁩:275
+msgid "Angemeldet bleiben"
+msgstr "Angemeldet bleiben"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/login.html⁩:277
+msgid "Passwort vergessen?"
+msgstr "Passwort vergessen?"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/login.html⁩:279
+msgid "ANMELDEN"
+msgstr "ANMELDEN"
+
+# Yeni çeviriler
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/login.html⁩:283
+msgid "Hesabınız yok mu?"
+msgstr "Haben Sie bereits ein Konto?"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/login.html⁩:283
+msgid "Kaydolun"
+msgstr "Registrieren Sie sich"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/login.html⁩:289
+msgid "Lizenziert für PFÄLZER BODENBAU & SANIERUNG GmbH."
+msgstr "Lizenziert für PFÄLZER BODENBAU & SANIERUNG GmbH."
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/login.html⁩:290
+msgid "Entwicklung & Design: MertdeV (MertdesigN)"
+msgstr "Entwicklung & Design: MertdeV (MertdesigN)"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/login.html⁩:291
+msgid "Technischer Support: nihatmert@msn.com"
+msgstr "Technischer Support: nihatmert@msn.com"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/login.html⁩:292
+msgid "Copyright © 2025 | Version 1.0.2"
+msgstr "Copyright © 2025 | Version 1.0.2"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/musteri_detay.html⁩:3
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/musteri_detay.html⁩:121
+msgid "Müşteri Detayı"
+msgstr "Kundendetails"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/musteri_detay.html⁩:122
+msgid "Müşteri Listesine Dön"
+msgstr "Zurück zur Kundenliste"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/musteri_detay.html⁩:134
+msgid "Müşteri Bilgileri"
+msgstr "Kundeninformationen"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/musteri_detay.html⁩:136
+msgid "Firma Adı:"
+msgstr "Firmenname:"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/musteri_detay.html⁩:139
+msgid "Adres:"
+msgstr "Adresse:"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/musteri_detay.html⁩:143
+msgid "Vergi Numarası / Ticaret Sicil No:"
+msgstr "Steuernummer / Handelsregisternummer:"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/musteri_detay.html⁩:148
+msgid "Telefon:"
+msgstr "Telefon:"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/musteri_detay.html⁩:153
+msgid "E-posta Adresi:"
+msgstr "E-Mail-Adresse:"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/musteri_detay.html⁩:158
+msgid "İlgili Kişi / Kontak Kişisi:"
+msgstr "Ansprechpartner:"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/musteri_detay.html⁩:163
+msgid "Web Adresi:"
+msgstr "Webadresse:"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/musteri_detay.html⁩:168
+msgid "Notlar:"
+msgstr "Notizen:"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/musteri_detay.html⁩:174
+msgid "Müşteriye Ait Faturalar"
+msgstr "Rechnungen des Kunden"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/musteri_detay.html⁩:182
+msgid "Tutar"
+msgstr "Betrag"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/musteri_detay.html⁩:208
+msgid "Bu müşteriye ait henüz fatura bulunmamaktadır."
+msgstr "Für diesen Kunden sind noch keine Rechnungen vorhanden."
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/musteri_duzenle.html⁩:3
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/musteri_duzenle.html⁩:151
+msgid "Müşteri Düzenle"
+msgstr "Kunde bearbeiten"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/musteri_duzenle.html⁩:152
+msgid "Müşteri Detayına Dön"
+msgstr "Zurück zu Kundendetails"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/musteri_duzenle.html⁩:164
+msgid "Müşteri Bilgilerini Düzenle"
+msgstr "Kundeninformationen bearbeiten"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/musteri_duzenle.html⁩:168
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/musteri_ekle.html⁩:117
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/musteri_listesi.html⁩:163
+msgid "Firma Adı"
+msgstr "Firmenname"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/musteri_duzenle.html⁩:172
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/musteri_ekle.html⁩:121
+msgid "Vergi Numarası / USt-IdNr."
+msgstr "Steuernummer / USt-IdNr."
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/musteri_duzenle.html⁩:184
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/musteri_ekle.html⁩:133
+msgid "İlgili Kişi"
+msgstr "Ansprechpartner"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/musteri_duzenle.html⁩:196
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/musteri_ekle.html⁩:145
+msgid "Notlar"
+msgstr "Notizen"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/musteri_duzenle.html⁩:203
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/musteri_ekle.html⁩:152
+msgid "Almanya için KDV sorumluluğu alıcıya ait midir? (§ 13b UStG)"
+msgstr ""
+"Ist die Umsatzsteuerschuld für Deutschland auf den Leistungsempfänger "
+"übergegangen? (§ 13b UStG)"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/musteri_duzenle.html⁩:204
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/musteri_ekle.html⁩:153
+msgid "Bu müşteriye kesilen faturalarda KDV gösterilmeyecektir."
+msgstr "Für Rechnungen an diesen Kunden wird keine Mehrwertsteuer ausgewiesen."
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/musteri_duzenle.html⁩:210
+msgid "Güncelle"
+msgstr "Aktualisieren"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/musteri_ekle.html⁩:113
+msgid "Yeni Müşteri Bilgileri"
+msgstr "Neue Kundeninformationen"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/musteri_ekle.html⁩:142
+msgid ""
+"Örn: Hauptstraße 12\n"
+"10115 Berlin"
+msgstr ""
+"Bsp: Hauptstraße 12\n"
+"10115 Berlin"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/musteri_ekle.html⁩:159
+msgid "Müşteri Ekle"
+msgstr "Kunden hinzufügen"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/musteri_listesi.html⁩:182
+msgid "Müşteriyi Düzenle"
+msgstr "Kunden bearbeiten"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/musteri_listesi.html⁩:185
+msgid "Bu müşteriyi ve tüm faturalarını silmek istediğinizden emin misiniz?"
+msgstr "Möchten Sie diesen Kunden und alle seine Rechnungen wirklich löschen?"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/musteri_listesi.html⁩:198
+msgid "Henüz hiç müşteri eklenmedi."
+msgstr "Noch keine Kunden hinzugefügt."
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/register.html⁩:6
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/register.html⁩:137
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/register.html⁩:162
+msgid "Kaydol"
+msgstr "Registrieren"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/register.html⁩:159
+msgid "Şifreyi Tekrar"
+msgstr "Passwort wiederholen"
+
+# Yeni çeviriler
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/register.html⁩:166
+msgid "Zaten hesabınız var mı?"
+msgstr "Haben Sie bereits ein Konto?"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/register.html⁩:166
+msgid "Giriş Yapın"
+msgstr "Anmelden"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/register.html⁩:171
+msgid "Sahibi"
+msgstr "Inhaber"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/register.html⁩:172
+#, fuzzy
+msgid "Program Yapımcısı"
+msgstr "Programmierer"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/urun_duzenle.html⁩:3
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/urun_duzenle.html⁩:158
+msgid "Ürün Düzenle"
+msgstr "Produkt bearbeiten"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/urun_duzenle.html⁩:159
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/urun_ekle.html⁩:162
+msgid "Ürün Listesine Dön"
+msgstr "Zurück zur Produktliste"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/urun_duzenle.html⁩:171
+msgid "Ürün/Hizmet Bilgilerini Düzenle"
+msgstr "Produkt-/Dienstleistungsinformationen bearbeiten"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/urun_duzenle.html⁩:180
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/urun_ekle.html⁩:183
+msgid "örn. adet, m², saat veya yeni birim yazın"
+msgstr "z.B. Stück, m², Stunden oder neue Einheit eingeben"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/urun_duzenle.html⁩:182
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/urun_ekle.html⁩:185
+msgid "Adet"
+msgstr "Stück"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/urun_duzenle.html⁩:183
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/urun_ekle.html⁩:186
+msgid "m²"
+msgstr "m²"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/urun_duzenle.html⁩:184
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/urun_ekle.html⁩:187
+msgid "m³"
+msgstr "m³"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/urun_duzenle.html⁩:185
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/urun_ekle.html⁩:188
+msgid "mt"
+msgstr "lfm"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/urun_duzenle.html⁩:186
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/urun_ekle.html⁩:189
+msgid "ton"
+msgstr "Tonne"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/urun_duzenle.html⁩:187
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/urun_ekle.html⁩:190
+msgid "kg"
+msgstr "kg"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/urun_duzenle.html⁩:188
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/urun_ekle.html⁩:191
+msgid "saat"
+msgstr "Stunde"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/urun_duzenle.html⁩:189
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/urun_ekle.html⁩:192
+msgid "gün"
+msgstr "Tag"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/urun_duzenle.html⁩:190
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/urun_ekle.html⁩:193
+msgid "hafta"
+msgstr "Woche"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/urun_duzenle.html⁩:191
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/urun_ekle.html⁩:194
+msgid "ay"
+msgstr "Monat"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/urun_duzenle.html⁩:192
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/urun_ekle.html⁩:195
+msgid "yıl"
+msgstr "Jahr"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/urun_duzenle.html⁩:193
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/urun_ekle.html⁩:196
+msgid "Lfm"
+msgstr "Lfm"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/urun_duzenle.html⁩:194
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/urun_ekle.html⁩:197
+msgid "Stk"
+msgstr "Stk"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/urun_duzenle.html⁩:195
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/urun_ekle.html⁩:198
+msgid "Std"
+msgstr "Std"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/urun_duzenle.html⁩:204
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/urun_ekle.html⁩:207
+msgid "Bu bir götürü iş midir?"
+msgstr "Ist dies eine Pauschalpreisarbeit?"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/urun_duzenle.html⁩:205
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/urun_ekle.html⁩:208
+msgid "Birim fiyat götürü bedel olarak kabul edilir"
+msgstr "Der Einzelpreis wird als Pauschalpreis akzeptiert."
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/urun_duzenle.html⁩:210
+msgid "Ürünü Güncelle"
+msgstr "Produkt aktualisieren"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/urun_ekle.html⁩:174
+msgid "Yeni Ürün/Hizmet Bilgileri"
+msgstr "Neue Produkt-/Dienstleistungsinformationen"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/urun_ekle.html⁩:213
+msgid "Ürünü Kaydet"
+msgstr "Produkt speichern"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/urunler.html⁩:173
+msgid "Ürünü Düzenle"
+msgstr "Produkt bearbeiten"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/urunler.html⁩:176
+msgid "Bu ürünü silmek istediğinizden emin misiniz?"
+msgstr "Möchten Sie dieses Produkt wirklich löschen?"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/urunler.html⁩:177
+msgid "Ürünü Sil"
+msgstr "Produkt löschen"
+
+#: ⁨C:/Users/nihat/Desktop/FATURA PROJE/templates/urunler.html⁩:189
+msgid "Henüz hiç ürün eklenmedi."
+msgstr "Noch keine Produkte hinzugefügt."
+
+#: venv/Lib/site-packages/click/_termui_impl.py:556
+#, python-brace-format
+msgid "{editor}: Editing failed"
+msgstr "Fehler beim Bearbeiten: {editor}"
+
+#: venv/Lib/site-packages/click/_termui_impl.py:560
+#, python-brace-format
+msgid "{editor}: Editing failed: {e}"
+msgstr "Fehler beim Bearbeiten: {editor}: {e}"
+
+#: venv/Lib/site-packages/click/core.py:1124
+msgid "Aborted!"
+msgstr "Abgebrochen!"
+
+#: venv/Lib/site-packages/click/core.py:1349
+#: venv/Lib/site-packages/click/core.py:1379
+#, python-brace-format
+msgid "(Deprecated) {text}"
+msgstr "(Veraltet) {text}"
+
+#: venv/Lib/site-packages/click/core.py:1396
+msgid "Options"
+msgstr "Optionen"
+
+#: venv/Lib/site-packages/click/core.py:1422
+#, python-brace-format
+msgid "Got unexpected extra argument ({args})"
+msgid_plural "Got unexpected extra arguments ({args})"
+msgstr[0] "Unerwartetes zusätzliches Argument ({args}) erhalten"
+msgstr[1] "Unerwartete zusätzliche Argumente ({args}) erhalten"
+
+#: venv/Lib/site-packages/click/core.py:1438
+#, python-brace-format
+msgid "DeprecationWarning: The command {name!r} is deprecated."
+msgstr "DeprecationWarning: Der Befehl {name!r} ist veraltet."
+
+#: venv/Lib/site-packages/click/core.py:1645
+msgid "Commands"
+msgstr "Befehle"
+
+#: venv/Lib/site-packages/click/core.py:1677
+msgid "Missing command."
+msgstr "Befehl fehlt."
+
+#: venv/Lib/site-packages/click/core.py:1755
+#, python-brace-format
+msgid "No such command {name!r}."
+msgstr "Befehl {name!r} nicht gefunden."
+
+#: venv/Lib/site-packages/click/core.py:2313
+msgid "Value must be an iterable."
+msgstr "Wert muss iterierbar sein."
+
+#: venv/Lib/site-packages/click/core.py:2334
+#, python-brace-format
+msgid "Takes {nargs} values but 1 was given."
+msgid_plural "Takes {nargs} values but {len} were given."
+msgstr[0] "Akzeptiert {nargs} Werte, aber 1 wurde gegeben."
+msgstr[1] "Akzeptiert {nargs} Werte, aber {len} wurden gegeben."
+
+#: venv/Lib/site-packages/click/core.py:2783
+#, python-brace-format
+msgid "env var: {var}"
+msgstr "Umgebungsvariable: {var}"
+
+#: venv/Lib/site-packages/click/core.py:2813
+msgid "(dynamic)"
+msgstr "(dynamisch)"
+
+#: venv/Lib/site-packages/click/core.py:2828
+#, python-brace-format
+msgid "default: {default}"
+msgstr "Standard: {default}"
+
+#: venv/Lib/site-packages/click/core.py:2841
+msgid "required"
+msgstr "erforderlich"
+
+#: venv/Lib/site-packages/click/decorators.py:457
+#, python-format
+msgid "%(prog)s, version %(version)s"
+msgstr "%(prog)s, Version %(version)s"
+
+#: venv/Lib/site-packages/click/decorators.py:520
+msgid "Show the version and exit."
+msgstr "Version anzeigen und beenden."
+
+#: venv/Lib/site-packages/click/decorators.py:541
+msgid "Show this message and exit."
+msgstr "Diese Nachricht anzeigen und beenden."
+
+#: venv/Lib/site-packages/click/exceptions.py:49
+#: venv/Lib/site-packages/click/exceptions.py:88
+#, python-brace-format
+msgid "Error: {message}"
+msgstr "Fehler: {message}"
+
+#: venv/Lib/site-packages/click/exceptions.py:80
+#, python-brace-format
+msgid "Try '{command} {option}' for help."
+msgstr "Versuchen Sie '{command} {option}' für Hilfe."
+
+#: venv/Lib/site-packages/click/exceptions.py:129
+#, python-brace-format
+msgid "Invalid value: {message}"
+msgstr "Ungültiger Wert: {message}"
+
+#: venv/Lib/site-packages/click/exceptions.py:131
+#, python-brace-format
+msgid "Invalid value for {param_hint}: {message}"
+msgstr "Ungültiger Wert für {param_hint}: {message}"
+
+#: venv/Lib/site-packages/click/exceptions.py:187
+msgid "Missing argument"
+msgstr "Fehlendes Argument"
+
+#: venv/Lib/site-packages/click/exceptions.py:189
+msgid "Missing option"
+msgstr "Fehlende Option"
+
+#: venv/Lib/site-packages/click/exceptions.py:191
+msgid "Missing parameter"
+msgstr "Fehlender Parameter"
+
+#: venv/Lib/site-packages/click/exceptions.py:193
+#, python-brace-format
+msgid "Missing {param_type}"
+msgstr "Fehlender {param_type}"
+
+#: ⁨venv/Lib/site-packages/click/exceptions.py⁩:200
+#, python-brace-format
+msgid "Missing parameter: {param_name}"
+msgstr "Fehlender Parameter: {param_name}"
+
+#: venv/Lib/site-packages/click/exceptions.py:220
+#, python-brace-format
+msgid "No such option: {name}"
+msgstr "Option {name} nicht gefunden."
+
+#: venv/Lib/site-packages/click/exceptions.py:232
+#, python-brace-format
+msgid "Did you mean {possibility}?"
+msgid_plural "(Possible options: {possibilities})"
+msgstr[0] "Meinten Sie {possibility}?"
+msgstr[1] "(Mögliche Optionen: {possibilities})"
+
+#: venv/Lib/site-packages/click/exceptions.py:270
+msgid "unknown error"
+msgstr "unbekannter Fehler"
+
+#: venv/Lib/site-packages/click/exceptions.py:277
+#, python-brace-format
+msgid "Could not open file {filename!r}: {message}"
+msgstr "Datei {filename!r} konnte nicht geöffnet werden: {message}"
+
+#: venv/Lib/site-packages/click/formatting.py:156
+msgid "Usage:"
+msgstr "Nutzung:"
+
+#: venv/Lib/site-packages/click/parser.py:233
+#, python-brace-format
+msgid "Argument {name!r} takes {nargs} values."
+msgstr "Argument {name!r} nimmt {nargs} Werte."
+
+#: venv/Lib/site-packages/click/parser.py:415
+#, python-brace-format
+msgid "Option {name!r} does not take a value."
+msgstr "Option {name!r} nimmt keinen Wert."
+
+#: venv/Lib/site-packages/click/parser.py:476
+#, python-brace-format
+msgid "Option {name!r} requires an argument."
+msgid_plural "Option {name!r} requires {nargs} arguments."
+msgstr[0] "Option {name!r} erfordert ein Argument."
+msgstr[1] "Option {name!r} erfordert {nargs} Argumente."
+
+#: venv/Lib/site-packages/click/shell_completion.py:326
+msgid "Shell completion is not supported for Bash versions older than 4.4."
+msgstr "Shell-Vervollständigung wird für Bash-Versionen älter als 4.4 nicht unterstützt."
+
+#: venv/Lib/site-packages/click/shell_completion.py:333
+msgid "Couldn't detect Bash version, shell completion is not supported."
+msgstr "Bash-Version konnte nicht erkannt werden, Shell-Vervollständigung wird nicht unterstützt."
+
+#: venv/Lib/site-packages/click/termui.py:158
+msgid "Repeat for confirmation"
+msgstr "Zur Bestätigung wiederholen"
+
+#: venv/Lib/site-packages/click/termui.py:174
+msgid "Error: The value you entered was invalid."
+msgstr "Fehler: Der eingegebene Wert ist ungültig."
+
+#: venv/Lib/site-packages/click/termui.py:176
+#, python-brace-format
+msgid "Error: {e.message}"
+msgstr "Fehler: {e.message}"
+
+#: venv/Lib/site-packages/click/termui.py:187
+msgid "Error: The two entered values do not match."
+msgstr "Fehler: Die beiden eingegebenen Werte stimmen nicht überein."
+
+#: venv/Lib/site-packages/click/termui.py:243
+msgid "Error: invalid input"
+msgstr "Fehler: ungültige Eingabe"
+
+#: venv/Lib/site-packages/click/termui.py:773
+msgid "Press any key to continue..."
+msgstr "Drücken Sie eine beliebige Taste, um fortzufahren..."
+
+#: venv/Lib/site-packages/click/types.py:267
+#, python-brace-format
+msgid ""
+"Choose from:\n"
+"\t{choices}"
+msgstr ""
+"Wählen Sie aus:\n"
+"\t{choices}"
+
+#: venv/Lib/site-packages/click/types.py:299
+#, python-brace-format
+msgid "{value!r} is not {choice}."
+msgid_plural "{value!r} is not one of {choices}."
+msgstr[0] "{value!r} ist nicht {choice}."
+msgstr[1] "{value!r} ist nicht eine der folgenden Optionen: {choices}."
+
+#: venv/Lib/site-packages/click/types.py:393
+#, python-brace-format
+msgid "{value!r} does not match the format {format}."
+msgid_plural "{value!r} does not match the formats {formats}."
+msgstr[0] "{value!r} entspricht nicht dem Format {format}."
+msgstr[1] "{value!r} entspricht nicht den Formaten {formats}."
+
+#: venv/Lib/site-packages/click/types.py:415
+#, python-brace-format
+msgid "{value!r} is not a valid {number_type}."
+msgstr "{value!r} ist kein gültiger {number_type}."
+
+#: venv/Lib/site-packages/click/types.py:471
+#, python-brace-format
+msgid "{value} is not in the range {range}."
+msgstr "{value} liegt nicht im Bereich {range}."
+
+#: venv/Lib/site-packages/click/types.py:612
+#, python-brace-format
+msgid "{value!r} is not a valid boolean."
+msgstr "{value!r} ist kein gültiger Boolescher Wert."
+
+#: venv/Lib/site-packages/click/types.py:636
+#, python-brace-format
+msgid "{value!r} is not a valid UUID."
+msgstr "{value!r} ist keine gültige UUID."
+
+#: venv/Lib/site-packages/click/types.py:826
+msgid "file"
+msgstr "Datei"
+
+#: venv/Lib/site-packages/click/types.py:828
+msgid "directory"
+msgstr "Verzeichnis"
+
+#: venv/Lib/site-packages/click/types.py:830
+msgid "path"
+msgstr "Pfad"
+
+#: venv/Lib/site-packages/click/types.py:881
+#, python-brace-format
+msgid "{name} {filename!r} does not exist."
+msgstr "{name} {filename!r} existiert nicht."
+
+#: venv/Lib/site-packages/click/types.py:890
+#, python-brace-format
+msgid "{name} {filename!r} is a file."
+msgstr "{name} {filename!r} ist eine Datei."
+
+#: venv/Lib/site-packages/click/types.py:898
+#, python-brace-format
+msgid "{name} {filename!r} is a directory."
+msgstr "{name} {filename!r} ist ein Verzeichnis."
+
+#: venv/Lib/site-packages/click/types.py:907
+#, python-brace-format
+msgid "{name} {filename!r} is not readable."
+msgstr "{name} {filename!r} ist nicht lesbar."
+
+#: venv/Lib/site-packages/click/types.py:916
+#, python-brace-format
+msgid "{name} {filename!r} is not writable."
+msgstr "{name} {filename!r} ist nicht beschreibbar."
+
+#: venv/Lib/site-packages/click/types.py:925
+#, python-brace-format
+msgid "{name} {filename!r} is not executable."
+msgstr "{name} {filename!r} ist nicht ausführbar."
+
+#: venv/Lib/site-packages/click/types.py:992
+#, python-brace-format
+msgid "{len_type} values are required, but {len_value} was given."
+msgid_plural "{len_type} values are required, but {len_value} were given."
+msgstr[0] "{len_type} Werte sind erforderlich, aber {len_value} wurde gegeben."
+msgstr[1] "{len_type} Werte sind erforderlich, aber {len_value} wurden gegeben."
+
+#~ msgid "Bu sayfaya erişmek için giriş yapmalısınız."
+#~ msgstr "Sie müssen sich anmelden, um auf diese Seite zugreifen zu können."
+
+#~ msgid "'admin' kullanıcısı zaten mevcut."
+#~ msgstr "Admin-Benutzer ist bereits vorhanden."
+
+#~ msgid "Tüm Hakları Saklıdır."
+#~ msgstr "Alle Rechte vorbehalten."
+
+#~ msgid "Web Tasarımı-Programlama: %(designer)s"
+#~ msgstr "Webdesign-Programierung: %(designer)s"
+
+#~ msgid "Firma Adı Bilgisi"
+#~ msgstr "Firmenname Informationen"
+
+#~ msgid "Mertdesign Logosu"
+#~ msgstr "Mertdesign Logo"
+
+#~ msgid ""
+#~ "Örnek: Hauptstraße 12\n"
+#~ "10115 Berlin"
+#~ msgstr ""
+#~ "Bsp: Hauptstraße 12\n"
+#~ "10115 Berlin"

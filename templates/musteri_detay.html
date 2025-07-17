@@ -1,0 +1,215 @@
+{% extends "layout.html" %} {# layout.html'den miras almasını sağlıyoruz #}
+
+{% block title %}{{ _('Müşteri Detayı') }}: {{ musteri.firma_adi }}{% endblock %} {# Sayfa başlığını çeviriye hazır hale getiriyoruz #}
+
+{% block content %}
+    <style>
+        /* Genel stil tutarlılığı için bu stillerin layout.html'den geldiğinden emin olun. */
+
+        .content-card {
+            background-color: rgba(0, 0, 0, 0.15); /* Arka plan rengi */
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1); /* Kenarlık */
+            box-shadow: 0 0 25px rgba(0,0,0,0.5);
+            margin-bottom: 30px; /* Her kart arasına boşluk */
+        }
+        .detail-item {
+            padding: 12px 0; /* İç boşluk artırıldı */
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08); /* Daha ince ve şeffaf kenarlık */
+            color: var(--main-content-text-color); /* Metin rengi */
+            display: flex; /* Flexbox kullanarak label ve değeri hizala */
+            align-items: baseline; /* Metin taban çizgisinden hizala */
+        }
+        .detail-item:last-child {
+            border-bottom: none; /* Son öğede alt çizgi olmasın */
+        }
+        .detail-item strong {
+            display: inline-block;
+            width: 220px; /* Label genişliği artırıldı, içeriğin daha iyi hizalanması için */
+            min-width: 150px; /* Minimum genişlik */
+            color: var(--label-text-color); /* Etiket metin rengi */
+            font-weight: 600;
+            flex-shrink: 0; /* Küçülmesini engelle */
+            padding-right: 15px; /* Etiket ile değer arasına boşluk */
+            box-sizing: border-box; /* Padding'in genişliğe dahil olmasını sağla */
+        }
+        .detail-item span { /* Değerin kendisi için */
+            flex-grow: 1; /* Kalan alanı doldur */
+            word-wrap: break-word; /* Uzun kelimeleri kırma */
+        }
+        .content-card h2 { /* Müşteri Bilgileri, Fatura Kalemleri gibi h2 başlıkları */
+            font-size: 1.8rem; /* Boyut büyütüldü */
+            font-weight: 700;
+            color: var(--button-milky-coffee); /* Ana kahve tonu */
+            margin-bottom: 1.5rem; /* Alt boşluk */
+            padding-bottom: 0.8rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Başlık altına çizgi */
+        }
+
+        /* Tablo stilleri (layout.html'den geliyor, burada da tutarlılık için bazıları bırakılabilir) */
+        .table-responsive {
+            overflow-x: auto;
+            margin-top: 25px;
+            border: 1px solid rgba(240, 230, 216, 0.35); /* Kenarlık */
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.3);
+        }
+        .table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin-top: 0;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+        .table th, .table td {
+            border: none;
+            padding: 15px 20px;
+            text-align: left;
+            color: var(--main-content-text-color); /* Metin rengi */
+            background-color: rgba(0, 0, 0, 0.18); /* Arkaplan rengi */
+        }
+        .table th {
+            background-color: rgba(0, 0, 0, 0.28); /* Başlık arkaplanı */
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--label-text-color); /* Başlık metin rengi */
+        }
+        .table-striped tbody tr:nth-child(odd) td {
+            background-color: rgba(0, 0, 0, 0.12); /* Tek satır arkaplanı */
+        }
+        .table-striped tbody tr:nth-child(even) td {
+            background-color: rgba(0, 0, 0, 0.09); /* Çift satır arkaplanı */
+        }
+        .table-striped tbody tr:hover td {
+            background-color: rgba(255, 255, 255, 0.08); /* Hover arkaplanı */
+        }
+        
+        /* Müşteri adına link stili (eğer layout.html'de yoksa) */
+        .customer-name-link {
+            font-weight: 600;
+            color: var(--main-content-text-color); /* layout.html'deki ana metin rengi */
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+        .customer-name-link:hover {
+            color: var(--button-milky-coffee); /* Vurgu rengi */
+        }
+
+        /* İkon rengi düzeltmeleri (layout.html'deki değişkenleri kullanacak) */
+        .action-icon-container .pdf-icon .fa-file-pdf { color: var(--icon-pdf-color); } /* PDF ikonu rengini layout.html'den al */
+        .action-icon-container .trash-icon .fa-trash-alt { color: var(--icon-delete-color); } /* Çöp ikonu rengini layout.html'den al */
+        .fa-check { color: var(--icon-check-color); } /* Yeşil */
+        .fa-times { color: var(--icon-times-color); } /* Kırmızı */
+
+
+        /* Mobil uyumluluk için */
+        @media (max-width: 768px) {
+            .detail-item {
+                flex-direction: column; /* Küçük ekranlarda dikey düzen */
+                align-items: flex-start;
+            }
+            .detail-item strong {
+                width: 100%; /* Tam genişlik */
+                margin-bottom: 5px; /* Etiket altında boşluk */
+            }
+        }
+    </style>
+
+    <div class="content-header">
+        <h1>{{ _('Müşteri Detayı') }}: {{ musteri.firma_adi }}</h1> {# Başlık çevirisi ve müşteri adı #}
+        <a href="{{ url_for('musteri_listesi') }}" class="btn btn-secondary">{{ _('Müşteri Listesine Dön') }}</a> {# Buton çevirisi #}
+    </div>
+    
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="flash-message {{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <div class="content-card">
+        <h2 class="text-2xl mb-4">{{ _('Müşteri Bilgileri') }}</h2> {# Çeviri #}
+        <div class="detail-item">
+            <strong>{{ _('Firma Adı:') }}</strong> <span>{{ musteri.firma_adi }}</span> {# Çeviri #}
+        </div>
+        <div class="detail-item">
+            <strong>{{ _('Adres:') }}</strong> <span>{{ musteri.adres|replace('\n', '<br>')|safe }}</span> {# Çeviri #}
+        </div>
+        {% if musteri.vergi_no %}
+        <div class="detail-item">
+            <strong>{{ _('Vergi Numarası / Ticaret Sicil No:') }}</strong> <span>{{ musteri.vergi_no }}</span> {# Çeviri #}
+        </div>
+        {% endif %}
+        {% if musteri.telefon %}
+        <div class="detail-item">
+            <strong>{{ _('Telefon:') }}</strong> <span>{{ musteri.telefon }}</span> {# Çeviri #}
+        </div>
+        {% endif %}
+        {% if musteri.email %}
+        <div class="detail-item">
+            <strong>{{ _('E-posta Adresi:') }}</strong> <span>{{ musteri.email }}</span> {# Çeviri #}
+        </div>
+        {% endif %}
+        {% if musteri.ilgili_kisi %}
+        <div class="detail-item">
+            <strong>{{ _('İlgili Kişi / Kontak Kişisi:') }}</strong> <span>{{ musteri.ilgili_kisi }}</span> {# Çeviri #}
+        </div>
+        {% endif %}
+        {% if musteri.web_adresi %}
+        <div class="detail-item">
+            <strong>{{ _('Web Adresi:') }}</strong> <span>{{ musteri.web_adresi }}</span> {# Çeviri #}
+        </div>
+        {% endif %}
+        {% if musteri.notlar %}
+        <div class="detail-item">
+            <strong>{{ _('Notlar:') }}</strong> <span>{{ musteri.notlar|replace('\n', '<br>')|safe }}</span> {# Çeviri #}
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="content-card mt-6">
+        <h2 class="text-2xl mb-4">{{ _('Müşteriye Ait Faturalar') }}</h2> {# Çeviri #}
+        {% if faturalar %}
+            <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>{{ _('Fatura No') }}</th> {# Çeviri #}
+                            <th>{{ _('Tarih') }}</th> {# Çeviri #}
+                            <th>{{ _('Tutar') }}</th> {# Çeviri #}
+                            <th class="text-end">{{ _('İşlemler') }}</th> {# Çeviri #}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for fatura in faturalar %}
+                        <tr>
+                            <td>#{{ fatura.fatura_no }}</td>
+                            <td>{{ fatura.tarih.strftime('%d.%m.%Y') }}</td>
+                            <td>{{ "%.2f"|format(fatura.genel_toplam)|replace('.', ',') }} €</td>
+                            <td class="text-end">
+                                <div class="action-icon-container"> {# İkon kapsayıcısı #}
+                                    <a href="{{ url_for('fatura_pdf', fatura_id=fatura.id) }}" class="pdf-icon" title="{{ _('PDF Görüntüle') }}"><i class="fas fa-file-pdf"></i></a> {# PDF ikonu ve çeviri #}
+                                    <form action="{{ url_for('fatura_sil', fatura_id=fatura.id) }}" method="POST" class="inline-block" onsubmit="return confirm('{{ _('Bu faturayı silmek istediğinizden emin misiniz?') }}');"> {# Çeviri #}
+                                        <button type="submit" class="trash-icon" title="{{ _('Faturayı Sil') }}"> {# Çöp ikonu ve çeviri #}
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <p class="text-md text-center py-4">{{ _('Bu müşteriye ait henüz fatura bulunmamaktadır.') }}</p> {# Çeviri #}
+        {% endif %}
+    </div>
+
+    <div class="text-end mt-6">
+        <a href="{{ url_for('musteri_ekle') }}" class="btn btn-primary">{{ _('Yeni Müşteri Ekle') }}</a> {# Buton çevirisi #}
+    </div>
+{% endblock content %}

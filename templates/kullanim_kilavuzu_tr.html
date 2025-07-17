@@ -1,0 +1,303 @@
+{% extends "layout.html" %}
+
+{% block title %}Kapsamlı Kullanım Kılavuzu (TR){% endblock %}
+
+{# page_title bloğunu layout.html'e taşıdık, burada kullanmaya gerek yok #}
+{% block page_title %}{% endblock %} 
+
+{% block content %}
+<style>
+    /* Kullanım Kılavuzu Sayfası Özel Stilleri */
+
+    .kullanim-kilavuzu {
+        padding: 20px;
+        background-color: rgba(0, 0, 0, 0.15); /* Hafif şeffaf arka plan */
+        border-radius: 15px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 0 25px rgba(0,0,0,0.5);
+    }
+
+    .kullanim-kilavuzu h1 { 
+        font-size: 2.5rem; /* Daha büyük başlık */
+        font-weight: 700; 
+        color: var(--btn-primary-bg); /* Turuncu */
+        text-align: center; 
+        margin-bottom: 0.7rem; 
+        text-shadow: 0 2px 5px rgba(0,0,0,0.4);
+    }
+    .kullanim-kilavuzu h2.subtitle { 
+        font-size: 1.6rem; /* Alt başlık */
+        font-weight: 400; 
+        color: var(--text-secondary); /* İkincil metin rengi */
+        text-align: center; 
+        margin-bottom: 3rem; 
+    }
+    .kullanim-kilavuzu h3 { 
+        font-size: 2rem; /* Bölüm başlıkları */
+        font-weight: 600; 
+        color: var(--btn-primary-bg); /* Turuncu */
+        margin-top: 3.5rem; 
+        margin-bottom: 1.5rem; 
+        border-bottom: 2px solid rgba(203, 138, 88, 0.5); /* Turuncu alt çizgi */
+        padding-bottom: 0.8rem;
+    }
+    .kullanim-kilavuzu h4 { 
+        font-size: 1.5rem; /* Alt bölüm başlıkları */
+        font-weight: 600; 
+        color: var(--text-primary); /* Beyaz metin */
+        margin-top: 2.5rem; 
+        margin-bottom: 1rem; 
+    }
+    .kullanim-kilavuzu p, .kullanim-kilavuzu li { 
+        font-size: 1.05rem; 
+        line-height: 1.8; 
+        margin-bottom: 1.2rem; 
+        color: var(--text-primary); /* Ana metin rengi */
+    }
+    .kullanim-kilavuzu strong { 
+        font-weight: 700; 
+        color: var(--btn-primary-hover-bg); /* Hafif turuncu vurgu */
+    }
+    .kullanim-kilavuzu .alert { 
+        padding: 20px 25px; 
+        margin: 2rem 0; 
+        border-radius: 10px; 
+        border: 1px solid; 
+        line-height: 1.7; 
+        background-color: rgba(0,0,0,0.25); 
+        box-shadow: 0 4px 15px rgba(0,0,0,0.3); 
+    }
+    .kullanim-kilavuzu .alert-info { 
+        border-color: #88d8e6; 
+        color: #e1faff; 
+        background-color: rgba(23,162,184,0.15); /* Hafif turkuaz arka plan */
+    }
+    .kullanim-kilavuzu .alert-warning { 
+        border-color: #ffc107; 
+        color: #fff3cd; 
+        background-color: rgba(255,193,7,0.15); /* Hafif sarı arka plan */
+    }
+    .kullanim-kilavuzu ol { list-style-type: decimal; padding-left: 30px; }
+    .kullanim-kilavuzu ol li { margin-bottom: 15px; }
+    .kullanim-kilavuzu ul { list-style-type: none; padding-left: 0; }
+    .kullanim-kilavuzu ul li { position: relative; padding-left: 25px; margin-bottom: 10px; }
+    .kullanim-kilavuzu ul li::before { content: '✓'; position: absolute; left: 0; color: var(--btn-primary-bg); /* Turuncu tik işareti */ font-weight: bold; }
+    .kullanim-kilavuzu a.image-link { display: block; text-align: center; margin-top: 25px; margin-bottom: 25px; }
+    .kullanim-kilavuzu img.guide-image { 
+        width: 100%; 
+        max-width: 900px; 
+        border-radius: 12px; 
+        border: 2px solid rgba(255, 255, 255, 0.2); 
+        transition: transform 0.2s ease, box-shadow 0.2s ease; 
+        cursor: pointer; 
+        object-fit: contain; /* Görselin oranını koruyarak sığdır */
+        height: auto; /* Yüksekliği otomatik ayarla */
+    }
+    .kullanim-kilavuzu img.guide-image:hover { transform: scale(1.03); box-shadow: 0 0 30px var(--btn-primary-bg); /* Turuncu gölge */ }
+    .kullanim-kilavuzu .icon-def { font-size: 1.2rem; vertical-align: middle; margin-right: 8px; color: var(--btn-primary-bg); /* İkonları turuncu yap */ }
+
+    /* Mobil uyumluluk */
+    @media (max-width: 768px) {
+        .kullanim-kilavuzu h1 { font-size: 2rem; }
+        .kullanim-kilavuzu h2.subtitle { font-size: 1.3rem; }
+        .kullanim-kilavuzu h3 { font-size: 1.7rem; }
+        .kullanim-kilavuzu h4 { font-size: 1.3rem; }
+        .kullanim-kilavuzu p, .kullanim-kilavuzu li { font-size: 0.95rem; }
+        .kullanim-kilavuzu .alert { padding: 15px 20px; }
+    }
+</style>
+
+<div class="kullanim-kilavuzu">
+    <h1>PFÄLZER Bodenbau & Sanierung GmbH Fatura Programı</h1>
+    <h2 class="subtitle">Adım Adım Detaylı Türkçe Kullanım Kılavuzu</h2>
+    
+    <div class="alert alert-info">
+        <strong>BAŞLAMADAN ÖNCE ÖNEMLİ NOT:</strong> Bu program çok dillidir (Türkçe, Almanca, İngilizce). Bu kılavuz, programı <strong>Türkçe</strong> arayüzle kullanacak kişiler için hazırlanmıştır.
+        <br><br>
+        <strong>1. Adım:</strong> Lütfen sol menüdeki <i class="fas fa-globe"></i> <strong>Dil</strong> menüsünden <strong>TR</strong>'yi seçerek program dilini Türkçe yapın.
+        <br>
+        <strong>2. Adım:</strong> Kılavuzdaki ekran görüntüleri, sizin Türkçe arayüzünüze ait görsellerle güncellenecektir. Anlatımdaki Türkçe ifadeleri takip edebilirsiniz.
+    </div>
+
+    <h3>Bölüm 1: Giriş ve Ana Ekran (Kontrol Paneli)</h3>
+    <p>
+        Bu programa hoş geldiniz! Bu kılavuz, programı en verimli şekilde kullanmanız için size yol gösterecek. Amacımız, hiç zorlanmadan, her özelliğin ne işe yaradığını anlamanızı sağlamaktır.
+        Programa girdiğinizde sizi ilk karşılayan ekran <strong>Kontrol Paneli</strong>'dir. Burası, işletmenizin bir özetidir.
+    </p>
+    <a href="{{ url_for('static', filename='kilavuz_resimleri_tr/kontrol paneli.jpg') }}" target="_blank" class="image-link" title="Büyütmek için tıklayın">
+        <img src="{{ url_for('static', filename='kilavuz_resimleri_tr/kontrol paneli.jpg') }}" alt="Kontrol Paneli" class="guide-image">
+    </a>
+    <h4>Kontrol Panelindeki Bilgiler Ne Anlama Geliyor?</h4>
+    <ul>
+        <li><strong>Toplam Müşteri Sayısı:</strong> Sisteme kaç tane müşteri kaydettiğinizi gösterir.</li>
+        <li><strong>Toplam Ürün Sayısı:</strong> Sattığınız veya faturalandırdığınız kaç farklı hizmet veya ürün olduğunu gösterir.</li>
+        <li><strong>Toplam Fatura Sayısı:</strong> Bugüne kadar oluşturduğunuz toplam fatura adedidir.</li>
+        <li><strong>Toplam Ciro:</strong> Oluşturduğunuz tüm faturaların KDV dahil toplam tutarıdır.</li>
+        <li><strong>Yeni Müşteriler Listesi:</strong> Sisteme en son kaydettiğiniz müşterileri gösterir. <br> <em>(Müşteri Listesi'ne gitmek için adının üzerine tıklayabilirsiniz.)</em></li>
+        <li><strong>Yeni Faturalar Listesi:</strong> En son oluşturduğunuz faturaları gösterir. Buradan faturanızın doğru kaydedildiğini hızlıca kontrol edebilirsiniz. <br> <em>(Fatura Detayları'na gitmek için numarasının üzerine tıklayabilirsiniz.)</em></li>
+    </ul>
+
+    <h3>Bölüm 2: En Önemli İlk Adım: Şirket Ayarları</h3>
+    <p>
+        Fatura kesmeye başlamadan önce yapmanız gereken tek seferlik ama **en önemli** ayar, kendi şirket bilgilerinizi sisteme girmektir. Buraya girdiğiniz bilgiler, oluşturacağınız tüm faturaların üzerine otomatik olarak basılacaktır. Bilgilerin doğru olması, faturalarınızın yasal olarak geçerli olması için zorunludur.
+    </p>
+    <a href="{{ url_for('static', filename='kilavuz_resimleri_tr/ayarlar.jpg') }}" target="_blank" class="image-link" title="Büyütmek için tıklayın">
+        <img src="{{ url_for('static', filename='kilavuz_resimleri_tr/ayarlar.jpg') }}" alt="Şirket Ayarları" class="guide-image">
+    </a>
+    <h4>Ayarlar Sayfasına Nasıl Gidilir ve Doldurulur?</h4>
+    <ol>
+        <li>Sol taraftaki ana menüden <i class="fas fa-cog icon-def"></i> <strong>Ayarlar</strong> seçeneğine tıklayın.</li>
+        <li>Karşınıza yukarıdaki görseldeki gibi bir form çıkacaktır.</li>
+        <li>Bu formdaki tüm alanları (<strong>Firma Ünvanı, Adres, Telefon, IBAN, Vergi Numarası</strong> vb.) eksiksiz ve doğru bir şekilde doldurun.</li>
+        <li>En alttaki <strong>Değişiklikleri Kaydet</strong> butonuna basmayı unutmayın.</li>
+    </ol>
+    <div class="alert alert-warning">
+        <strong>DİKKAT VE ÖNEMLİ:</strong> Bu bölümdeki bilgileri yanlış veya eksik girerseniz, oluşturduğunuz tüm faturalar yasal olarak geçersiz sayılabilir veya ödeme almanızda sorun yaşayabilirsiniz. Lütfen tüm bilgilerinizi (özellikle banka ve vergi bilgileri) dikkatlice kontrol edin ve emin olmak için muhasebecinize danışın.
+    </div>
+
+    <h3>Bölüm 3: Müşterilerinizi Yönetmek</h3>
+    <p>
+        Fatura kesebilmek için, öncelikle faturayı göndereceğiniz bir müşteriyi sisteme kaydetmeniz gerekir. Bu bölümde, müşteri ekleme, listeleme, düzenleme ve silme işlemlerini öğreneceksiniz.
+    </p>
+    <h4>Yeni Bir Müşteri Nasıl Eklenir?</h4>
+    <ol>
+        <li>Sol menüden <i class="fas fa-users icon-def"></i> <strong>Müşteriler</strong> menüsünü açın ve altındaki <strong>Yeni Müşteri Ekle</strong> linkine tıklayın.</li>
+        <li>Karşınıza "Yeni Müşteri Bilgileri" formu çıkacaktır. Her alanı dikkatle doldurun.</li>
+    </ol>
+    <a href="{{ url_for('static', filename='kilavuz_resimleri_tr/müşteri ekle.jpg') }}" target="_blank" class="image-link" title="Büyütmek için tıklayın">
+        <img src="{{ url_for('static', filename='kilavuz_resimleri_tr/müşteri ekle.jpg') }}" alt="Yeni Müşteri Ekleme Formu" class="guide-image">
+    </a>
+    <h5>Önemli Bir Seçenek: KDV Sorumluluğu (Reverse Charge - § 13b UStG)</h5>
+    <p>
+        Formun en altında <strong>"Almanya için KDV sorumluluğu alıcıya ait midir? (§ 13b UStG)"</strong> diye başlayan bir onay kutusu göreceksiniz. Bu, programdaki en kritik ayarlardan biridir ve faturanızdaki KDV hesaplamasını doğrudan etkiler.
+    </p>
+    <div class="alert alert-info">
+        <strong>Basitçe Anlamı Şudur:</strong> Normalde kestiğiniz her faturaya standart %19 KDV eklenir. Ancak Almanya'da bazı özel durumlar (özellikle inşaat ve metal sektöründeki firmalar arası işlemlerde) için Katma Değer Vergisi Kanunu'nun (§ 13b UStG) ilgili maddesi uyarınca KDV'yi sizin yerinize faturayı alan müşteri kendi vergi dairesine beyan edip öder. Bu duruma "Reverse Charge" denir.
+        <ul>
+            <li>Eğer müşteriniz bu kapsama giriyorsa ve bunu size resmen bildirdiyse (genellikle müşterinin muhasebecisi veya kendisi bu konuda sizi bilgilendirir), bu kutuyu <strong>İŞARETLEYİN</strong>. Bu durumda program, bu müşteriye fatura keserken KDV'yi **sıfır olarak hesaplar** ve faturanın alt kısmına "Steuerschuldnerschaft des Leistungsempfängers nach § 13b UStG" (Vergi sorumluluğu alıcıya aittir) ibaresini ekler. Bu ibare, faturanın yasal geçerliliği için çok önemlidir.</li>
+            <li>Eğer müşterinizin durumu hakkında bir bilginiz yoksa veya emin değilseniz (yani normal bir son kullanıcı ya da Reverse Charge kapsamına girmeyen bir firma ise), bu kutuyu <strong>KESİNLİKLE BOŞ BIRAKIN</strong>. Bu durumda program, faturaya standart %19 KDV ekler.</li>
+        </ul>
+        <br>
+        <strong>Yanlış Seçimin Sonuçları:</strong> Eğer yanlış seçim yaparsanız, ya faturanıza yanlış KDV uygularsınız (KDV'yi tahsil edemezsiniz ya da fazladan ödemek zorunda kalırsınız) ya da müşteriniz KDV'yi beyan etmediği için yasal sorunlar yaşayabilir. <strong>Emin değilseniz muhasebecinize danışmanız ŞARTTIR.</strong>
+    </div>
+    <p><strong>3. Adım:</strong> Tüm alanları doldurduktan sonra <strong>Müşteri Ekle</strong> butonuna basın. Başarılı ekleme sonrası "Müşteri başarıyla eklendi!" bildirimini göreceksiniz.</p>
+
+    <h4>Müşteri Listeniz ve Düzenleme</h4>
+    <p>Sol menüden <i class="fas fa-users icon-def"></i> <strong>Müşteriler > Müşteri Listesi</strong> yolunu izleyerek tüm kayıtlı müşterilerinizi görebilirsiniz. </p>
+    <a href="{{ url_for('static', filename='kilavuz_resimleri_tr/müşteri listesi.jpg') }}" target="_blank" class="image-link" title="Büyütmek için tıklayın">
+        <img src="{{ url_for('static', filename='kilavuz_resimleri_tr/müşteri listesi.jpg') }}" alt="Müşteri Listesi" class="guide-image">
+    </a>
+    <ul>
+        <li><i class="fas fa-info-circle icon-def"></i> <strong>Detay:</strong> Müşterinin ayrıntılı bilgilerini ve o müşteriye kesilmiş faturaları görmek için tıklayın.</li>
+        <li><i class="fas fa-pen icon-def"></i> <strong>Düzenle:</strong> Müşterinin bilgilerini (firma adı, adres, KDV sorumluluğu vb.) değiştirmek için tıklayın. Değişiklikleri yaptıktan sonra kaydetmeyi unutmayın.</li>
+        <li><i class="fas fa-trash-alt icon-def"></i> <strong>Sil:</strong> Müşteriyi kalıcı olarak siler. Ancak, bu müşteriye kesilmiş herhangi bir fatura varsa, güvenlik nedeniyle **silemezsiniz**. Önce o faturaları silmeniz gerekir.</li>
+    </ul>
+
+    <h3>Bölüm 4: Ürün ve Hizmetlerinizi Yönetmek</h3>
+    <p>
+        Sürekli aynı işleri yapıyorsanız, her faturada bu işlerin adını ve fiyatını tekrar tekrar yazmak yerine, onları bir "Ürün/Hizmet" olarak kaydedebilir ve fatura oluştururken tek tıkla seçebilirsiniz. Bu size inanılmaz zaman kazandırır ve hata yapma olasılığını azaltır.
+    </p>
+    <h4>Yeni Bir Ürün/Hizmet Nasıl Eklenir?</h4>
+    <ol>
+       <li>Sol menüden <i class="fas fa-boxes icon-def"></i> <strong>Ürünler</strong> menüsünü açın ve <strong>Yeni Ürün Ekle</strong> linkine tıklayın.</li>
+       <li>Karşınıza "Yeni Ürün/Hizmet Bilgileri" formu çıkacaktır.</li>
+    </ol>
+    <a href="{{ url_for('static', filename='kilavuz_resimleri_tr/ürün ekle.jpg') }}" target="_blank" class="image-link" title="Büyütmek için tıklayın">
+        <img src="{{ url_for('static', filename='kilavuz_resimleri_tr/ürün ekle.jpg') }}" alt="Yeni Ürün Ekleme Formu" class="guide-image">
+    </a>
+    <h5>Önemli Bir Seçenek: Götürü İş (Pauschal)</h5>
+    <p>
+        Bu formda <strong>"Bu bir götürü iş midir? (Pauschal)"</strong> onay kutusu bulunur. Bu kutu, ilgili ürün veya hizmetin fiyatlandırma şeklini belirler.
+    </p>
+    <div class="alert alert-info">
+        <strong>Basitçe Anlamı Şudur:</strong> Yaptığınız işin fiyatı, miktar (saat, metrekare, adet vb.) üzerinden değil de, işin tamamı için baştan anlaşılan tek bir paket fiyatı olarak belirlendiyse bu "Götürü İş"tir (Pauschal). Örneğin, "Banyonun komple yenilenmesi" işi için 5000 €'ya anlaştıysanız, bu bir götürü iştir.
+        <ul>
+            <li>Eğer yaptığınız iş böyle bir paket iş ise (yani fiyatı miktara bağlı değişmiyorsa), bu kutuyu <strong>İŞARETLEYİN</strong>. Böylece program, bu hizmeti faturaya eklerken miktarını her zaman '1' olarak kabul eder ve birim fiyatını da girdiğiniz toplam paket fiyatı olarak (yani "Pauschal") alır. Faturadaki "Miktar" sütununda sadece "1" görünürken, "Birim Fiyat" sütununda "Pauschal €" ibaresi yer alacaktır.</li>
+            <li>Eğer işin fiyatı miktara göre değişiyorsa (örn: metrekaresi 50€, adeti 100€ gibi), bu kutuyu <strong>BOŞ BIRAKIN</strong>. Bu durumda, faturaya eklerken miktarı siz girebilirsiniz (örneğin "50 m²", "10 adet") ve program otomatik olarak toplam tutarı hesaplar.</li>
+        </ul>
+        <br>
+        <strong>Yanlış Seçimin Sonuçları:</strong> Eğer bir götürü işi işaretlemezseniz, faturayı oluştururken miktarı elle girmeniz gerekir ki bu götürü işin doğasına aykırıdır. Tersine, miktara göre fiyatlanan bir işi götürü olarak işaretlerseniz, miktar alanı kilitlenir ve birim fiyatı manuel olarak girmeniz gerekir. Doğru seçim, faturanızın hem anlaşılır hem de doğru hesaplanmasını sağlar.
+    </div>
+    <p><strong>3. Adım:</strong> Tüm alanları doldurduktan sonra <strong>Ürün Ekle</strong> butonuna basın. </p>
+
+    <h4>Ürün Listeniz ve Düzenleme</h4>
+    <p>Sol menüden <i class="fas fa-boxes icon-def"></i> <strong>Ürünler > Ürün Listesi</strong> yolunu izleyerek tüm kayıtlı ürün ve hizmetlerinizi görebilirsiniz.</p>
+    <a href="{{ url_for('static', filename='kilavuz_resimleri_tr/ürün listesi.jpg') }}" target="_blank" class="image-link" title="Büyütmek için tıklayın">
+        <img src="{{ url_for('static', filename='kilavuz_resimleri_tr/ürün listesi.jpg') }}" alt="Ürün Listesi" class="guide-image">
+    </a>
+    <ul>
+        <li><i class="fas fa-pen icon-def"></i> <strong>Düzenle:</strong> Bir ürün/hizmetin açıklamasını, birimini veya birim fiyatını değiştirmek için tıklayın. Götürü iş durumunu da buradan güncelleyebilirsiniz.</li>
+        <li><i class="fas fa-trash-alt icon-def"></i> <strong>Sil:</strong> Bir ürün/hizmeti kalıcı olarak siler.</li>
+    </ul>
+
+    <h3>Bölüm 5: Fatura Kesiyoruz!</h3>
+    <p>
+        İşte programın asıl amacı: Hızlı ve doğru bir şekilde fatura oluşturmak.
+    </p>
+    <h4>Fatura Listesi: Tüm Faturalarınız</h4>
+    <p>Sol menüden <i class="fas fa-file-invoice icon-def"></i> <strong>Faturalar > Fatura Listesi</strong> yolunu izleyerek tüm faturalarınızı ve durumlarını (Ödeme Durumu: Bekliyor, Ödendi, İptal Edildi gibi) görebilirsiniz. Her faturanın sağında 4 farklı işlem ikonu bulunur.</p>
+    <a href="{{ url_for('static', filename='kilavuz_resimleri_tr/fatura listesi.jpg') }}" target="_blank" class="image-link" title="Büyütmek için tıklayın">
+        <img src="{{ url_for('static', filename='kilavuz_resimleri_tr/fatura listesi.jpg') }}" alt="Fatura Listesi" class="guide-image">
+    </a>
+    <h5>İşlem İkonlarının Anlamları</h5>
+    <ul>
+        <li><i class="fas fa-info-circle icon-def"></i> <strong>Detayları Görüntüle:</strong> Faturanın tüm detaylarını (müşteri, tarihler, kalemler, toplamlar) içeren bir özet sayfasına gider.</li>
+        <li><i class="fas fa-pen icon-def"></i> <strong>Faturayı Düzenle:</strong> Faturada bir hata yaptıysanız veya bir şeyi değiştirmek istiyorsanız bu ikona tıklayın. Fatura oluşturma ekranı, bu faturanın mevcut bilgileriyle dolu olarak açılır ve değişiklik yapmanıza olanak tanır.</li>
+        <li><i class="fas fa-trash-alt icon-def"></i> <strong>Faturayı Sil:</strong> Faturayı kalıcı olarak siler. Yanlışlıkla silmeyi önlemek için size "Emin misiniz?" diye soracaktır. Bu işlem geri alınamaz.</li>
+        <li><i class="fas fa-file-pdf icon-def"></i> <strong>PDF Görüntüle:</strong> Faturanın müşteriye gönderilmeye hazır, son halini PDF olarak yeni bir sekmede açar. Buradan faturayı indirebilir veya yazdırabilirsiniz.</li>
+    </ul>
+
+    <h4>Yeni Fatura Oluşturma: Adım Adım</h4>
+    <ol>
+        <li>Sol menüden <i class="fas fa-file-invoice icon-def"></i> <strong>Faturalar > Yeni Fatura Oluştur</strong> seçeneğine tıklayın.</li>
+    </ol>
+    <a href="{{ url_for('static', filename='kilavuz_resimleri_tr/yeni fatura oluştur.jpg') }}" target="_blank" class="image-link" title="Büyütmek için tıklayın">
+        <img src="{{ url_for('static', filename='kilavuz_resimleri_tr/yeni fatura oluştur.jpg') }}" alt="Yeni Fatura Formu" class="guide-image">
+    </a>
+    <p><strong>Adım 2 (Fatura Bilgileri Bölümü):</strong> Faturanın genel bilgilerini girin.</p>
+    <ul>
+        <li><strong>Müşteri Seçin:</strong> Faturayı keseceğiniz müşteriyi açılır listeden seçin. **Bu seçim, müşterinin Reverse Charge (KDV Sorumluluğu Alıcıya Aittir) durumuna göre KDV hesaplamasını otomatik olarak etkiler.** Eğer müşteriyi daha önce Reverse Charge olarak işaretlediyseniz, KDV otomatik olarak sıfır olur.</li>
+        <li><strong>Fatura Numarası:</strong> Faturaya vereceğiniz benzersiz numarayı girin. Bu numara, kayıtlarınız ve yasal takipler için önemlidir.</li>
+        <li><strong>Fatura Tarihi:</strong> Faturanın oluşturulduğu tarihi seçin.</li>
+        <li><strong>Uygulama Tarihi:</strong> İşin veya hizmetin fiilen tamamlandığı/teslim edildiği tarihi seçin. Bu tarih, faturanın kesildiği tarihten farklı olabilir ve bazı yasal veya muhasebesel süreçler için önemlidir.</li>
+        <li><strong>Şantiye:</strong> (Opsiyonel) İşin yapıldığı şantiyenin adını veya kodunu girin.</li>
+        <li><strong>Sorumlu Kişi:</strong> (Opsiyonel) Bu faturadan sorumlu kişiyi (örneğin sizin adınız) girin.</li>
+        <li><strong>Ödeme Durumu:</strong> Faturanın o anki ödeme durumunu seçin (Bekliyor, Ödendi vb.).</li>
+    </ul>
+    <p><strong>Adım 3 (Ürün/Hizmet Ekleme Bölümü):</strong> Faturaya iş kalemlerini ekleyin.</p>
+    <a href="{{ url_for('static', filename='kilavuz_resimleri_tr/fatura güncelleme.jpg') }}" target="_blank" class="image-link" title="Büyütmek için tıklayın">
+        <img src="{{ url_for('static', filename='kilavuz_resimleri_tr/fatura güncelleme.jpg') }}" alt="Fatura Düzenleme Ekranı" class="guide-image">
+    </a>
+    <ul>
+        <li><strong>Ürün/Hizmet Seçin:</strong> Önceden kaydettiğiniz bir ürün veya hizmeti listeden seçin. Seçtiğinizde, **Birim** ve **Birim Fiyatı** otomatik olarak dolacaktır. Eğer seçtiğiniz ürün "Götürü İş" olarak işaretlenmişse, miktar alanı otomatik olarak '1' olacak ve Birim Fiyatı "Pauschal" olarak görünecektir.</li>
+        <li><strong>Miktar:</strong> Eğer ürün götürü değilse, yapılan işin veya sağlanan ürünün miktarını girin (Örn: `50` m², `10` adet).</li>
+        <li><strong>Birim:</strong> (Otomatik dolar) Ürünün birimini gösterir (m², adet, ton vb.).</li>
+        <li><strong>Birim Fiyatı (€):</strong> (Otomatik dolar) Ürünün birim başına fiyatını gösterir. Götürü işlerde bu alanda "Pauschal" yazısı veya toplam paket fiyatı görünebilir.</li>
+        <li><strong>Kalem Ekle:</strong> Bu butona bastığınızda, bu iş kalemi faturanın altındaki listeye eklenir.</li>
+        <li>Eklenen kalemleri alttaki listeden takip edebilir, açıklamasını veya miktarını manuel olarak değiştirebilir, hatta sağdaki <i class="fas fa-trash-alt icon-def"></i> çöp kutusu ikonu ile silebilirsiniz.</li>
+    </ul>
+    <p><strong>Adım 4 (Hesaplama ve Kaydetme Bölümü):</strong> Toplamları kontrol edin ve faturayı oluşturun.</p>
+    <ul>
+        <li>Program sizin için <strong>Ara Toplam, KDV</strong> ve <strong>Genel Toplamı</strong> otomatik olarak hesaplar. Eğer müşterinin Reverse Charge durumu aktifse, KDV tutarı otomatik olarak "0,00 €" olacaktır.</li>
+        <li>Her şey doğruysa, en alttaki <strong style="color: var(--btn-primary-bg);">Fatura Oluştur</strong> butonuna basın. Faturanız başarıyla oluşturulacak ve "Fatura başarıyla oluşturuldu!" bildirimini alacaksınız.</li>
+        <li>Eğer faturadan vazgeçerseniz, <strong style="color: var(--text-secondary);">İptal</strong> butonuna basabilirsiniz.</li>
+    </ul>
+
+    <h3>Bölüm 6: Final ve Profesyonel İpuçları</h3>
+    <p>
+        Programı istediğiniz dilde (Türkçe, Almanca, İngilizce) kullanabilirsiniz. Sol menüdeki <i class="fas fa-globe icon-def"></i> <strong>Dil</strong> menüsünden yapacağınız seçim, hem arayüzü hem de oluşturulacak PDF faturanın dilini otomatik olarak değiştirir. Bu, uluslararası müşterilerinizle çalışırken büyük kolaylık sağlar.
+    </p>
+    <a href="{{ url_for('static', filename='kilavuz_resimleri_tr/3dil.jpg') }}" target="_blank" class="image-link" title="Büyütmek için tıklayın">
+        <img src="{{ url_for('static', filename='kilavuz_resimleri_tr/3dil.jpg') }}" alt="Çoklu Dil Desteği" class="guide-image">
+    </a>
+    <div class="alert alert-info">
+        <strong>Profesyonel İpucu: Açıklamalarda Alt Satıra Geçme</strong><br>
+        PDF faturada bir ürün veya hizmet açıklamasının belirli bir yerinden alt satıra geçmesini isterseniz (örneğin uzun açıklamaları daha düzenli göstermek için), açıklamanın o kısmına klavyeden <strong><code>|</code></strong> (dikey çizgi) karakterini ekleyin. Program bu işareti görünce otomatik olarak bir alt satıra geçecektir. Bu, açıklama metinlerinizi PDF'te dilediğiniz gibi biçimlendirmenizi sağlar.
+        <br>Örnek: "İşin Tanımı: Beton dökümü ve tesviye | Saha hazırlığı ve temizlik" şeklinde girerseniz, PDF'te "Saha hazırlığı ve temizlik" kısmı bir alt satıra geçer.
+    </div>
+    <p>Tüm bu adımları tamamladığınızda, müşterinize gururla sunabileceğiniz, tüm yasal bilgileri içeren profesyonel bir PDF faturanız olacaktır.</p>
+    <a href="{{ url_for('static', filename='kilavuz_resimleri_tr/fatura örnek.jpg') }}" target="_blank" class="image-link" title="Büyütmek için tıklayın">
+        <img src="{{ url_for('static', filename='kilavuz_resimleri_tr/fatura örnek.jpg') }}" alt="Örnek PDF Fatura" class="guide-image">
+    </a>
+</div>
+{% endblock %}

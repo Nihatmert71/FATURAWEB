@@ -1,0 +1,485 @@
+{% extends "layout.html" %}
+
+{% block title %}{{ _('Fatura Düzenle') }}{% endblock %}
+
+{% block content %}
+<style>
+    /* fatura_duzenle.html'e özgü stil ayarlamaları */
+
+    /* Genel kart stili için ortak tanım */
+    .section-card {
+        background-color: rgba(0, 0, 0, 0.2);
+        padding: 25px;
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+        margin-bottom: 30px; /* Bölümler arası boşluk */
+    }
+
+    /* Üst bilgi bölümü */
+    .header-section {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
+        padding-bottom: 0; /* İç padding artık section-card'dan geliyor */
+        border-bottom: none; /* Alt çizgi kaldırıldı */
+        margin-bottom: 30px; /* Bölümler arası boşluk */
+    }
+    /* header-section'a section-card stilini uygula */
+    .header-section.section-card {
+        /* Ekstra bir style block içinde tanımlanmış olabilir, emin olmak için buraya da ekledim. */
+    }
+
+    /* Ürün ekleme bölümü */
+    .product-add-section {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        align-items: flex-end;
+        padding-bottom: 0; /* İç padding artık section-card'dan geliyor */
+        border-bottom: none; /* Alt çizgi kaldırıldı */
+        margin-top: 0; /* Boşluk section-card'dan gelecek */
+        margin-bottom: 30px; /* Bölümler arası boşluk */
+    }
+    /* product-add-section'a section-card stilini uygula */
+    .product-add-section.section-card {
+        /* Ekstra bir style block içinde tanımlanmış olabilir, emin olmak için buraya da ekledim. */
+    }
+
+    .product-add-section .form-group {
+        flex: 1 1 auto;
+        min-width: 150px;
+    }
+
+    .product-add-section .form-group.product-select {
+        flex-basis: 300px;
+    }
+
+    /* "Kalem Ekle" butonu (btn-success yerine btn-primary stilini kullanacak) */
+    .product-add-section .btn.btn-success { /* class'ı btn-success olan butonu hedefle */
+        background-color: var(--btn-primary-bg); /* Turuncu renk */
+        border-color: var(--btn-primary-border);
+        color: var(--text-primary);
+        transition: all 0.2s ease;
+        padding: 12px 24px;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+    }
+    .product-add-section .btn.btn-success:hover {
+        background-color: var(--btn-primary-hover-bg);
+        color: #333;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+
+    /* Tablo container'ı */
+    .items-table-container {
+        background-color: rgba(0, 0, 0, 0.2); /* Arka plan rengi güncellendi */
+        padding: 25px; /* Padding güncellendi */
+        border-radius: 12px; /* Border radius güncellendi */
+        border: 1px solid rgba(255, 255, 255, 0.1); /* Kenarlık güncellendi */
+        box-shadow: 0 5px 15px rgba(0,0,0,0.5); /* Gölge güncellendi */
+        margin-top: 0; /* Boşluk section-card'dan gelecek */
+        margin-bottom: 30px; /* Bölümler arası boşluk */
+        overflow-x: auto;
+    }
+
+    .items-table {
+        width: 100%;
+        border-collapse: collapse;
+        line-height: 1.6;
+    }
+
+    .items-table th, .items-table td {
+        padding: 1rem 1.25rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        text-align: left;
+        vertical-align: middle;
+        color: var(--text-primary);
+    }
+
+    .items-table th {
+        font-weight: 600;
+        color: var(--btn-primary-bg);
+        white-space: nowrap;
+        background-color: rgba(0, 0, 0, 0.25);
+    }
+
+    .items-table tbody tr:hover td {
+        background-color: rgba(255, 255, 255, 0.05);
+    }
+
+    .items-table input[type="text"],
+    .items-table input[type="number"] {
+        background-color: rgba(0, 0, 0, 0.2); /* Input arka plan rengi daha koyu cam */
+        border: 1px solid var(--border-glass); /* Cam kenarlık */
+        color: var(--text-primary);
+        padding: 5px 8px;
+        border-radius: 5px;
+        font-size: 0.9rem;
+        width: 100%;
+    }
+    .items-table input[readonly] {
+        background-color: rgba(0, 0, 0, 0.1);
+        opacity: 0.7;
+    }
+
+    /* Tablo içindeki silme butonu (çöp kovası) için stil */
+    .items-table .kalem-sil {
+        background: transparent;
+        border: none;
+        color: var(--btn-primary-bg); /* Turuncu ikon rengi */
+        font-size: 1.2rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+    .items-table .kalem-sil:hover {
+        color: var(--btn-primary-hover-bg);
+        transform: scale(1.1);
+    }
+
+    /* Hesaplama bölümü */
+    .calculation-section {
+        background-color: rgba(0, 0, 0, 0.2); /* Arka plan rengi güncellendi */
+        padding: 25px; /* Padding güncellendi */
+        border-radius: 12px; /* Border radius güncellendi */
+        border: 1px solid rgba(255, 255, 255, 0.1); /* Kenarlık güncellendi */
+        box-shadow: 0 5px 15px rgba(0,0,0,0.5); /* Gölge güncellendi */
+        margin-top: 0; /* Boşluk section-card'dan gelecek */
+        width: 100%;
+        max-width: 350px; 
+        margin-left: auto; 
+    }
+    .calculation-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 5px 0;
+        border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+        color: var(--text-primary); /* Metin rengi beyaz yapıldı */
+    }
+    .calculation-row span:first-child {
+        color: var(--btn-primary-bg); /* Ara Toplam, KDV başlıklarını turuncu yap */
+    }
+    .calculation-row:last-child {
+        border-bottom: none;
+        font-weight: bold;
+        font-size: 1.1em;
+        padding-top: 10px;
+        color: var(--btn-primary-bg); /* Genel toplamı turuncu yap */
+    }
+    .button-group-bottom {
+        display: flex;
+        justify-content: flex-end; 
+        gap: 15px;
+        margin-top: 30px;
+    }
+
+    @media (max-width: 768px) {
+        .product-add-section {
+            flex-direction: column;
+            align-items: stretch;
+        }
+        .product-add-section .btn {
+            width: 100%;
+        }
+        .header-section {
+            grid-template-columns: 1fr;
+        }
+        .calculation-section {
+            max-width: 100%;
+            margin-left: 0;
+        }
+    }
+</style>
+
+<form id="faturaForm" action="{{ url_for('fatura_duzenle', fatura_id=fatura.id) }}" method="POST">
+    <div class="header-section section-card">
+        <div class="form-group">
+            <label for="musteri_id">{{ _('Müşteri Seçin') }}</label>
+            <select id="musteri_id" name="musteri_id" required>
+                <option value="">{{ _('Müşteri Seçin...') }}</option>
+                {% for musteri in musteri_listesi %}
+                    <option value="{{ musteri.id }}" {% if fatura.musteri_id == musteri.id %}selected{% endif %}>{{ musteri.firma_adi }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="fatura_no">{{ _('Fatura Numarası') }}</label>
+            <input type="text" id="fatura_no" name="fatura_no" value="{{ fatura.fatura_no }}" required>
+        </div>
+        <div class="form-group">
+            <label for="tarih">{{ _('Fatura Tarihi') }}</label>
+            <input type="date" id="tarih" name="tarih" value="{{ fatura.tarih.strftime('%Y-%m-%d') }}" required>
+        </div>
+        {# YENİ EKLENEN ALAN: Ausführungsdatum #}
+        <div class="form-group">
+            <label for="ausfuhrungsdatum">{{ _('Uygulama Tarihi') }}</label>
+            <input type="date" id="ausfuhrungsdatum" name="ausfuhrungsdatum" value="{{ fatura.ausfuhrungsdatum.strftime('%Y-%m-%d') if fatura.ausfuhrungsdatum else '' }}">
+        </div>
+        <div class="form-group">
+            <label for="santiye">{{ _('Şantiye') }}</label>
+            <input type="text" id="santiye" name="santiye" value="{{ fatura.santiye if fatura.santiye else '' }}">
+        </div>
+        <div class="form-group">
+            <label for="sachbearbeiter">{{ _('Sorumlu Kişi') }}</label>
+            <input type="text" id="sachbearbeiter" name="sachbearbeiter" value="{{ fatura.sachbearbeiter if fatura.sachbearbeiter else '' }}">
+        </div>
+        <div class="form-group full-width">
+            <label for="odeme_durumu">{{ _('Ödeme Durumu') }}</label>
+            <select id="odeme_durumu" name="odeme_durumu">
+                <option value="Bekliyor" {% if fatura.odeme_durumu == 'Bekliyor' %}selected{% endif %}>{{ _('Bekliyor') }}</option>
+                <option value="Ödendi" {% if fatura.odeme_durumu == 'Ödendi' %}selected{% endif %}>{{ _('Ödendi') }}</option>
+                <option value="Kısmen Ödendi" {% if fatura.odeme_durumu == 'Kısmen Ödendi' %}selected{% endif %}>{{ _('Kısmen Ödendi') }}</option>
+                <option value="İptal Edildi" {% if fatura.odeme_durumu == 'İptal Edildi' %}selected{% endif %}>{{ _('İptal Edildi') }}</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="product-add-section section-card">
+        <div class="form-group product-select">
+            <label for="urun_id">{{ _('Ürün/Hizmet Seçin') }}</label>
+            <select id="urun_id">
+                <option value="">{{ _('Ürün/Hizmet Seçin...') }}</option>
+                {% for urun in urunler %}
+                    <option value="{{ urun.id }}" data-birim="{{ urun.birim | default('') }}" data-birim-fiyat="{{ urun.birim_fiyat | default(0.0) }}" data-is-goturu="{{ urun.is_goturu | default(false) | tojson }}">{{ urun.aciklama }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group quantity">
+            <label for="miktar">{{ _('Miktar') }}</label>
+            <input type="number" id="miktar" value="1" step="0.01">
+        </div>
+        <div class="form-group unit">
+            <label for="birim">{{ _('Birim') }}</label>
+            <input type="text" id="birim" readonly>
+        </div>
+        <div class="form-group unit-price">
+            <label for="birim_fiyat">{{ _('Birim Fiyat') }} (€)</label>
+            <input type="number" id="birim_fiyat" step="0.01">
+        </div>
+        <button type="button" id="addItem" class="btn btn-success">{{ _('Kalem Ekle') }}</button>
+    </div>
+
+    <div class="items-table-container section-card">
+        <table class="items-table">
+            <thead>
+                <tr>
+                    <th>{{ _('Açıklama') }}</th>
+                    <th class="text-end">{{ _('Miktar') }}</th>
+                    <th>{{ _('Birim') }}</th>
+                    <th class="text-end">{{ _('Birim Fiyat') }}</th>
+                    <th class="text-end">{{ _('Toplam') }}</th>
+                    <th class="text-center">{{ _('Götürü') }}</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="kalemlerTableBody">
+            </tbody>
+        </table>
+    </div>
+
+    <div class="calculation-section section-card">
+        <div class="calculation-row">
+            <span>{{ _('Ara Toplam') }}:</span>
+            <span id="ara_toplam_display">0,00 €</span>
+        </div>
+        <div class="calculation-row">
+            <span>{{ _('KDV') }} (19%):</span>
+            <span id="kdv_display">0,00 €</span>
+        </div>
+        <div class="calculation-row total-row">
+            <span>{{ _('Genel Toplam') }}:</span>
+            <span id="genel_toplam_display">0,00 €</span>
+        </div>
+    </div>
+
+    <input type="hidden" id="ara_toplam_hidden" name="ara_toplam">
+    <input type="hidden" id="kdv_tutari_hidden" name="kdv_tutari">
+    <input type="hidden" id="genel_toplam_hidden" name="genel_toplam">
+    <div id="hidden_kalem_inputs"></div>
+    <div class="button-group-bottom">
+        <a href="{{ url_for('fatura_detay', fatura_id=fatura.id) }}" class="btn btn-secondary">{{ _('İptal') }}</a>
+        <button type="submit" class="btn btn-primary">{{ _('Fatura Güncelle') }}</button>
+    </div>
+</form>
+{% endblock content %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const urunSelect = document.getElementById('urun_id');
+    const miktarInput = document.getElementById('miktar');
+    const birimInput = document.getElementById('birim');
+    const birimFiyatInput = document.getElementById('birim_fiyat');
+    const addItemButton = document.getElementById('addItem');
+    const kalemlerTableBody = document.getElementById('kalemlerTableBody');
+    const araToplamDisplay = document.getElementById('ara_toplam_display');
+    const kdvDisplay = document.getElementById('kdv_display');
+    const genelToplamDisplay = document.getElementById('genel_toplam_display');
+    const araToplamHidden = document.getElementById('ara_toplam_hidden');
+    const kdvTutariHidden = document.getElementById('kdv_tutari_hidden');
+    const genelToplamHidden = document.getElementById('genel_toplam_hidden');
+    const hiddenKalemInputsDiv = document.getElementById('hidden_kalem_inputs');
+    const musteriSelect = document.getElementById('musteri_id');
+    const kdvRow = document.querySelector('.calculation-section .calculation-row:nth-of-type(2)');
+    let isReverseChargeSelected = false;
+    let faturaKalemleri = JSON.parse('{{ fatura_kalemleri_json | safe }}'); // Mevcut kalemleri yükle
+
+    async function checkReverseCharge() {
+        const selectedMusteriId = musteriSelect.value;
+        if (selectedMusteriId) {
+            try {
+                const response = await fetch(`/api/musteri/${selectedMusteriId}/reverse_charge`);
+                const data = await response.json();
+                isReverseChargeSelected = data.is_reverse_charge;
+            } catch (error) {
+                console.error("Müşteri reverse charge bilgisi alınırken hata oluştu:", error);
+                isReverseChargeSelected = false;
+            }
+        } else {
+            isReverseChargeSelected = false;
+        }
+        calculateTotals();
+    }
+
+    musteriSelect.addEventListener('change', checkReverseCharge);
+    // Sayfa yüklendiğinde ve müşteri seçiliyse kontrolü çalıştır
+    if (musteriSelect.value) {
+        checkReverseCharge();
+    }
+
+    urunSelect.addEventListener('change', function() {
+        const selectedOption = urunSelect.options[urunSelect.selectedIndex];
+        if (!selectedOption || !selectedOption.value) {
+            birimInput.value = '';
+            birimFiyatInput.value = '';
+            miktarInput.value = '1';
+            miktarInput.readOnly = false;
+            birimFiyatInput.readOnly = false;
+            return;
+        }
+        const isGoturu = selectedOption.dataset.isGoturu === 'true';
+        birimInput.value = selectedOption.dataset.birim;
+        birimFiyatInput.value = parseFloat(selectedOption.dataset.birimFiyat).toFixed(2);
+        miktarInput.value = '1';
+        miktarInput.readOnly = isGoturu;
+        birimFiyatInput.readOnly = isGoturu;
+    });
+
+    addItemButton.addEventListener('click', function() {
+        const selectedOption = urunSelect.options[urunSelect.selectedIndex];
+        if (!selectedOption || !selectedOption.value) {
+            alert("{{ _('Lütfen bir ürün seçin.') }}");
+            return;
+        }
+        const miktar = parseFloat(miktarInput.value) || 0;
+        if (miktar <= 0) {
+            alert("{{ _('Miktar 0 dan büyük olmalıdır.') }}");
+            return;
+        }
+        const birimFiyat = parseFloat(birimFiyatInput.value) || 0;
+        const isGoturu = selectedOption.dataset.isGoturu === 'true';
+        const kalem = {
+            aciklama: selectedOption.text,
+            miktar: miktar,
+            birim: birimInput.value,
+            birim_fiyat: birimFiyat,
+            satir_toplami: isGoturu ? birimFiyat : (miktar * birimFiyat),
+            is_goturu: isGoturu
+        };
+        faturaKalemleri.push(kalem);
+        renderKalemler();
+        calculateTotals();
+    });
+
+    function renderKalemler() {
+        kalemlerTableBody.innerHTML = '';
+        faturaKalemleri.forEach((kalem, index) => {
+            const row = kalemlerTableBody.insertRow();
+            row.dataset.index = index;
+            row.innerHTML = `
+                <td><input type="text" class="kalem-aciklama" value="${escapeHtml(kalem.aciklama)}" onchange="updateKalem(${index}, 'aciklama', this.value)"></td>
+                <td class="text-end"><input type="number" class="kalem-miktar text-end" value="${kalem.miktar.toFixed(2)}" step="0.01" ${kalem.is_goturu ? 'readonly' : ''} onchange="updateKalem(${index}, 'miktar', parseFloat(this.value) || 0)"></td>
+                <td><input type="text" class="kalem-birim" value="${escapeHtml(kalem.birim)}" readonly></td>
+                <td class="text-end"><input type="number" class="kalem-birim-fiyat text-end" value="${kalem.birim_fiyat.toFixed(2)}" step="0.01" ${kalem.is_goturu ? 'readonly' : ''} onchange="updateKalem(${index}, 'birim_fiyat', parseFloat(this.value) || 0)"></td>
+                <td class="text-end kalem-satir-toplami">${kalem.satir_toplami.toFixed(2).replace('.', ',')} €</td>
+                <td class="text-center">${kalem.is_goturu ? '<i class="fas fa-check"></i>' : ''}</td>
+                <td><button type="button" class="kalem-sil" onclick="deleteKalem(${index})"><i class="fas fa-trash-alt"></i></button></td>
+            `;
+        });
+        // Global fonksiyonları tanımla
+        window.updateKalem = updateKalem;
+        window.deleteKalem = deleteKalem;
+    }
+
+    function updateKalem(index, key, value) {
+        if (faturaKalemleri[index]) {
+            faturaKalemleri[index][key] = value;
+            // Miktar veya birim fiyat değiştiğinde satir_toplami'yi yeniden hesapla
+            if (key === 'miktar' || key === 'birim_fiyat') {
+                const kalem = faturaKalemleri[index];
+                kalem.satir_toplami = kalem.is_goturu ? kalem.birim_fiyat : (kalem.miktar * kalem.birim_fiyat);
+                // Tablodaki görünen değeri de güncelle
+                const row = kalemlerTableBody.querySelector(`tr[data-index="${index}"]`);
+                if (row) {
+                    row.querySelector('.kalem-satir-toplami').textContent = `${kalem.satir_toplami.toFixed(2).replace('.', ',')} €`;
+                }
+            }
+            calculateTotals();
+        }
+    }
+
+    function deleteKalem(index) {
+        faturaKalemleri.splice(index, 1);
+        renderKalemler();
+        calculateTotals();
+    }
+
+    function calculateTotals() {
+        const araToplam = faturaKalemleri.reduce((sum, kalem) => sum + kalem.satir_toplami, 0);
+        const kdvTutari = isReverseChargeSelected ? 0 : araToplam * 0.19;
+        const genelToplam = araToplam + kdvTutari;
+
+        kdvRow.style.display = isReverseChargeSelected ? 'none' : 'flex';
+        araToplamDisplay.textContent = `${araToplam.toFixed(2).replace('.', ',')} €`;
+        kdvDisplay.textContent = `${kdvTutari.toFixed(2).replace('.', ',')} €`;
+        genelToplamDisplay.textContent = `${genelToplam.toFixed(2).replace('.', ',')} €`;
+        araToplamHidden.value = araToplam.toFixed(2);
+        kdvTutariHidden.value = kdvTutari.toFixed(2);
+        genelToplamHidden.value = genelToplam.toFixed(2);
+    }
+
+    function escapeHtml(text) {
+        if (typeof text !== 'string') return '';
+        const map = {'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;'};
+        return text.replace(/[&<>"']/g, m => map[m]);
+    }
+
+    document.getElementById('faturaForm').addEventListener('submit', function(event) {
+        if (faturaKalemleri.length === 0) {
+            alert("{{ _('Faturaya en az bir kalem eklemelisiniz.') }}");
+            event.preventDefault();
+            return;
+        }
+        hiddenKalemInputsDiv.innerHTML = '';
+        faturaKalemleri.forEach(kalem => {
+            hiddenKalemInputsDiv.innerHTML += `
+                <input type="hidden" name="kalem_aciklama[]" value="${escapeHtml(kalem.aciklama || '')}">
+                <input type="hidden" name="kalem_miktar[]" value="${kalem.miktar || 0}">
+                <input type="hidden" name="kalem_birim[]" value="${escapeHtml(kalem.birim || '')}">
+                <input type="hidden" name="kalem_birim_fiyat[]" value="${kalem.birim_fiyat || 0}">
+                <input type="hidden" name="kalem_satir_toplamlari[]" value="${kalem.satir_toplami || 0}">
+                <input type="hidden" name="kalem_is_goturu[]" value="${kalem.is_goturu ? 'true' : 'false'}">
+            `;
+        });
+    });
+
+    renderKalemler(); // Sayfa yüklendiğinde mevcut kalemleri render et
+});
+</script>
+{% endblock scripts %}

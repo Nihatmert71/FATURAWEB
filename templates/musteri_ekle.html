@@ -1,0 +1,163 @@
+{% extends "layout.html" %} {# layout.html'den miras almasını sağlıyoruz #}
+
+{% block title %}{{ _('Yeni Müşteri Ekle') }}{% endblock %} {# Sayfa başlığını çeviriye hazır hale getiriyoruz #}
+
+{% block content %}
+    <style>
+        /* musteri_ekle.html'e özgü stil ayarlamaları */
+        /* Genel stil tutarlılığı için bu stillerin layout.html'den geldiğinden emin olun. */
+
+        .content-card {
+            max-width: 700px; /* Kartın genişliğini sabitle */
+            margin-left: auto;
+            margin-right: auto;
+            background-color: rgba(0, 0, 0, 0.2); /* Arka plan rengi güncellendi */ /* DEĞİŞİKLİK BURADA */
+            padding: 25px; /* Padding güncellendi */ /* DEĞİŞİKLİK BURADA */
+            border-radius: 12px; /* Border radius güncellendi */ /* DEĞİŞİKLİK BURADA */
+            border: 1px solid rgba(255, 255, 255, 0.1); /* Kenarlık güncellendi */ /* DEĞİŞİKLİK BURADA */
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5); /* Gölge güncellendi */ /* DEĞİŞİKLİK BURADA */
+        }
+        .section-title { /* h2 için genel başlık stili */
+            font-size: 1.8rem; /* Boyut */
+            font-weight: 700;
+            color: var(--btn-primary-bg); /* Turuncu */ /* DEĞİŞİKLİK BURADA */
+            margin-bottom: 1.5rem; /* Alt boşluk */
+            padding-bottom: 0.8rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Alt çizgi */ /* DEĞİŞİKLİK BURADA */
+        }
+        .form-grid-spacing {
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* İki sütunlu düzen */
+            gap: 24px; /* Form grupları arasında boşluk */
+        }
+        .button-group-spacing {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 30px; /* Üstteki formdan daha fazla boşluk */
+            gap: 16px; /* Butonlar arasında boşluk */
+        }
+        /* Form etiketleri için stil */
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-secondary); /* Etiket rengi bej-gri */ /* DEĞİŞİKLİK BURADA */
+        }
+        /* Form input ve textarea stilleri */
+        .form-group input, 
+        .form-group textarea {
+            width: 100%;
+            padding: 12px; /* Padding güncellendi */ /* DEĞİŞİKLİK BURADA */
+            border: 1px solid var(--border-glass); /* Kenarlık rengi güncellendi */ /* DEĞİŞİKLİK BURADA */
+            background-color: rgba(0, 0, 0, 0.2); /* Arka plan rengi güncellendi */ /* DEĞİŞİKLİK BURADA */
+            color: var(--text-primary); /* Metin rengi beyaz */ /* DEĞİŞİKLİK BURADA */
+            border-radius: 8px;
+            transition: border-color 0.2s;
+            font-family: 'Inter', sans-serif; /* Font family eklendi */ /* DEĞİŞİKLİK BURADA */
+            font-size: 1rem; /* Font boyutu eklendi */ /* DEĞİŞİKLİK BURADA */
+            box-shadow: none; /* İç gölge kaldırıldı */ /* DEĞİŞİKLİK BURADA */
+        }
+        .form-group input::placeholder, /* Placeholder rengi */
+        .form-group textarea::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+        .form-group input[type="email"] { /* E-posta input'u için özel tip düzeltmesi */
+            /* Stil zaten yukarıda genel input ile ayarlanmıştır */
+        }
+        .form-group textarea {
+            min-height: 120px;
+        }
+        /* Odaklanma (focus) stilleri */
+        .form-group input:focus, 
+        .form-group textarea:focus {
+            border-color: var(--btn-primary-bg); /* Odaklanma kenarlık rengi turuncu */ /* DEĞİŞİKLİK BURADA */
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(203, 138, 88, 0.4); /* Odaklanma gölge rengi turuncu */ /* DEĞİŞİKLİK BURADA */
+        }
+        .form-group.full-width { 
+            grid-column: span 2;
+        }
+        /* Checkbox grubu için stil */
+        .checkbox-group { 
+            display: flex;
+            align-items: center;
+            margin-top: 15px; 
+            grid-column: span 2; 
+            color: var(--text-secondary); /* Metin rengi bej-gri */ /* DEĞİŞİKLİK BURADA */
+            font-size: 1rem; /* Font boyutu düzeltildi */ /* DEĞİŞİKLİK BURADA */
+        }
+        .checkbox-group input[type="checkbox"] {
+            width: 20px; 
+            height: 20px;
+            margin-right: 10px;
+            transform: none; /* Scale kaldırıldı */ /* DEĞİŞİKLİK BURADA */
+            cursor: pointer;
+            border-color: var(--text-secondary); /* Kenarlık rengi bej-gri */ /* DEĞİŞİKLİK BURADA */
+            background-color: rgba(0,0,0,0.1);
+            accent-color: var(--btn-primary-bg); /* İşaretlendiğinde turuncu olsun */ /* DEĞİŞİKLİK BURADA */
+        }
+        .checkbox-group label {
+            margin-bottom: 0 !important; 
+            cursor: pointer;
+            color: var(--text-secondary); /* Label rengi bej-gri */ /* DEĞİŞİKLİK BURADA */
+            font-weight: 500; /* Kalınlık ayarı */ /* DEĞİŞİKLİK BURADA */
+        }
+        .checkbox-group span {
+            font-size: 0.85em;
+            color: var(--text-secondary); /* Yardımcı metin rengi bej-gri */ /* DEĞİŞİKLİK BURADA */
+            margin-left: 10px;
+            line-height: 1.2;
+        }
+    </style>
+    <div class="content-card"> {# Kart stili buraya uygulandı #}
+        <h2 class="section-title">{{ _('Yeni Müşteri Bilgileri') }}</h2> {# Çeviri #}
+        <form action="{{ url_for('musteri_ekle') }}" method="POST">
+            <div class="form-grid-spacing">
+                <div class="form-group">
+                    <label for="firma_adi">{{ _('Firma Adı') }}</label> {# Çeviri #}
+                    <input type="text" id="firma_adi" name="firma_adi" required>
+                </div>
+                <div class="form-group">
+                    <label for="vergi_no">{{ _('Vergi Numarası / USt-IdNr.') }}</label> {# Çeviri #}
+                    <input type="text" id="vergi_no" name="vergi_no">
+                </div>
+                <div class="form-group">
+                    <label for="telefon">{{ _('Telefon') }}</label> {# Çeviri #}
+                    <input type="text" id="telefon" name="telefon">
+                </div>
+                <div class="form-group">
+                    <label for="email">E-Mail</label> {# Çeviri #}
+                    <input type="email" id="email" name="email">
+                </div>
+                <div class="form-group">
+                    <label for="ilgili_kisi">{{ _('İlgili Kişi') }}</label> {# Yeni Alan - Çeviri #}
+                    <input type="text" id="ilgili_kisi" name="ilgili_kisi">
+                </div>
+                <div class="form-group">
+                    <label for="web_adresi">{{ _('Web Adresi') }}</label> {# Yeni Alan - Çeviri #}
+                    <input type="text" id="web_adresi" name="web_adresi">
+                </div>
+                <div class="form-group full-width"> {# Adres için tüm genişliği kapla #}
+                    <label for="adres">{{ _('Adres') }}</label> {# Çeviri #}
+                    <textarea id="adres" name="adres" rows="4" placeholder="{{ _('Örn: Hauptstraße 12\n10115 Berlin') }}" required></textarea>
+                </div>
+                <div class="form-group full-width"> {# Notlar için tüm genişliği kapla #}
+                    <label for="notlar">{{ _('Notlar') }}</label> {# Yeni Alan - Çeviri #}
+                    <textarea id="notlar" name="notlar" rows="3"></textarea>
+                </div>
+                {# YENİ EKLENEN CHECKBOX #}
+                <div class="form-group full-width">
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="is_reverse_charge" name="is_reverse_charge">
+                        <label for="is_reverse_charge" class="mb-0">{{ _('Almanya için KDV sorumluluğu alıcıya ait midir? (§ 13b UStG)') }}</label>
+                        <span>({{ _('Bu müşteriye kesilen faturalarda KDV gösterilmeyecektir.') }})</span>
+                    </div>
+                </div>
+            </div>
+            <div class="button-group-spacing">
+                <a href="{{ url_for('musteri_listesi') }}" class="btn btn-secondary">{{ _('İptal') }}</a> {# Buton çevirisi #}
+                <button type="submit" class="btn btn-primary">{{ _('Müşteri Ekle') }}</button> {# Buton çevirisi #}
+            </div>
+        </form>
+    </div>
+{% endblock content %}

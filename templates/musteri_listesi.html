@@ -1,0 +1,201 @@
+{% extends "layout.html" %}
+
+{% block title %}{{ _('Müşteri Listesi') }}{% endblock %}
+
+{% block content %}
+    <style>
+        /* Müşteri Listesi sayfası için özel stil ayarlamaları */
+
+        /* Sayfa başlığı stili */
+        .page-header h1.page-title {
+            color: var(--btn-primary-bg); /* Başlık rengi turuncu yapıldı */ /* DEĞİŞİKLİK BURADA */
+            font-size: 2rem; /* Boyut zaten doğru */
+            font-weight: 600; /* Zaten doğru */
+        }
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem; /* Boşluk artırıldı */ /* DEĞİŞİKLİK BURADA */
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .page-header .btn-primary { /* "Yeni Müşteri Ekle" butonu */
+            /* Stil layout.html'den geliyor, gerekirse burada ezebiliriz */
+        }
+
+        /* Ana kart stili (tüm tabloyu kapsayacak) */
+        .card {
+            background-color: rgba(0, 0, 0, 0.2); /* Arka plan rengi güncellendi */ /* DEĞİŞİKLİK BURADA */
+            padding: 25px; /* Padding güncellendi */ /* DEĞİŞİKLİK BURADA */
+            border-radius: 12px; /* Border radius güncellendi */ /* DEĞİŞİKLİK BURADA */
+            border: 1px solid rgba(255, 255, 255, 0.1); /* Kenarlık eklendi */ /* DEĞİŞİKLİK BURADA */
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5); /* Gölge eklendi */ /* DEĞİŞİKLİK BURADA */
+            margin-bottom: 30px; /* Alttaki diğer öğelerden boşluk */
+        }
+        
+        .items-table {
+            width: 100%;
+            border-collapse: collapse;
+            line-height: 1.6;
+        }
+
+        .items-table th, .items-table td {
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08); /* Hafif border */
+            text-align: left;
+            vertical-align: middle;
+            color: var(--text-primary); /* Metin rengi beyaz yapıldı */ /* DEĞİŞİKLİK BURADA */
+        }
+
+        .items-table th {
+            font-weight: 600;
+            color: var(--btn-primary-bg); /* Başlık metin rengini turuncu yapıldı */ /* DEĞİŞİKLİK BURADA */
+            white-space: nowrap;
+            background-color: rgba(0, 0, 0, 0.25); /* Başlık arkaplanı */
+        }
+
+        .items-table tbody tr:hover td {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        /* Müşteri adına link stili */
+        .customer-name-link {
+            font-weight: 600;
+            color: var(--btn-primary-bg); /* Link rengi turuncu yapıldı */ /* DEĞİŞİKLİK BURADA */
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+        .customer-name-link:hover {
+            color: var(--btn-primary-hover-bg); /* Vurgu rengi turuncu */ /* DEĞİŞİKLİK BURADA */
+        }
+
+        /* İşlem ikonları (Detay, Düzenle, Sil) */
+        .action-icons {
+            display: flex;
+            align-items: center;
+            justify-content: center; /* İkonları ortala */
+            gap: 1.5rem; /* İkonlar arası boşluk */ /* DEĞİŞİKLİK BURADA */
+        }
+        .action-icons a,
+        .action-icons button {
+            background-color: transparent;
+            color: var(--btn-primary-bg); /* İkon rengi turuncu yapıldı */ /* DEĞİŞİKLİK BURADA */
+            padding: 0;
+            border-radius: 4px;
+            font-size: 1.4rem; /* İkon boyutu */
+            transition: color 0.2s ease, transform 0.1s ease;
+            border: none;
+            cursor: pointer;
+            line-height: 1;
+            text-decoration: none;
+        }
+        .action-icons a:hover,
+        .action-icons button:hover {
+            transform: scale(1.2);
+            color: var(--btn-primary-hover-bg); /* Hover'da daha açık turuncu */ /* DEĞİŞİKLİK BURADA */
+        }
+        /* İkonların özel renklerini genel turuncu tema ile değiştir */
+        .action-icons .fa-info-circle { color: var(--btn-primary-bg); } /* DEĞİŞİKLİK BURADA */
+        .action-icons .fa-pen { color: var(--btn-primary-bg); } /* DEĞİŞİKLİK BURADA */
+        .action-icons .fa-trash-alt { color: var(--btn-primary-bg); } /* DEĞİŞİKLİK BURADA */
+        
+        /* Mobil uyumluluk için */
+        @media (max-width: 1024px) {
+            .items-table {
+                table-layout: fixed; /* Tablo düzenini sabitler */
+                width: 100%; /* Mobil görünümde tam genişlik */
+            }
+
+            .items-table th,
+            .items-table td {
+                padding: 0.75rem 0.5rem; /* Mobil görünümde padding'i azalt */
+                white-space: nowrap; /* İçeriğin tek satırda kalmasını dene */
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .items-table thead th:nth-child(1), /* Firma Adı */
+            .items-table tbody td:nth-child(1) {
+                width: 40%; /* Firma Adı sütunu için belirli genişlik */ /* DEĞİŞİKLİK BURADA */
+            }
+            .items-table thead th:nth-child(2), /* Telefon (mobile-hide) */
+            .items-table tbody td:nth-child(2),
+            .items-table thead th:nth-child(3), /* E-Mail (mobile-hide) */
+            .items-table tbody td:nth-child(3),
+            .items-table thead th:nth-child(4), /* Adres (mobile-hide) */
+            .items-table tbody td:nth-child(4) {
+                display: none; /* Bu sütunlar zaten mobile-hide ile gizleniyor */
+                width: 0%; /* Genişliklerini sıfırla */ /* DEĞİŞİKLİK BURADA */
+            }
+            .items-table thead th:nth-child(5), /* İşlemler */
+            .items-table tbody td:nth-child(5) {
+                width: 60%; /* İşlemler sütunu için kalan genişlik */ /* DEĞİŞİKLİK BURADA */
+                text-align: center;
+            }
+
+            .action-icons {
+                gap: 0.75rem; /* İkonlar arası boşluğu azalt */
+                justify-content: center; /* İkonları ortala */
+            }
+
+            .action-icons a,
+            .action-icons button {
+                font-size: 1rem; /* İkon boyutunu küçült */
+                padding: 3px; /* İkon paddingini azalt */
+            }
+        }
+    </style>
+
+    <div class="page-header">
+        <h1 class="page-title">{{ _('Müşteri Listesi') }}</h1>
+        <a href="{{ url_for('musteri_ekle') }}" class="btn btn-primary">
+            <i class="fas fa-plus"></i> {{ _('Yeni Müşteri Ekle') }}
+        </a>
+    </div>
+
+    <div class="card"> {# Bu div'e doğrudan stil uygulandı #}
+        {% if musteri_listesi %}
+        <div class="overflow-x-auto">
+            <table class="items-table w-full">
+                <thead>
+                    <tr>
+                        <th class="text-left">{{ _('Firma Adı') }}</th>
+                        <th class="text-left mobile-hide">{{ _('Telefon') }}</th>
+                        <th class="text-left mobile-hide">E-Mail</th>
+                        <th class="text-left mobile-hide">{{ _('Adres') }}</th>
+                        <th class="text-center">{{ _('İşlemler') }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for musteri in musteri_listesi %}
+                    <tr>
+                        <td><a href="{{ url_for('musteri_detay', musteri_id=musteri.id) }}" class="customer-name-link">{{ musteri.firma_adi }}</a></td>
+                        <td class="mobile-hide">{{ musteri.telefon if musteri.telefon else '-' }}</td>
+                        <td class="mobile-hide">{{ musteri.email if musteri.email else '-' }}</td>
+                        <td class="mobile-hide">{{ (musteri.adres.split('\n')[0]) if musteri.adres else '-' }}</td>
+                        <td class="text-center">
+                            <div class="action-icons">
+                                <a href="{{ url_for('musteri_detay', musteri_id=musteri.id) }}" title="{{ _('Detayları Görüntüle') }}">
+                                    <i class="fas fa-info-circle"></i>
+                                </a>
+                                <a href="{{ url_for('musteri_duzenle', musteri_id=musteri.id) }}" title="{{ _('Müşteriyi Düzenle') }}">
+                                    <i class="fas fa-pen"></i>
+                                </a>
+                                <form action="{{ url_for('musteri_sil', musteri_id=musteri.id) }}" method="POST" style="display:inline;" onsubmit="return confirm('{{ _('Bu müşteriyi ve tüm faturalarını silmek istediğinizden emin misiniz?') }}');">
+                                    <button type="submit" title="{{ _('Müşteriyi Sil') }}">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <p class="text-center">{{ _('Henüz hiç müşteri eklenmedi.') }}</p>
+        {% endif %}
+    </div>
+{% endblock content %}

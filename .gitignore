@@ -1,0 +1,14 @@
+# Python
+__pycache__/
+*.pyc
+*.sqlite3 # Eğer site.db gibi bir sqlite veritabanı kullanıyorsanız
+.env # Ortam değişkenleri dosyası
+venv/ # Sanal ortam klasörü
+
+# Oluşturulan dosyalar
+olusturulan_faturalar/
+*.pdf # Eğer oluşturulan PDF'leri git'e eklemek istemiyorsanız
+web fatura.rar
+
+# IDE dosyaları (örneğin VS Code)
+.vscode/

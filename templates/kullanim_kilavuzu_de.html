@@ -1,0 +1,302 @@
+{% extends "layout.html" %}
+
+{% block title %}Ausführliches Benutzerhandbuch (DE){% endblock %}
+
+{% block page_title %}{% endblock %}
+
+{% block content %}
+<style>
+    /* Kullanım Kılavuzu Sayfası Özel Stilleri */
+
+    .kullanim-kilavuzu {
+        background-color: rgba(0, 0, 0, 0.2); /* Arka plan rengi güncellendi */ /* DEĞİŞİKLİK BURADA */
+        padding: 25px; /* Padding güncellendi */ /* DEĞİŞİKLİK BURADA */
+        border-radius: 12px; /* Border radius güncellendi */ /* DEĞİŞİKLİK BURADA */
+        border: 1px solid rgba(255, 255, 255, 0.1); /* Kenarlık güncellendi */ /* DEĞİŞİKLİK BURADA */
+        box-shadow: 0 5px 15px rgba(0,0,0,0.5); /* Gölge güncellendi */ /* DEĞİŞİKLİK BURADA */
+    }
+
+    .kullanim-kilavuzu h1 { 
+        font-size: 2.5rem; 
+        font-weight: 700; 
+        color: var(--btn-primary-bg); /* Turuncu */ /* DEĞİŞİKLİK BURADA */
+        text-align: center; 
+        margin-bottom: 0.7rem; 
+        text-shadow: 0 2px 5px rgba(0,0,0,0.4);
+    }
+    .kullanim-kilavuzu h2.subtitle { 
+        font-size: 1.6rem; 
+        font-weight: 400; 
+        color: var(--text-secondary); /* Bej-gri */ /* DEĞİŞİKLİK BURADA */
+        text-align: center; 
+        margin-bottom: 3rem; 
+    }
+    .kullanim-kilavuzu h3 { 
+        font-size: 2rem; 
+        font-weight: 600; 
+        color: var(--btn-primary-bg); /* Turuncu */ /* DEĞİŞİKLİK BURADA */
+        margin-top: 3.5rem; 
+        margin-bottom: 1.5rem; 
+        border-bottom: 2px solid rgba(255, 255, 255, 0.1); /* Alt çizgi rengi güncellendi */ /* DEĞİŞİKLİK BURADA */
+        padding-bottom: 0.8rem;
+    }
+    .kullanim-kilavuzu h4 { 
+        font-size: 1.5rem; 
+        font-weight: 600; 
+        color: var(--text-primary); /* Beyaz */ /* DEĞİŞİKLİK BURADA */
+        margin-top: 2.5rem; 
+        margin-bottom: 1rem; 
+    }
+    .kullanim-kilavuzu p, .kullanim-kilavuzu li { 
+        font-size: 1.05rem; 
+        line-height: 1.8; 
+        margin-bottom: 1.2rem; 
+        color: var(--text-primary); /* Beyaz */ /* DEĞİŞİKLİK BURADA */
+    }
+    .kullanim-kilavuzu strong { 
+        font-weight: 700; 
+        color: var(--btn-primary-hover-bg); /* Açık turuncu */ /* DEĞİŞİKLİK BURADA */
+    }
+    .kullanim-kilavuzu .alert { 
+        padding: 20px 25px; 
+        margin: 2rem 0; 
+        border-radius: 10px; 
+        border: 1px solid; 
+        line-height: 1.7; 
+        background-color: rgba(0,0,0,0.2); /* Genel alert arka planı */ /* DEĞİŞİKLİK BURADA */
+        box-shadow: 0 4px 15px rgba(0,0,0,0.3); 
+    }
+    .kullanim-kilavuzu .alert-info { 
+        border-color: #17A2B8; /* Kenarlık rengi güncellendi */ /* DEĞİŞİKLİK BURADA */
+        color: #e1faff; 
+        background-color: rgba(23,162,184,0.15); /* Arka plan güncellendi */ /* DEĞİŞİKLİK BURADA */
+    }
+    .kullanim-kilavuzu .alert-warning { 
+        border-color: #ffc107; 
+        color: #fff3cd; 
+        background-color: rgba(255,193,7,0.15); /* Arka plan güncellendi */ /* DEĞİŞİKLİK BURADA */
+    }
+    .kullanim-kilavuzu ol { list-style-type: decimal; padding-left: 30px; }
+    .kullanim-kilavuzu ol li { margin-bottom: 15px; }
+    .kullanim-kilavuzu ul { list-style-type: none; padding-left: 0; }
+    .kullanim-kilavuzu ul li { position: relative; padding-left: 25px; margin-bottom: 10px; }
+    .kullanim-kilavuzu ul li::before { content: '✓'; position: absolute; left: 0; color: var(--btn-primary-bg); /* Turuncu tik işareti */ /* DEĞİŞİKLİK BURADA */ font-weight: bold; }
+    .kullanim-kilavuzu a.image-link { display: block; text-align: center; margin-top: 25px; margin-bottom: 25px; }
+    .kullanim-kilavuzu img.guide-image { 
+        width: 100%; 
+        max-width: 900px; 
+        border-radius: 12px; 
+        border: 2px solid rgba(255, 255, 255, 0.2); 
+        transition: transform 0.2s ease, box-shadow 0.2s ease; 
+        cursor: pointer; 
+        object-fit: contain; 
+        height: auto; 
+    }
+    .kullanim-kilavuzu img.guide-image:hover { 
+        transform: scale(1.03); 
+        box-shadow: 0 0 30px var(--btn-primary-bg); /* Turuncu gölge */ /* DEĞİŞİKLİK BURADA */
+    }
+    .kullanim-kilavuzu .icon-def { 
+        font-size: 1.2rem; 
+        vertical-align: middle; 
+        margin-right: 8px; 
+        color: var(--btn-primary-bg); /* İkonları turuncu yap */ /* DEĞİŞİKLİK BURADA */
+    }
+
+    /* Mobil uyumluluk */
+    @media (max-width: 768px) {
+        .kullanim-kilavuzu h1 { font-size: 2rem; }
+        .kullanim-kilavuzu h2.subtitle { font-size: 1.3rem; }
+        .kullanim-kilavuzu h3 { font-size: 1.7rem; }
+        .kullanim-kilavuzu h4 { font-size: 1.3rem; }
+        .kullanim-kilavuzu p, .kullanim-kilavuzu li { font-size: 0.95rem; }
+        .kullanim-kilavuzu .alert { padding: 15px 20px; }
+    }
+</style>
+
+<div class="kullanim-kilavuzu">
+    <h1>PFÄLZER Bodenbau & Sanierung GmbH Rechnungsprogramm</h1>
+    <h2 class="subtitle">Detaillierte Schritt-für-Schritt-Anleitung</h2>
+
+    <h3>Kapitel 1: Einstieg und Hauptbildschirm (Dashboard)</h3>
+    <p>
+        Willkommen bei diesem Programm! Diese Anleitung wird Sie dabei unterstützen, die Software optimal zu nutzen. Unser Ziel ist es, Ihnen jede Funktion so zu erklären, dass Sie sie mühelos verstehen.
+        Der erste Bildschirm, den Sie nach dem Start sehen, ist das <strong>Dashboard</strong>. Betrachten Sie es als die Kommandozentrale Ihres Unternehmens.
+    </p>
+    <a href="{{ url_for('static', filename='kilavuz_resimleri_de/kontrol paneli.jpg') }}" target="_blank" class="image-link" title="Zum Vergrößern klicken">
+        <img src="{{ url_for('static', filename='kilavuz_resimleri_de/kontrol paneli.jpg') }}" alt="Dashboard" class="guide-image">
+    </a>
+    <h4>Was bedeuten die Informationen auf dem Dashboard?</h4>
+    <ul>
+        <li><strong>Gesamtzahl der Kunden:</strong> Zeigt an, wie viele Kunden Sie im System registriert haben.</li>
+        <li><strong>Gesamtzahl der Produkte:</strong> Zeigt an, wie viele verschiedene Dienstleistungen oder Produkte Sie verkaufen und abrechnen.</li>
+        <li><strong>Gesamtzahl der Rechnungen:</strong> Die Gesamtzahl der bisher erstellten Rechnungen.</li>
+        <li><strong>Gesamtumsatz:</strong> Der Gesamtbetrag aller von Ihnen erstellten Rechnungen, einschließlich Mehrwertsteuer.</li>
+        <li><strong>Neueste Kunden:</strong> Listet die zuletzt im System registrierten Kunden auf. <br> <em>(Klicken Sie auf den Namen, um zur Kundenliste zu gelangen.)</em></li>
+        <li><strong>Neueste Rechnungen:</strong> Listet die zuletzt erstellten Rechnungen auf. Hier können Sie schnell überprüfen, ob Ihre Rechnung korrekt gespeichert wurde. <br> <em>(Klicken Sie auf die Rechnungsnummer, um zu den Rechnungsdetails zu gelangen.)</em></li>
+    </ul>
+
+    <h3>Kapitel 2: Der wichtigste erste Schritt - Firmeneinstellungen</h3>
+    <p>
+        Bevor Sie mit der Rechnungsstellung beginnen, ist der einmalige, aber **wichtigste** Schritt die Eingabe Ihrer eigenen Firmendaten. Die hier eingegebenen Informationen werden automatisch auf alle Ihre Rechnungen gedruckt. Die Richtigkeit dieser Daten ist für die Rechtsgültigkeit Ihrer Rechnungen unerlässlich.
+    </p>
+    <a href="{{ url_for('static', filename='kilavuz_resimleri_de/ayarlar.jpg') }}" target="_blank" class="image-link" title="Zum Vergrößern klicken">
+        <img src="{{ url_for('static', filename='kilavuz_resimleri_de/ayarlar.jpg') }}" alt="Firmeneinstellungen" class="guide-image">
+    </a>
+    <h4>Wie gelangt man zur Einstellungsseite und füllt sie aus?</h4>
+    <ol>
+        <li>Klicken Sie im Hauptmenü auf der linken Seite auf <i class="fas fa-cog icon-def"></i> <strong>Einstellungen</strong>.</li>
+        <li>Es erscheint ein Formular wie im Bild oben.</li>
+        <li>Füllen Sie alle Felder (<strong>Firmenname, Adresse, Telefon, IBAN, Steuernummer</strong> usw.) vollständig und korrekt aus.</li>
+        <li>Vergessen Sie nicht, auf die Schaltfläche <strong>Änderungen speichern</strong> zu klicken.</li>
+    </ol>
+    <div class="alert alert-warning">
+        <strong>ACHTUNG:</strong> Wenn Sie die Informationen in diesem Abschnitt falsch oder unvollständig eingeben, könnten alle Ihre erstellten Rechnungen rechtlich ungültig sein oder es könnten Probleme bei der Zahlung auftreten. Bitte überprüfen Sie Ihre Angaben sorgfältig und konsultieren Sie im Zweifel Ihren Steuerberater.
+    </div>
+
+    <h3>Kapitel 3: Kundenverwaltung</h3>
+    <p>
+        Um eine Rechnung ausstellen zu können, müssen Sie zunächst den Kunden, an den die Rechnung gesendet werden soll, im System registrieren. In diesem Abschnitt erfahren Sie, wie Sie Kunden hinzufügen, auflisten, bearbeiten und löschen.
+    </p>
+    <h4>Wie fügt man einen neuen Kunden hinzu?</h4>
+    <ol>
+        <li>Öffnen Sie das Menü <strong>Kunden</strong> im linken Menü und klicken Sie auf den Link <strong>Neuer Kunde hinzufügen</strong>.</li>
+        <li>Das Formular "Neue Kundeninformationen" wird angezeigt. Füllen Sie jedes Feld sorgfältig aus.</li>
+    </ol>
+    <a href="{{ url_for('static', filename='kilavuz_resimleri_de/müşteri ekle.jpg') }}" target="_blank" class="image-link" title="Zum Vergrößern klicken">
+        <img src="{{ url_for('static', filename='kilavuz_resimleri_de/müşteri ekle.jpg') }}" alt="Neuen Kunden hinzufügen" class="guide-image">
+    </a>
+    <h5>Eine wichtige Option: Steuerschuldnerschaft des Leistungsempfängers (Reverse Charge - § 13b UStG)</h5>
+    <p>
+        Unten im Formular finden Sie das Kontrollkästchen <strong>"Ist der Leistungsempfänger für die Umsatzsteuer verantwortlich? (§ 13b UStG)"</strong>. Dies ist eine der wichtigsten Einstellungen im Programm und beeinflusst direkt die Mehrwertsteuerberechnung auf Ihrer Rechnung.
+    </p>
+    <div class="alert alert-info">
+        <strong>Einfach erklärt:</strong> Normalerweise müssen Sie auf jede Rechnung eine Standard-Mehrwertsteuer von 19 % aufschlagen. Für einige spezielle Fälle in Deutschland (insbesondere bei Transaktionen zwischen Unternehmen im Bau- und Metallgewerbe) ist der Empfänger der Leistung gemäß § 13b des Umsatzsteuergesetzes für die Abführung der Mehrwertsteuer verantwortlich. Dies wird als "Reverse Charge" bezeichnet.
+        <ul>
+            <li>Wenn Ihr Kunde unter diese Regelung fällt und Sie dies offiziell mitgeteilt hat (in der Regel informiert Sie der Steuerberater Ihres Kunden oder der Kunde selbst darüber), <strong>AKTIVIEREN</strong> Sie dieses Kontrollkästchen. In diesem Fall berechnet das Programm die Mehrwertsteuer für diesen Kunden automatisch auf **null** und fügt am unteren Rand der Rechnung den Hinweis "Steuerschuldnerschaft des Leistungsempfängers nach § 13b UStG" hinzu. Dieser Hinweis ist für die Rechtsgültigkeit der Rechnung sehr wichtig.</li>
+            <li>Wenn Sie sich über den Status Ihres Kunden nicht sicher sind (z. B. wenn es sich um einen Endverbraucher oder ein Unternehmen handelt, das nicht unter die Reverse-Charge-Regelung fällt), lassen Sie dieses Kontrollkästchen <strong>UNBEDINGT LEER</strong>. In diesem Fall schlägt das Programm die Standard-Mehrwertsteuer von 19 % auf die Rechnung auf.</li>
+        </ul>
+        <br>
+        <strong>Folgen einer falschen Auswahl:</strong> Wenn Sie die falsche Option wählen, wird entweder auf Ihrer Rechnung eine falsche Mehrwertsteuer ausgewiesen (Sie können die Mehrwertsteuer nicht einziehen oder müssen sie zusätzlich bezahlen) oder Ihr Kunde kann rechtliche Probleme bekommen, weil er die Mehrwertsteuer nicht deklariert hat. <strong>Im Zweifel ist es ZWINGEND erforderlich, Ihren Steuerberater zu konsultieren.</strong>
+    </div>
+    <p><strong>3. Schritt:</strong> Nachdem Sie alle Felder ausgefüllt haben, klicken Sie auf die Schaltfläche <strong>Kunden hinzufügen</strong>. Nach erfolgreicher Hinzufügung wird die Meldung "Kunde erfolgreich hinzugefügt!" angezeigt.</p>
+
+    <h4>Ihre Kundenliste und Bearbeitung</h4>
+    <p>Über den Menüpunkt <i class="fas fa-users icon-def"></i> <strong>Kunden > Kundenliste</strong> können Sie alle Ihre registrierten Kunden einsehen.</p>
+    <a href="{{ url_for('static', filename='kilavuz_resimleri_de/müşteri listesi.jpg') }}" target="_blank" class="image-link" title="Zum Vergrößern klicken">
+        <img src="{{ url_for('static', filename='kilavuz_resimleri_de/müşteri listesi.jpg') }}" alt="Kundenliste" class="guide-image">
+    </a>
+    <ul>
+        <li><i class="fas fa-info-circle icon-def"></i> <strong>Details:</strong> Klicken Sie hier, um detaillierte Informationen zum Kunden und die diesem Kunden ausgestellten Rechnungen anzuzeigen.</li>
+        <li><i class="fas fa-pen icon-def"></i> <strong>Bearbeiten:</strong> Klicken Sie hier, um die Kundeninformationen (Firmenname, Adresse, Umsatzsteuerpflicht usw.) zu ändern. Vergessen Sie nicht, die Änderungen nach dem Speichern zu speichern.</li>
+        <li><i class="fas fa-trash-alt icon-def"></i> <strong>Löschen:</strong> Löscht den Kunden dauerhaft. Wenn diesem Kunden Rechnungen ausgestellt wurden, können Sie ihn aus Sicherheitsgründen **nicht löschen**. Sie müssen zuerst diese Rechnungen löschen.</li>
+    </ul>
+
+    <h3>Kapitel 4: Produkt- und Dienstleistungsverwaltung</h3>
+    <p>
+        Wenn Sie wiederkehrende Arbeiten ausführen, können Sie diese als "Produkt/Dienstleistung" speichern, anstatt sie bei jeder Rechnung manuell einzugeben. Das spart enorm viel Zeit und reduziert die Fehlerquote.
+    </p>
+    <h4>Wie fügt man ein neues Produkt/eine neue Dienstleistung hinzu?</h4>
+    <ol>
+       <li>Öffnen Sie das Menü <i class="fas fa-boxes icon-def"></i> <strong>Produkte</strong> und klicken Sie auf den Link <strong>Neues Produkt hinzufügen</strong>.</li>
+       <li>Das Formular "Neue Produkt-/Dienstleistungsinformationen" wird angezeigt.</li>
+    </ol>
+    <a href="{{ url_for('static', filename='kilavuz_resimleri_de/ürün ekle.jpg') }}" target="_blank" class="image-link" title="Zum Vergrößern klicken">
+        <img src="{{ url_for('static', filename='kilavuz_resimleri_de/ürün ekle.jpg') }}" alt="Neues Produkt hinzufügen" class="guide-image">
+    </a>
+    <h5>Eine wichtige Option: Pauschalarbeit</h5>
+    <p>
+        In diesem Formular finden Sie das Kontrollkästchen <strong>"Ist dies eine Pauschalarbeit?"</strong>. Dieses Kontrollkästchen bestimmt die Preisgestaltung der jeweiligen Dienstleistung oder des Produkts.
+    </p>
+    <div class="alert alert-info">
+        <strong>Einfach erklärt:</strong> Wenn der Preis für eine Arbeit nicht nach Menge (Stunden, Quadratmeter, Stück usw.), sondern als von Anfang an vereinbarter Gesamtpreis festgelegt wird, handelt es sich um eine "Pauschalärbeit". Zum Beispiel, wenn Sie sich auf 5000 € für die komplette Renovierung eines Badezimmers geeinigt haben.
+         <ul>
+            <li>Wenn es sich um eine solche Paketarbeit handelt (d.h. der Preis ändert sich nicht mit der Menge), <strong>AKTIVIEREN</strong> Sie dieses Kontrollkästchen. Das Programm setzt die Menge für diese Leistung in der Rechnung automatisch auf '1' und verwendet den von Ihnen eingegebenen Gesamtpreis (d.h. "Pauschal"). In der Rechnungsspalte "Menge" wird nur "1" angezeigt, während in der Spalte "Einzelpreis" der Hinweis "Pauschal €" steht.</li>
+            <li>Wenn der Preis von der Menge abhängt (z.B. 50 € pro Quadratmeter, 100 € pro Stück usw.), lassen Sie dieses Kontrollkästchen <strong>LEER</strong>. In diesem Fall können Sie die Menge bei der Rechnungsstellung manuell eingeben (z.B. "50 m²", "10 Stück") und das Programm berechnet den Gesamtbetrag automatisch.</li>
+        </ul>
+        <br>
+        <strong>Folgen einer falschen Auswahl:</strong> Wenn Sie eine Pauschalarbeit nicht als solche markieren, müssen Sie bei der Rechnungserstellung die Menge manuell eingeben, was dem Wesen einer Pauschalarbeit widerspricht. Umgekehrt, wenn Sie eine mengenbasierte Arbeit als Pauschalarbeit markieren, wird das Mengenfeld gesperrt und Sie müssen den Einzelpreis manuell eingeben. Die richtige Auswahl sorgt dafür, dass Ihre Rechnung sowohl verständlich als auch korrekt berechnet wird.
+    </div>
+    <p><strong>3. Schritt:</strong> Nachdem Sie alle Felder ausgefüllt haben, klicken Sie auf die Schaltfläche <strong>Produkt hinzufügen</strong>. </p>
+
+    <h4>Ihre Produktliste und Bearbeitung</h4>
+    <p>Über den Menüpunkt <i class="fas fa-boxes icon-def"></i> <strong>Produkte > Produktliste</strong> können Sie alle Ihre gespeicherten Produkte und Dienstleistungen einsehen.</p>
+    <a href="{{ url_for('static', filename='kilavuz_resimleri_de/ürün listesi.jpg') }}" target="_blank" class="image-link" title="Zum Vergrößern klicken">
+        <img src="{{ url_for('static', filename='kilavuz_resimleri_de/ürün listesi.jpg') }}" alt="Produktliste" class="guide-image">
+    </a>
+    <ul>
+        <li><i class="fas fa-pen icon-def"></i> <strong>Bearbeiten:</strong> Klicken Sie hier, um die Beschreibung, die Einheit oder den Einzelpreis eines Produkts/einer Dienstleistung zu ändern. Den Pauschalstatus können Sie ebenfalls hier aktualisieren.</li>
+        <li><i class="fas fa-trash-alt icon-def"></i> <strong>Löschen:</strong> Löscht ein Produkt/eine Dienstleistung dauerhaft.</li>
+    </ul>
+
+    <h3>Kapitel 5: Rechnungen erstellen!</h3>
+    <p>
+        Nun zum Hauptzweck des Programms: die schnelle und korrekte Erstellung von Rechnungen.
+    </p>
+    <h4>Die Rechnungsliste</h4>
+    <p>Unter <i class="fas fa-file-invoice icon-def"></i> <strong>Rechnungen > Rechnungsliste</strong> können Sie alle Ihre Rechnungen und deren Status (Zahlungsstatus: Ausstehend, Bezahlt, Storniert usw.) einsehen. Rechts neben jeder Rechnung befinden sich 4 Symbole für verschiedene Aktionen.</p>
+    <a href="{{ url_for('static', filename='kilavuz_resimleri_de/fatura listesi.jpg') }}" target="_blank" class="image-link" title="Zum Vergrößern klicken">
+        <img src="{{ url_for('static', filename='kilavuz_resimleri_de/fatura listesi.jpg') }}" alt="Rechnungsliste" class="guide-image">
+    </a>
+    <h5>Bedeutung der Aktionssymbole</h5>
+    <ul>
+        <li><i class="fas fa-info-circle icon-def"></i> <strong>Details anzeigen:</strong> Öffnet eine schreibgeschützte Zusammenfassung der Rechnung mit allen Positionen und Summen.</li>
+        <li><i class="fas fa-pen icon-def"></i> <strong>Rechnung bearbeiten:</strong> Wenn Sie einen Fehler gemacht haben oder etwas ändern möchten, klicken Sie auf dieses Symbol. Der Bildschirm zur Rechnungserstellung wird mit den Daten dieser Rechnung geöffnet und ermöglicht Ihnen Änderungen.</li>
+        <li><i class="fas fa-trash-alt icon-def"></i> <strong>Rechnung löschen:</strong> Löscht die Rechnung dauerhaft. Sie werden zur Bestätigung gefragt, um versehentliches Löschen zu verhindern. Diese Aktion kann nicht rückgängig gemacht werden.</li>
+        <li><i class="fas fa-file-pdf icon-def"></i> <strong>PDF anzeigen:</strong> Öffnet eine versandfertige PDF-Version der Rechnung in einem neuen Tab. Von hier aus können Sie die Rechnung herunterladen oder drucken.</li>
+    </ul>
+
+    <h4>Eine neue Rechnung erstellen: Schritt für Schritt</h4>
+    <ol>
+        <li>Klicken Sie im Menü auf <i class="fas fa-file-invoice icon-def"></i> <strong>Rechnungen > Neue Rechnung erstellen</strong>.</li>
+    </ol>
+    <a href="{{ url_for('static', filename='kilavuz_resimleri_de/yeni fatura oluştur.jpg') }}" target="_blank" class="image-link" title="Zum Vergrößern klicken">
+        <img src="{{ url_for('static', filename='kilavuz_resimleri_de/yeni fatura oluştur.jpg') }}" alt="Neue Rechnung erstellen" class="guide-image">
+    </a>
+    <p><strong>Schritt 2 (Rechnungsinformationen):</strong> Geben Sie die allgemeinen Rechnungsinformationen ein.</p>
+    <ul>
+        <li><strong>Kunden auswählen:</strong> Wählen Sie Ihren Kunden aus der Dropdown-Liste. **Diese Auswahl beeinflusst automatisch die Mehrwertsteuerberechnung, basierend auf dem Reverse-Charge-Status des Kunden!** Wenn der Kunde zuvor als Reverse Charge markiert wurde, wird die Mehrwertsteuer automatisch auf null gesetzt.</li>
+        <li><strong>Rechnungsnummer:</strong> Geben Sie eine eindeutige Nummer für die Rechnung ein. Diese Nummer ist für Ihre Aufzeichnungen und die rechtliche Nachverfolgung wichtig.</li>
+        <li><strong>Rechnungsdatum:</strong> Wählen Sie das Datum, an dem die Rechnung erstellt wird.</li>
+        <li><strong>Ausführungsdatum:</strong> Wählen Sie das Datum, an dem die Arbeit oder Dienstleistung tatsächlich abgeschlossen/geliefert wurde. Dieses Datum kann vom Rechnungsdatum abweichen und ist für bestimmte rechtliche oder buchhalterische Prozesse wichtig.</li>
+        <li><strong>Baustelle:</strong> (Optional) Geben Sie den Namen oder Code der Baustelle ein, auf der die Arbeit ausgeführt wurde.</li>
+        <li><strong>Sachbearbeiter:</strong> (Optional) Geben Sie den Namen der für diese Rechnung verantwortlichen Person (z. B. Ihren Namen) ein.</li>
+        <li><strong>Zahlungsstatus:</strong> Wählen Sie den aktuellen Zahlungsstatus der Rechnung (Ausstehend, Bezahlt usw.).</li>
+    </ul>
+    <p><strong>Schritt 3 (Positionen hinzufügen):</strong> Fügen Sie die Rechnungspositionen hinzu.</p>
+    <a href="{{ url_for('static', filename='kilavuz_resimleri_de/fatura güncelleme.jpg') }}" target="_blank" class="image-link" title="Zum Vergrößern klicken">
+        <img src="{{ url_for('static', filename='kilavuz_resimleri_de/fatura güncelleme.jpg') }}" alt="Rechnung bearbeiten" class="guide-image">
+    </a>
+    <ul>
+        <li><strong>Produkt/Dienstleistung auswählen:</strong> Wählen Sie ein zuvor gespeichertes Produkt oder eine Dienstleistung aus der Liste. Nach der Auswahl werden <strong>Einheit</strong> und <strong>Einzelpreis</strong> automatisch ausgefüllt. Wenn das ausgewählte Produkt als "Pauschalarbeit" markiert ist, wird das Mengenfeld automatisch auf '1' gesetzt und der Einzelpreis wird als "Pauschal" angezeigt.</li>
+        <li><strong>Menge:</strong> Wenn es sich nicht um eine Pauschalarbeit handelt, geben Sie die Menge der erbrachten Leistung oder des gelieferten Produkts ein (z.B. `50` m², `10` Stück).</li>
+        <li><strong>Einheit:</strong> (Wird automatisch ausgefüllt) Zeigt die Einheit des Produkts an (m², Stück, Tonne usw.).</li>
+        <li><strong>Einzelpreis (€):</strong> (Wird automatisch ausgefüllt) Zeigt den Preis pro Einheit des Produkts an. Bei Pauschalarbeiten kann hier "Pauschal" oder der Gesamtpreis angezeigt werden.</li>
+        <li><strong>Position hinzufügen:</strong> Klicken Sie auf diese Schaltfläche, um die Leistung zur untenstehenden Rechnungsliste hinzuzufügen.</li>
+        <li>Sie können die hinzugefügten Positionen in der Liste unten verfolgen, deren Beschreibung oder Menge manuell ändern und sogar mit dem <i class="fas fa-trash-alt icon-def"></i> Papierkorb-Symbol auf der rechten Seite löschen.</li>
+    </ul>
+    <p><strong>Schritt 4 (Berechnung und Speichern):</strong> Überprüfen Sie die Summen und erstellen Sie die Rechnung.</p>
+    <ul>
+        <li>Das Programm berechnet automatisch die <strong>Zwischensumme, MwSt.</strong> und <strong>Gesamtsumme</strong>. Wenn der Reverse-Charge-Status des Kunden aktiv ist, ist der Mehrwertsteuerbetrag automatisch "0,00 €".</li>
+        <li>Wenn alles korrekt ist, klicken Sie auf die Schaltfläche <strong>Rechnung erstellen</strong> unten. Ihre Rechnung wird erfolgreich erstellt und Sie erhalten die Meldung "Rechnung erfolgreich erstellt!".</li>
+        <li>Wenn Sie die Rechnung abbrechen möchten, klicken Sie auf die Schaltfläche <strong>Abbrechen</strong>.</li>
+    </ul>
+
+    <h3>Kapitel 6: Finale Ausgabe und Profi-Tipps</h3>
+    <p>
+        Sie können das Programm in der gewünschten Sprache (Türkisch, Deutsch, Englisch) verwenden. Die Auswahl im Menü <i class="fas fa-globe icon-def"></i> <strong>Sprache</strong> ändert sowohl die Benutzeroberfläche als auch die Sprache der erstellten PDF-Rechnung. Dies bietet eine große Flexibilität bei der Zusammenarbeit mit internationalen Kunden.
+    </p>
+    <a href="{{ url_for('static', filename='kilavuz_resimleri_de/3dil.jpg') }}" target="_blank" class="image-link" title="Zum Vergrößern klicken">
+        <img src="{{ url_for('static', filename='kilavuz_resimleri_de/3dil.jpg') }}" alt="Mehrsprachige Unterstützung" class="guide-image">
+    </a>
+    <div class="alert alert-info">
+        <strong>Profi-Tipp: Zeilenumbruch in Beschreibungen</strong><br>
+        Wenn Sie möchten, dass eine Produkt- oder Dienstleistungsbeschreibung in der PDF-Rechnung an einer bestimmten Stelle einen Zeilenumbruch enthält (z. B. um lange Beschreibungen übersichtlicher darzustellen), fügen Sie an dieser Stelle das Zeichen <strong><code>|</code></strong> (vertikaler Strich) ein. Das Programm interpretiert dieses Zeichen als Befehl für einen automatischen Zeilenumbruch. Dies ermöglicht Ihnen, Ihre Beschreibungstexte im PDF nach Belieben zu formatieren.
+        <br>Beispiel: Wenn Sie "Beschreibung der Arbeit: Beton gießen und nivellieren | Baustellenreinigung und Vorbereitung" eingeben, erscheint der Text "Baustellenreinigung und Vorbereitung" im PDF in einer neuen Zeile.
+    </div>
+    <p>Nach Abschluss all dieser Schritte haben Sie eine professionelle PDF-Rechnung, die Sie Ihrem Kunden mit Stolz vorlegen können.</p>
+    <a href="{{ url_for('static', filename='kilavuz_resimleri_de/fatura örnek.jpg') }}" target="_blank" class="image-link" title="Zum Vergrößern klicken">
+        <img src="{{ url_for('static', filename='kilavuz_resimleri_de/fatura örnek.jpg') }}" alt="Beispiel-PDF-Rechnung" class="guide-image">
+    </a>
+</div>
+{% endblock %}
