@@ -779,12 +779,13 @@ def kullanim_kilavuzu():
 
     lang = g.locale
 
-    if lang == 'en':
-        template_name = "kullanim_kilavuzu_ing.html"
-    elif lang == 'de':
-        template_name = "kullanim_kilavuzu_deu.html" # Alman Dili için dosya adını düzelttik
-    else: # Varsayılan Türkçe
-        template_name = "kullanim_kilavuzu_tur.html" # Türkçe Dili için dosya adını düzelttik
+# BUNU YAPIŞTIRIN
+if lang == 'en':
+    template_name = "kullanim_kilavuzu_ing.html" # Bu zaten çalışıyordu
+elif lang == 'de':
+    template_name = "kullanim_kilavuzu_de.html" # Hata buradaydı: 'deu' -> 'de' olarak düzeltildi
+else: # Varsayılan Türkçe
+    template_name = "kullanim_kilavuzu_tr.html" # Hata buradaydı: 'tur' -> 'tr' olarak düzeltildi
 
     print(f"Aranan kılavuz dosyası: {template_name}")
 
